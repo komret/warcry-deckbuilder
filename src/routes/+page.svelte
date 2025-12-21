@@ -20,9 +20,9 @@
 	let selectedCardTypes = $state(new Set<string>());
 	let selectedRarities = $state(new Set<string>());
 	let selectedSets = $state(new Set<string>());
-	let selectedFormat = $state('all');
-	let showBannedCards = $state(true);
-	let showUniqueOnly = $state(false);
+	let selectedFormat = $state('any');
+	let bannedFilter = $state('no');
+	let uniqueFilter = $state('any');
 	let showSetFilter = $state(false);
 	let showFactionFilter = $state(false);
 	let showCardTypeFilter = $state(false);
@@ -178,12 +178,12 @@
 		selectedCardTypes = new Set<string>();
 		selectedRarities = new Set<string>();
 		selectedSets = new Set<string>();
-		selectedFormat = 'all';
+		selectedFormat = 'any';
 		selectedKeywords = [];
 		keywordOperators = [];
 		keywordInput = '';
-		showBannedCards = true;
-		showUniqueOnly = false;
+		bannedFilter = 'no';
+		uniqueFilter = 'any';
 		costOperator = 'exact';
 		costValue = '';
 		strengthOperator = 'exact';
@@ -233,7 +233,7 @@
 			}
 
 			// Format filter
-			if (selectedFormat !== 'all') {
+			if (selectedFormat !== 'any') {
 				const cardReleases = card.releases;
 				const warcryFormatSets = [
 					'WarCry',
@@ -334,12 +334,18 @@
 			}
 
 			// Banned filter
-			if (!showBannedCards && card.banned) {
+			if (bannedFilter === 'yes' && !card.banned) {
+				return false;
+			}
+			if (bannedFilter === 'no' && card.banned) {
 				return false;
 			}
 
 			// Unique filter
-			if (showUniqueOnly && !card.unique) {
+			if (uniqueFilter === 'yes' && !card.unique) {
+				return false;
+			}
+			if (uniqueFilter === 'no' && card.unique) {
 				return false;
 			}
 
@@ -352,7 +358,6 @@
 	<div class="mx-auto max-w-7xl px-4 py-8">
 		<header class="mb-8">
 			<h1 class="mb-2 text-4xl font-bold">WarCry Deckbuilder</h1>
-			<p class="text-gray-400">Browse and filter cards for the WarCry card game</p>
 		</header>
 
 		<!-- Filters Section -->
@@ -376,7 +381,7 @@
 						bind:value={selectedFormat}
 						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 					>
-						<option value="all">All Formats</option>
+						<option value="any">Any</option>
 						<option value="warcry">WarCry</option>
 						<option value="attrition">Attrition</option>
 						<option value="oldschool">Old School</option>
@@ -416,9 +421,6 @@
 								<button
 									onclick={() => toggleOperator(index)}
 									class="rounded bg-gray-600 px-2 py-1 text-xs font-medium text-white hover:bg-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-									title={keywordOperators[index] === 'union'
-										? 'Any of these (OR)'
-										: 'All of these (AND)'}
 								>
 									{keywordOperators[index] === 'union' ? 'OR' : 'AND'}
 								</button>
@@ -470,11 +472,11 @@
 						>
 							<span class="transition-transform {showFactionFilter ? 'rotate-90' : ''}"> ▶ </span>
 							<span>Faction</span>
-						{#if !showFactionFilter && selectedFactions.size > 0}
-							<span class="text-xs text-gray-400">
-								({Array.from(selectedFactions).join(', ')})
-							</span>
-						{/if}
+							{#if !showFactionFilter && selectedFactions.size > 0}
+								<span class="text-xs text-gray-400">
+									({Array.from(selectedFactions).join(', ')})
+								</span>
+							{/if}
 						</button>
 						{#if showFactionFilter}
 							<div class="space-y-2">
@@ -610,7 +612,7 @@
 								bind:value={dieValue}
 								class="flex-1 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 							>
-								<option value="">All</option>
+								<option value="">Any</option>
 								{#each dieValues as value}
 									<option {value}>{value}</option>
 								{/each}
@@ -634,7 +636,7 @@
 								bind:value={costValue}
 								class="flex-1 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 							>
-								<option value="">All</option>
+								<option value="">Any</option>
 								{#each costValues as value}
 									<option {value}>{value}</option>
 								{/each}
@@ -658,7 +660,7 @@
 								bind:value={tacticPointsValue}
 								class="flex-1 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 							>
-								<option value="">All</option>
+								<option value="">Any</option>
 								{#each tacticPointsValues as value}
 									<option {value}>{value}</option>
 								{/each}
@@ -682,7 +684,7 @@
 								bind:value={leadershipValue}
 								class="flex-1 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 							>
-								<option value="">All</option>
+								<option value="">Any</option>
 								{#each leadershipValues as value}
 									<option {value}>{value}</option>
 								{/each}
@@ -706,7 +708,7 @@
 								bind:value={strengthValue}
 								class="flex-1 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 							>
-								<option value="">All</option>
+								<option value="">Any</option>
 								{#each strengthValues as value}
 									<option {value}>{value}</option>
 								{/each}
@@ -718,22 +720,28 @@
 
 			<!-- Other Filters -->
 			<div class="flex space-x-4">
-				<label class="flex items-center space-x-2">
-					<input
-						type="checkbox"
-						bind:checked={showBannedCards}
-						class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
-					/>
-					<span class="text-sm">Show banned cards</span>
-				</label>
-				<label class="flex items-center space-x-2">
-					<input
-						type="checkbox"
-						bind:checked={showUniqueOnly}
-						class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
-					/>
-					<span class="text-sm">Unique only</span>
-				</label>
+				<div class="flex flex-col space-y-1">
+					<label class="text-sm font-medium">Banned</label>
+					<select
+						bind:value={bannedFilter}
+						class="rounded border-gray-600 bg-gray-700 px-2 py-1 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+					>
+						<option value="any">Any</option>
+						<option value="yes">Yes</option>
+						<option value="no">No</option>
+					</select>
+				</div>
+				<div class="flex flex-col space-y-1">
+					<label class="text-sm font-medium">Unique</label>
+					<select
+						bind:value={uniqueFilter}
+						class="rounded border-gray-600 bg-gray-700 px-2 py-1 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+					>
+						<option value="any">Any</option>
+						<option value="yes">Yes</option>
+						<option value="no">No</option>
+					</select>
+				</div>
 			</div>
 		</div>
 
