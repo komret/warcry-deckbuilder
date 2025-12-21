@@ -77,9 +77,15 @@
 	{/if}
 
 	<div class="mt-3 border-t border-gray-700 pt-2 text-xs text-gray-500">
-		Set {card.set} • #{card.number}
+		<div class="flex flex-wrap gap-2">
+			{#each Object.entries(card.releases) as [set, number]}
+				<span>Set {set} • #{number}</span>
+			{/each}
+		</div>
 		{#if card.banned}
-			<span class="ml-2 rounded bg-red-600 px-1 py-0.5 font-semibold text-white">BANNED</span>
+			<span class="mt-1 inline-block rounded bg-red-600 px-1 py-0.5 font-semibold text-white"
+				>BANNED</span
+			>
 		{/if}
 	</div>
 </div>
