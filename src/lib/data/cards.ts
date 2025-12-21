@@ -756,7 +756,7 @@ export const cards: Card[] = [
 		cardType: 'Unit',
 		rarity: 'Super rare',
 		cardText:
-			'Combat Tactic: This unit gets +3 strength. Only usable while you have no commited units.',
+			'Combat Tactic: This unit gets +3 strength. Only usable while you have no committed units.',
 		releases: { '2': 40 },
 		banned: false
 	},
@@ -972,7 +972,7 @@ export const cards: Card[] = [
 		cardType: 'Unit',
 		rarity: 'Super rare',
 		cardText:
-			'Support Tactic: Your Orc unit gets +2 strength. Only usable while this unit is commited.',
+			'Support Tactic: Your Orc unit gets +2 strength. Only usable while this unit is committed.',
 		releases: { '2': 53 },
 		banned: false
 	},
@@ -2745,7 +2745,7 @@ export const cards: Card[] = [
 		cardType: 'Unit',
 		rarity: 'Common',
 		cardText:
-			'Support Tactic: The defending unit is commited unless it passes a leadership test. Only usable during a ranged attack.',
+			'Support Tactic: The defending unit is committed unless it passes a leadership test. Only usable during a ranged attack.',
 		releases: { '2': 172 },
 		banned: false
 	},
@@ -5122,7 +5122,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		cardType: 'Unit',
 		rarity: 'Common',
-		cardText: 'Combat Tactic: This unit gets +3 strength vs. commited units.',
+		cardText: 'Combat Tactic: This unit gets +3 strength vs. committed units.',
 		releases: { '4': 22 },
 		banned: false
 	},
@@ -6212,7 +6212,7 @@ export const cards: Card[] = [
 		cardType: 'Unit',
 		rarity: 'Uncommon',
 		cardText:
-			'Victory: +1\nWarCry Commit 1 of your war machine units: This unit gets a strength bonus equal to the commited units gold cost.',
+			'Victory: +1\nWarCry Commit 1 of your war machine units: This unit gets a strength bonus equal to the committed units gold cost.',
 		releases: { '4': 96 },
 		banned: false
 	},
@@ -8795,7 +8795,7 @@ export const cards: Card[] = [
 		cardType: 'Unit',
 		rarity: 'Rare',
 		cardText:
-			"Terror: 1\nCombat Tactic Commit one of your Orc units. This unit gets a strength bonus equal to the commited unit's strength.",
+			"Terror: 1\nCombat Tactic Commit one of your Orc units. This unit gets a strength bonus equal to the committed unit's strength.",
 		releases: { '6': 21 },
 		banned: false
 	},
@@ -8957,7 +8957,7 @@ export const cards: Card[] = [
 		cardType: 'Tactic',
 		rarity: 'Uncommon',
 		cardText:
-			"Combat Tactic Commit a unit in your battle line: This unit gets a strength bonus equal to the commited unit's strength and a tactic point bonus equal to the committed unit's tactic points. Your enemy may do the same.\nIf the loser of the combat committed a unit in this way, that unit is destroyed.",
+			"Combat Tactic Commit a unit in your battle line: This unit gets a strength bonus equal to the committed unit's strength and a tactic point bonus equal to the committed unit's tactic points. Your enemy may do the same.\nIf the loser of the combat committed a unit in this way, that unit is destroyed.",
 		releases: { '6': 31, '20': 108 },
 		banned: false
 	},
@@ -16817,7 +16817,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		cardType: 'Attachment',
 		cardText:
-			"May only be atached to a Vampire Counts unit.\nSpell Reaction (2): After this unit is destroyed, exchange this unit with another of your units. The other unit is destroyed instead. This unit takes on the status of the other unit (committed or ready).\nSpell Command (0): Gain 2 spell points. If your enemy's next command is a pass, the battle is over.",
+			"May only be attached to a Vampire Counts unit.\nSpell Reaction (2): After this unit is destroyed, exchange this unit with another of your units. The other unit is destroyed instead. This unit takes on the status of the other unit (committed or ready).\nSpell Command (0): Gain 2 spell points. If your enemy's next command is a pass, the battle is over.",
 		releases: { '13': 14 },
 		banned: false
 	},
@@ -21168,7 +21168,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		cardType: 'Unit',
 		cardText:
-			'Terror: 2\nCombat Tactic: The enemy unit gets -X tactic points. X equals this units level of "Terror".\nReaction Destroy this unit: After an enemy unit uses an ability printed on a unit or atached card to commit one of your units, destroy that enemy unit. You may play this ability while committed.',
+			'Terror: 2\nCombat Tactic: The enemy unit gets -X tactic points. X equals this units level of "Terror".\nReaction Destroy this unit: After an enemy unit uses an ability printed on a unit or attached card to commit one of your units, destroy that enemy unit. You may play this ability while committed.',
 		releases: { '16': 132 },
 		banned: false
 	},
@@ -31287,7 +31287,7 @@ export const cards: Card[] = [
 		cardType: 'Unit',
 		rarity: 'Rare',
 		cardText:
-			"This unit may block any attack or ranged attack targetting one of your unique units.\nSupport Tactic Commit: Your unit gets +X stregth. X equals this unit's strength.",
+			"This unit may block any attack or ranged attack targeting one of your unique units.\nSupport Tactic Commit: Your unit gets +X strength. X equals this unit's strength.",
 		releases: { '82': 103 },
 		banned: false
 	},
