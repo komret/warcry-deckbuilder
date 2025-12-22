@@ -36,7 +36,7 @@
 	// Keyword filter state
 	let keywordInput = $state('');
 	let selectedKeywords = $state<Keyword[]>([]);
-	let keywordOperators = $state<('union' | 'intersection')[]>([]); // operators between keywords
+	let keywordOperators = $state<('|' | '&')[]>([]); // operators between keywords
 	let showKeywordSuggestions = $state(false);
 	let selectedSuggestionIndex = $state(0);
 
@@ -68,6 +68,7 @@
 		bannedFilter;
 		uniqueFilter;
 		selectedKeywords.length;
+		keywordOperators.length;
 		costOperator;
 		costValue;
 		strengthOperator;
@@ -105,6 +106,36 @@
 			.filter((k) => !selectedKeywords.includes(k) && k.toLowerCase().includes(input))
 			.slice(0, 10);
 	});
+
+	// Helper function to evaluate search with operator precedence (AND before OR)
+	function evaluateSearchWithPrecedence(
+		items: string[],
+		operators: ('|' | '&')[],
+		checkMatch: (item: string) => boolean
+	): boolean {
+		if (items.length === 0) return true;
+		if (items.length === 1) return checkMatch(items[0]);
+
+		// Group items by OR operator (union has lower precedence)
+		// Split into groups where each group contains items connected by AND
+		const orGroups: string[][] = [];
+		let currentGroup: string[] = [items[0]];
+
+		for (let i = 0; i < operators.length; i++) {
+			if (operators[i] === '&') {
+				// AND - add to current group
+				currentGroup.push(items[i + 1]);
+			} else {
+				// OR - close current group and start new one
+				orGroups.push(currentGroup);
+				currentGroup = [items[i + 1]];
+			}
+		}
+		orGroups.push(currentGroup);
+
+		// At least one OR group must have all its AND items match
+		return orGroups.some((group) => group.every((item) => checkMatch(item)));
+	}
 
 	// Helper functions
 	function toggleSelection(set: Set<string>, value: string) {
@@ -165,9 +196,9 @@
 	function addKeyword(keyword: Keyword) {
 		if (!selectedKeywords.includes(keyword)) {
 			selectedKeywords = [...selectedKeywords, keyword];
-			// Add a new 'union' operator for the new keyword (if not first)
+			// Add a new '|' operator for the new keyword (if not first)
 			if (selectedKeywords.length > 1) {
-				keywordOperators = [...keywordOperators, 'union'];
+				keywordOperators = [...keywordOperators, '&'];
 			}
 		}
 		keywordInput = '';
@@ -192,7 +223,7 @@
 
 	function toggleOperator(index: number) {
 		keywordOperators = keywordOperators.map((op, i) =>
-			i === index ? (op === 'union' ? 'intersection' : 'union') : op
+			i === index ? (op === '&' ? '|' : '&') : op
 		);
 	}
 
@@ -364,36 +395,14 @@
 				}
 			}
 
-			// Keyword filter with OR precedence (OR evaluates before AND)
+			// Keyword filter with precedence: AND before OR
 			if (selectedKeywords.length > 0) {
-				if (selectedKeywords.length === 1) {
-					// Single keyword
-					if (!card.keywords.includes(selectedKeywords[0])) return false;
-				} else {
-					// Multiple keywords with operators
-					// Step 1: Group consecutive OR operations
-					const orGroups: Keyword[][] = [];
-					let currentGroup: Keyword[] = [selectedKeywords[0]];
-
-					for (let i = 0; i < keywordOperators.length; i++) {
-						if (keywordOperators[i] === 'union') {
-							// Continue current OR group
-							currentGroup.push(selectedKeywords[i + 1]);
-						} else {
-							// AND operator, close current group and start new one
-							orGroups.push(currentGroup);
-							currentGroup = [selectedKeywords[i + 1]];
-						}
-					}
-					orGroups.push(currentGroup);
-
-					// Step 2: Each OR group must have at least one match, then AND all groups
-					const allGroupsMatch = orGroups.every((group) =>
-						group.some((keyword) => card.keywords.includes(keyword))
-					);
-
-					if (!allGroupsMatch) return false;
-				}
+				const keywordMatches = evaluateSearchWithPrecedence(
+					selectedKeywords,
+					keywordOperators,
+					(keyword) => card.keywords.includes(keyword as Keyword)
+				);
+				if (!keywordMatches) return false;
 			}
 
 			// Numerical filters
@@ -485,7 +494,7 @@
 										onclick={() => toggleOperator(index)}
 										class="rounded bg-gray-600 px-2 py-1 text-xs font-medium text-white hover:bg-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 									>
-										{keywordOperators[index] === 'union' ? '|' : '&'}
+										{keywordOperators[index] === '|' ? '|' : '&'}
 									</button>
 								{/if}
 							{/each}
