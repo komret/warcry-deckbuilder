@@ -450,26 +450,16 @@
 		</header>
 
 		<!-- Filters Section -->
-		<div class="mb-6 rounded-lg bg-gray-800 p-4 shadow-xl">
-			<!-- Search and Reset -->
-			<div class="mb-4 flex gap-4">
-				<div class="flex-1">
-					<input
-						id="search"
-						type="text"
-						bind:value={searchQuery}
-						placeholder="Search by title or text..."
-						class="h-[42px] w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-					/>
-				</div>
-				<div>
-					<button
-						onclick={resetFilters}
-						title="Reset filters"
-						class="flex h-[42px] w-[42px] items-center justify-center rounded-lg bg-blue-600 text-sm font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none"
-						>↻</button
-					>
-				</div>
+		<div class="mb-4 rounded-lg bg-gray-800 p-4 shadow-xl">
+			<!-- Search -->
+			<div class="mb-4">
+				<input
+					id="search"
+					type="text"
+					bind:value={searchQuery}
+					placeholder="Search by title or text..."
+					class="h-[42px] w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+				/>
 			</div>
 
 			<!-- Keyword Filter and Dropdowns Row -->
@@ -819,8 +809,16 @@
 		</div>
 
 		<!-- Results Count -->
-		<div class="mb-4 text-sm text-gray-400">
-			Showing {filteredCards.length} of {cards.length} cards
+		<div class="mb-4 flex items-center justify-between">
+			<div class="text-sm text-gray-400">
+				Showing {filteredCards.length} of {cards.length} cards
+			</div>
+			<button
+				onclick={resetFilters}
+				class="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 focus:outline-none"
+			>
+				<span>Reset filters</span>
+			</button>
 		</div>
 
 		<!-- Cards List -->
