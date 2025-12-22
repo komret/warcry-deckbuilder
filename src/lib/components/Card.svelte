@@ -145,15 +145,15 @@
 						</div>
 					{:else if card.die === 3}
 						<div class="grid h-8 w-8 grid-cols-3 gap-1 p-1">
-							<div class="h-1.5 w-1.5 rounded-full bg-gray-400"></div>
-							<div></div>
-							<div></div>
-							<div></div>
-							<div class="h-1.5 w-1.5 rounded-full bg-gray-400"></div>
-							<div></div>
 							<div></div>
 							<div></div>
 							<div class="h-1.5 w-1.5 rounded-full bg-gray-400"></div>
+							<div></div>
+							<div class="h-1.5 w-1.5 rounded-full bg-gray-400"></div>
+							<div></div>
+							<div class="h-1.5 w-1.5 rounded-full bg-gray-400"></div>
+							<div></div>
+							<div></div>
 						</div>
 					{:else if card.die === 4}
 						<div class="grid h-8 w-8 grid-cols-2 gap-2 p-1">
