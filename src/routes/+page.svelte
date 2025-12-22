@@ -462,8 +462,8 @@
 			</div>
 
 			<!-- Keyword Filter and Dropdowns Row -->
-			<div class="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto_auto_auto_auto]">
-				<div>
+			<div class="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-[1fr_auto_auto_auto_auto]">
+				<div class="col-span-2 lg:col-span-1">
 					<label class="mb-2 block text-sm font-medium">Keywords</label>
 					<div class="relative">
 						<div
@@ -520,7 +520,7 @@
 						{/if}
 					</div>
 				</div>
-				<div class="w-full lg:w-40">
+				<div class="col-span-2 w-full lg:col-span-1 lg:w-40">
 					<label for="format" class="mb-2 block text-sm font-medium">Format</label>
 					<select
 						id="format"
@@ -533,7 +533,7 @@
 						<option value="oldschool">Old School</option>
 					</select>
 				</div>
-				<div class="w-full lg:w-48">
+				<div class="col-span-2 w-full lg:col-span-1 lg:w-56">
 					<label for="set-filter" class="mb-2 block text-sm font-medium">Set</label>
 					<select
 						id="set-filter"
@@ -546,7 +546,7 @@
 						{/each}
 					</select>
 				</div>
-				<div class="w-full lg:w-32">
+				<div class="w-full lg:w-28">
 					<label for="unique-filter" class="mb-2 block text-sm font-medium">Unique</label>
 					<select
 						id="unique-filter"
@@ -558,7 +558,7 @@
 						<option value="no">No</option>
 					</select>
 				</div>
-				<div class="w-full lg:w-32">
+				<div class="w-full lg:w-28">
 					<label for="banned-filter" class="mb-2 block text-sm font-medium">Banned</label>
 					<select
 						id="banned-filter"
@@ -573,8 +573,8 @@
 			</div>
 
 			<!-- Multi-Select Filters -->
-			<div class="mb-6">
-				<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+			<div class="mb-3">
+				<div class="grid grid-cols-1 gap-3 md:grid-cols-3">
 					<!-- Faction Filter -->
 					<div>
 						<button
