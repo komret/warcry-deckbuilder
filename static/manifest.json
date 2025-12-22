@@ -1,0 +1,16 @@
+{
+	"name": "WarCry CCG Deckbuilder",
+	"short_name": "WarCry",
+	"description": "Build decks for WarCry CCG",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#111827",
+	"theme_color": "#2563eb",
+	"icons": [
+		{
+			"src": "/favicon.png",
+			"sizes": "89x89",
+			"type": "image/png"
+		}
+	]
+}
