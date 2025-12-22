@@ -148,12 +148,12 @@
 	function handleKeywordInput(e: KeyboardEvent) {
 		const input = e.target as HTMLInputElement;
 
-		if (e.key === 'Enter' || e.key === 'Tab') {
+		if (e.key === 'Backspace' && keywordInput === '' && selectedKeywords.length > 0) {
+			// Remove last keyword on backspace when input is empty
 			e.preventDefault();
-			if (filteredSuggestions.length > 0) {
-				addKeyword(filteredSuggestions[selectedSuggestionIndex]);
-			}
-		} else if (e.key === ',') {
+			const lastKeyword = selectedKeywords[selectedKeywords.length - 1];
+			removeKeyword(lastKeyword);
+		} else if (e.key === 'Enter' || e.key === 'Tab') {
 			e.preventDefault();
 			if (filteredSuggestions.length > 0) {
 				addKeyword(filteredSuggestions[selectedSuggestionIndex]);
@@ -432,21 +432,16 @@
 				<label class="mb-2 block text-sm font-medium">Keywords</label>
 				<div class="relative">
 					<div
-						class="flex min-h-[42px] flex-wrap items-center gap-2 rounded-lg border border-gray-600 bg-gray-700 px-3 py-2"
+						class="flex min-h-[42px] flex-wrap items-center gap-2 rounded-lg border border-gray-600 bg-gray-700 px-3"
 					>
 						{#each selectedKeywords as keyword, index}
-							<span
-								class="inline-flex items-center gap-1 rounded bg-blue-600 px-2 py-1 text-xs font-medium text-white"
+							<button
+								onclick={() => removeKeyword(keyword)}
+								class="text-xs font-medium text-gray-300 hover:text-white focus:outline-none"
+								aria-label="Remove {keyword}"
 							>
 								{keyword}
-								<button
-									onclick={() => removeKeyword(keyword)}
-									class="hover:text-gray-300 focus:outline-none"
-									aria-label="Remove {keyword}"
-								>
-									×
-								</button>
-							</span>
+							</button>
 							{#if index < selectedKeywords.length - 1}
 								<button
 									onclick={() => toggleOperator(index)}
@@ -467,7 +462,7 @@
 								selectedSuggestionIndex = 0;
 							}}
 							placeholder={selectedKeywords.length === 0 ? 'Type to search keywords...' : ''}
-							class="flex-1 border-0 bg-transparent text-white placeholder-gray-400 focus:outline-none"
+							class="flex-1 border-0 bg-transparent text-white placeholder-gray-400 focus:ring-0 focus:outline-none"
 						/>
 					</div>
 					{#if showKeywordSuggestions && filteredSuggestions.length > 0}
@@ -780,8 +775,8 @@
 			Showing {filteredCards.length} of {cards.length} cards
 		</div>
 
-		<!-- Cards Grid -->
-		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+		<!-- Cards List -->
+		<div class="space-y-4">
 			{#each filteredCards as card, index (card.name + '-' + index)}
 				<Card {card} />
 			{/each}
