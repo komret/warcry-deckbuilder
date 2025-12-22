@@ -154,9 +154,13 @@
 		</div>
 
 		<!-- Second column: Card text -->
-		<div class="text-sm text-gray-300 italic">
+		<div class="space-y-2 text-sm text-gray-300">
 			{#if card.cardText}
-				{card.cardText}
+				{#each card.cardText.split('\n') as paragraph}
+					{#if paragraph.trim()}
+						<p>{paragraph}</p>
+					{/if}
+				{/each}
 			{/if}
 		</div>
 	</div>
