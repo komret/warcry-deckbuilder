@@ -436,7 +436,7 @@
 <div class="min-h-screen bg-gray-900 text-white">
 	<div class="mx-auto max-w-7xl px-4 py-8">
 		<header class="mb-8">
-			<h1 class="mb-2 text-4xl font-bold">WarCry Deckbuilder</h1>
+			<h1 class="mb-2 text-4xl font-bold">WarCry CCG Deckbuilder</h1>
 		</header>
 
 		<!-- Filters Section -->
