@@ -16,29 +16,6 @@
 	import Card from '$lib/components/Card.svelte';
 
 	let searchQuery = $state('');
-	let debouncedSearchQuery = $state('');
-	let searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
-
-	// Debounce search query updates
-	$effect(() => {
-		// This runs whenever searchQuery changes
-		const query = searchQuery;
-
-		if (searchDebounceTimer) {
-			clearTimeout(searchDebounceTimer);
-		}
-
-		searchDebounceTimer = setTimeout(() => {
-			debouncedSearchQuery = query;
-		}, 300); // 300ms delay - typing feels smooth, results update after you pause
-
-		// Cleanup function
-		return () => {
-			if (searchDebounceTimer) {
-				clearTimeout(searchDebounceTimer);
-			}
-		};
-	});
 
 	let selectedFactions = $state(new Set<string>());
 	let selectedCardTypes = $state(new Set<string>());
@@ -71,34 +48,14 @@
 	let dieOperator = $state('exact');
 	let dieValue = $state('');
 
-	// Snapshot values for filtering (only updated after debounce)
-	let filterSnapshot = $state({
-		factions: new Set<string>(),
-		cardTypes: new Set<string>(),
-		rarities: new Set<string>(),
-		sets: new Set<string>(),
-		format: 'any',
-		banned: 'no',
-		unique: 'any',
-		keywords: [] as Keyword[],
-		keywordOps: [] as ('union' | 'intersection')[],
-		costOp: 'exact',
-		costVal: '',
-		strengthOp: 'exact',
-		strengthVal: '',
-		tacticPointsOp: 'exact',
-		tacticPointsVal: '',
-		leadershipOp: 'exact',
-		leadershipVal: '',
-		dieOp: 'exact',
-		dieVal: ''
-	});
-
+	// Filtered results (updated after debounce)
+	let filteredCards = $state<typeof cards>([]);
 	let filterDebounceTimer: ReturnType<typeof setTimeout> | null = null;
 
-	// Watch for filter changes and trigger debounced snapshot update
+	// Watch for filter changes and trigger debounced filter update
 	$effect(() => {
 		// Read all filter values to track changes
+		const currentSearch = searchQuery; // Watch for search changes
 		selectedFactions.size;
 		selectedCardTypes.size;
 		selectedRarities.size;
@@ -118,34 +75,16 @@
 		dieOperator;
 		dieValue;
 
-		// Trigger debounced snapshot update
+		// Reset timer and trigger debounced filter execution
 		if (filterDebounceTimer) {
 			clearTimeout(filterDebounceTimer);
 		}
 
+		// Use longer delay for search (more typing expected), shorter for other filters
+		const delay = currentSearch ? 300 : 50;
 		filterDebounceTimer = setTimeout(() => {
-			filterSnapshot = {
-				factions: new Set(selectedFactions),
-				cardTypes: new Set(selectedCardTypes),
-				rarities: new Set(selectedRarities),
-				sets: new Set(selectedSets),
-				format: selectedFormat,
-				banned: bannedFilter,
-				unique: uniqueFilter,
-				keywords: [...selectedKeywords],
-				keywordOps: [...keywordOperators],
-				costOp: costOperator,
-				costVal: costValue,
-				strengthOp: strengthOperator,
-				strengthVal: strengthValue,
-				tacticPointsOp: tacticPointsOperator,
-				tacticPointsVal: tacticPointsValue,
-				leadershipOp: leadershipOperator,
-				leadershipVal: leadershipValue,
-				dieOp: dieOperator,
-				dieVal: dieValue
-			};
-		}, 50);
+			filteredCards = computeFilteredCards();
+		}, delay);
 
 		return () => {
 			if (filterDebounceTimer) {
@@ -304,14 +243,12 @@
 		dieValue = '';
 	}
 
-	const filteredCards = $derived.by(() => {
-		// Use snapshot values so we only recalculate when snapshot updates
-		const snap = filterSnapshot;
-
+	// Compute filtered cards based on current filter state
+	function computeFilteredCards() {
 		return cards.filter((card) => {
-			// Search filter (using debounced value)
-			if (debouncedSearchQuery) {
-				const query = debouncedSearchQuery.toLowerCase();
+			// Search filter
+			if (searchQuery) {
+				const query = searchQuery.toLowerCase();
 
 				// Check if query contains operators
 				const hasOperators = query.includes('&') || query.includes('|');
@@ -350,31 +287,31 @@
 			}
 
 			// Multi-select faction filter
-			if (snap.factions.size > 0 && !snap.factions.has(card.faction)) {
+			if (selectedFactions.size > 0 && !selectedFactions.has(card.faction)) {
 				return false;
 			}
 
 			// Multi-select card type filter
-			if (snap.cardTypes.size > 0 && !snap.cardTypes.has(card.type)) {
+			if (selectedCardTypes.size > 0 && !selectedCardTypes.has(card.type)) {
 				return false;
 			}
 
 			// Multi-select rarity filter
-			if (snap.rarities.size > 0 && (!card.rarity || !snap.rarities.has(card.rarity))) {
+			if (selectedRarities.size > 0 && (!card.rarity || !selectedRarities.has(card.rarity))) {
 				return false;
 			}
 
 			// Set filter - card must be released in at least one of the selected sets
-			if (snap.sets.size > 0) {
+			if (selectedSets.size > 0) {
 				const cardSets = Object.keys(card.releases);
-				const hasMatchingSet = cardSets.some((set) => snap.sets.has(set));
+				const hasMatchingSet = cardSets.some((set) => selectedSets.has(set));
 				if (!hasMatchingSet) {
 					return false;
 				}
 			}
 
 			// Format filter
-			if (snap.format !== 'any') {
+			if (selectedFormat !== 'any') {
 				const cardReleases = card.releases;
 				const warcryFormatSets = [
 					'WarCry',
@@ -404,17 +341,17 @@
 				];
 				const oldSchoolBaseSets = ['WarCry', 'Winds of Magic', 'Siege of Darkness'];
 
-				if (snap.format === 'warcry') {
+				if (selectedFormat === 'warcry') {
 					const hasWarcrySet = Object.keys(cardReleases).some((set) =>
 						warcryFormatSets.includes(set)
 					);
 					if (!hasWarcrySet) return false;
-				} else if (snap.format === 'attrition') {
+				} else if (selectedFormat === 'attrition') {
 					const hasAttritionSet = Object.keys(cardReleases).some((set) =>
 						attritionFormatSets.includes(set)
 					);
 					if (!hasAttritionSet) return false;
-				} else if (snap.format === 'oldschool') {
+				} else if (selectedFormat === 'oldschool') {
 					// Old School: Base sets OR Promo (WC) with card number <= 40
 					const hasBaseSet = Object.keys(cardReleases).some((set) =>
 						oldSchoolBaseSets.includes(set)
@@ -426,24 +363,24 @@
 			}
 
 			// Keyword filter with OR precedence (OR evaluates before AND)
-			if (snap.keywords.length > 0) {
-				if (snap.keywords.length === 1) {
+			if (selectedKeywords.length > 0) {
+				if (selectedKeywords.length === 1) {
 					// Single keyword
-					if (!card.keywords.includes(snap.keywords[0])) return false;
+					if (!card.keywords.includes(selectedKeywords[0])) return false;
 				} else {
 					// Multiple keywords with operators
 					// Step 1: Group consecutive OR operations
 					const orGroups: Keyword[][] = [];
-					let currentGroup: Keyword[] = [snap.keywords[0]];
+					let currentGroup: Keyword[] = [selectedKeywords[0]];
 
-					for (let i = 0; i < snap.keywordOps.length; i++) {
-						if (snap.keywordOps[i] === 'union') {
+					for (let i = 0; i < keywordOperators.length; i++) {
+						if (keywordOperators[i] === 'union') {
 							// Continue current OR group
-							currentGroup.push(snap.keywords[i + 1]);
+							currentGroup.push(selectedKeywords[i + 1]);
 						} else {
 							// AND operator, close current group and start new one
 							orGroups.push(currentGroup);
-							currentGroup = [snap.keywords[i + 1]];
+							currentGroup = [selectedKeywords[i + 1]];
 						}
 					}
 					orGroups.push(currentGroup);
@@ -458,41 +395,41 @@
 			}
 
 			// Numerical filters
-			if (!compareNumbers(card.cost, snap.costOp, snap.costVal)) {
+			if (!compareNumbers(card.cost, costOperator, costValue)) {
 				return false;
 			}
-			if (!compareNumbers(card.strength, snap.strengthOp, snap.strengthVal)) {
+			if (!compareNumbers(card.strength, strengthOperator, strengthValue)) {
 				return false;
 			}
-			if (!compareNumbers(card.tacticPoints, snap.tacticPointsOp, snap.tacticPointsVal)) {
+			if (!compareNumbers(card.tacticPoints, tacticPointsOperator, tacticPointsValue)) {
 				return false;
 			}
-			if (!compareNumbers(card.leadership, snap.leadershipOp, snap.leadershipVal)) {
+			if (!compareNumbers(card.leadership, leadershipOperator, leadershipValue)) {
 				return false;
 			}
-			if (!compareNumbers(card.die, snap.dieOp, snap.dieVal)) {
+			if (!compareNumbers(card.die, dieOperator, dieValue)) {
 				return false;
 			}
 
 			// Banned filter
-			if (snap.banned === 'yes' && !card.banned) {
+			if (bannedFilter === 'yes' && !card.banned) {
 				return false;
 			}
-			if (snap.banned === 'no' && card.banned) {
+			if (bannedFilter === 'no' && card.banned) {
 				return false;
 			}
 
 			// Unique filter
-			if (snap.unique === 'yes' && !card.unique) {
+			if (uniqueFilter === 'yes' && !card.unique) {
 				return false;
 			}
-			if (snap.unique === 'no' && card.unique) {
+			if (uniqueFilter === 'no' && card.unique) {
 				return false;
 			}
 
 			return true;
 		});
-	});
+	}
 </script>
 
 <div class="min-h-screen bg-gray-900 text-white">
