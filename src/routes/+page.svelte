@@ -20,14 +20,17 @@
 	let selectedFactions = $state(new Set<string>());
 	let selectedCardTypes = $state(new Set<string>());
 	let selectedRarities = $state(new Set<string>());
-	let selectedSets = $state(new Set<string>());
+	let selectedSet = $state('any');
 	let selectedFormat = $state('any');
 	let bannedFilter = $state('no');
 	let uniqueFilter = $state('any');
 	let showSetFilter = $state(false);
-	let showFactionFilter = $state(false);
-	let showCardTypeFilter = $state(false);
-	let showRarityFilter = $state(false);
+
+	// Check if desktop (768px or wider) to set default open/closed state
+	const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768;
+	let showFactionFilter = $state(isDesktop);
+	let showCardTypeFilter = $state(isDesktop);
+	let showRarityFilter = $state(isDesktop);
 
 	// Keyword filter state
 	let keywordInput = $state('');
@@ -59,7 +62,7 @@
 		selectedFactions.size;
 		selectedCardTypes.size;
 		selectedRarities.size;
-		selectedSets.size;
+		selectedSet;
 		selectedFormat;
 		bannedFilter;
 		uniqueFilter;
@@ -224,7 +227,7 @@
 		selectedFactions = new Set<string>();
 		selectedCardTypes = new Set<string>();
 		selectedRarities = new Set<string>();
-		selectedSets = new Set<string>();
+		selectedSet = 'any';
 		selectedFormat = 'any';
 		selectedKeywords = [];
 		keywordOperators = [];
@@ -301,11 +304,9 @@
 				return false;
 			}
 
-			// Set filter - card must be released in at least one of the selected sets
-			if (selectedSets.size > 0) {
-				const cardSets = Object.keys(card.releases);
-				const hasMatchingSet = cardSets.some((set) => selectedSets.has(set));
-				if (!hasMatchingSet) {
+			// Set filter
+			if (selectedSet !== 'any') {
+				if (!(selectedSet in card.releases)) {
 					return false;
 				}
 			}
@@ -440,19 +441,86 @@
 
 		<!-- Filters Section -->
 		<div class="mb-6 rounded-lg bg-gray-800 p-4 shadow-xl">
-			<!-- Search and Format -->
+			<!-- Search and Reset -->
 			<div class="mb-4 flex gap-4">
 				<div class="flex-1">
-					<label for="search" class="mb-2 block text-sm font-medium">Search</label>
 					<input
 						id="search"
 						type="text"
 						bind:value={searchQuery}
-						placeholder="Search by name or card text..."
-						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+						placeholder="Search by title or text..."
+						class="h-[42px] w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 					/>
 				</div>
-				<div class="w-48">
+				<div>
+					<button
+						onclick={resetFilters}
+						class="h-[42px] rounded-lg bg-blue-600 px-6 text-sm font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none"
+						>Reset</button
+					>
+				</div>
+			</div>
+
+			<!-- Keyword Filter and Dropdowns Row -->
+			<div class="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto_auto_auto_auto]">
+				<div>
+					<label class="mb-2 block text-sm font-medium">Keywords</label>
+					<div class="relative">
+						<div
+							class="flex min-h-[42px] flex-wrap items-center gap-2 rounded-lg border border-gray-600 bg-gray-700 px-3"
+						>
+							{#each selectedKeywords as keyword, index}
+								<button
+									onclick={() => removeKeyword(keyword)}
+									class="text-xs font-medium text-gray-300 hover:text-white focus:outline-none"
+									aria-label="Remove {keyword}"
+								>
+									{keyword}
+								</button>
+								{#if index < selectedKeywords.length - 1}
+									<button
+										onclick={() => toggleOperator(index)}
+										class="rounded bg-gray-600 px-2 py-1 text-xs font-medium text-white hover:bg-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+									>
+										{keywordOperators[index] === 'union' ? '|' : '&'}
+									</button>
+								{/if}
+							{/each}
+							<input
+								type="text"
+								bind:value={keywordInput}
+								onkeydown={handleKeywordInput}
+								onfocus={() => (showKeywordSuggestions = true)}
+								onblur={() => setTimeout(() => (showKeywordSuggestions = false), 200)}
+								oninput={() => {
+									showKeywordSuggestions = true;
+									selectedSuggestionIndex = 0;
+								}}
+								placeholder={selectedKeywords.length === 0 ? 'Type to search keywords...' : ''}
+								class="flex-1 border-0 bg-transparent text-white placeholder-gray-400 focus:ring-0 focus:outline-none"
+							/>
+						</div>
+						{#if showKeywordSuggestions && filteredSuggestions.length > 0}
+							<div
+								class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-gray-600 bg-gray-700 shadow-lg"
+							>
+								{#each filteredSuggestions as suggestion, index}
+									<button
+										type="button"
+										onclick={() => addKeyword(suggestion)}
+										class="w-full px-4 py-2 text-left text-sm text-white hover:bg-gray-600 focus:bg-gray-600 focus:outline-none {index ===
+										selectedSuggestionIndex
+											? 'bg-gray-600'
+											: ''}"
+									>
+										{suggestion}
+									</button>
+								{/each}
+							</div>
+						{/if}
+					</div>
+				</div>
+				<div class="w-full lg:w-40">
 					<label for="format" class="mb-2 block text-sm font-medium">Format</label>
 					<select
 						id="format"
@@ -465,72 +533,42 @@
 						<option value="oldschool">Old School</option>
 					</select>
 				</div>
-				<div class="flex items-end">
-					<button
-						onclick={resetFilters}
-						class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none"
+				<div class="w-full lg:w-48">
+					<label for="set-filter" class="mb-2 block text-sm font-medium">Set</label>
+					<select
+						id="set-filter"
+						bind:value={selectedSet}
+						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 					>
-						Reset Filters
-					</button>
-				</div>
-			</div>
-
-			<!-- Keyword Filter -->
-			<div class="mb-6">
-				<label class="mb-2 block text-sm font-medium">Keywords</label>
-				<div class="relative">
-					<div
-						class="flex min-h-[42px] flex-wrap items-center gap-2 rounded-lg border border-gray-600 bg-gray-700 px-3"
-					>
-						{#each selectedKeywords as keyword, index}
-							<button
-								onclick={() => removeKeyword(keyword)}
-								class="text-xs font-medium text-gray-300 hover:text-white focus:outline-none"
-								aria-label="Remove {keyword}"
-							>
-								{keyword}
-							</button>
-							{#if index < selectedKeywords.length - 1}
-								<button
-									onclick={() => toggleOperator(index)}
-									class="rounded bg-gray-600 px-2 py-1 text-xs font-medium text-white hover:bg-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-								>
-									{keywordOperators[index] === 'union' ? '|' : '&'}
-								</button>
-							{/if}
+						<option value="any">Any</option>
+						{#each sets as set}
+							<option value={set}>{set}</option>
 						{/each}
-						<input
-							type="text"
-							bind:value={keywordInput}
-							onkeydown={handleKeywordInput}
-							onfocus={() => (showKeywordSuggestions = true)}
-							onblur={() => setTimeout(() => (showKeywordSuggestions = false), 200)}
-							oninput={() => {
-								showKeywordSuggestions = true;
-								selectedSuggestionIndex = 0;
-							}}
-							placeholder={selectedKeywords.length === 0 ? 'Type to search keywords...' : ''}
-							class="flex-1 border-0 bg-transparent text-white placeholder-gray-400 focus:ring-0 focus:outline-none"
-						/>
-					</div>
-					{#if showKeywordSuggestions && filteredSuggestions.length > 0}
-						<div
-							class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-gray-600 bg-gray-700 shadow-lg"
-						>
-							{#each filteredSuggestions as suggestion, index}
-								<button
-									type="button"
-									onclick={() => addKeyword(suggestion)}
-									class="w-full px-4 py-2 text-left text-sm text-white hover:bg-gray-600 focus:bg-gray-600 focus:outline-none {index ===
-									selectedSuggestionIndex
-										? 'bg-gray-600'
-										: ''}"
-								>
-									{suggestion}
-								</button>
-							{/each}
-						</div>
-					{/if}
+					</select>
+				</div>
+				<div class="w-full lg:w-32">
+					<label for="unique-filter" class="mb-2 block text-sm font-medium">Unique</label>
+					<select
+						id="unique-filter"
+						bind:value={uniqueFilter}
+						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+					>
+						<option value="any">Any</option>
+						<option value="yes">Yes</option>
+						<option value="no">No</option>
+					</select>
+				</div>
+				<div class="w-full lg:w-32">
+					<label for="banned-filter" class="mb-2 block text-sm font-medium">Banned</label>
+					<select
+						id="banned-filter"
+						bind:value={bannedFilter}
+						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+					>
+						<option value="any">Any</option>
+						<option value="yes">Yes</option>
+						<option value="no">No</option>
+					</select>
 				</div>
 			</div>
 
@@ -541,161 +579,103 @@
 					<div>
 						<button
 							onclick={() => (showFactionFilter = !showFactionFilter)}
-							class="mb-2 flex w-full items-center gap-2 text-left text-sm font-medium hover:text-blue-400 focus:outline-none"
+							class="mb-2 flex w-full items-center gap-2 text-left text-sm font-medium hover:text-blue-400 focus:outline-none md:pointer-events-none md:hover:text-white"
 						>
-							<span class="transition-transform {showFactionFilter ? 'rotate-90' : ''}"> ▶ </span>
+							<span class="transition-transform md:hidden {showFactionFilter ? 'rotate-90' : ''}">
+								▶
+							</span>
 							<span>Faction</span>
 							{#if !showFactionFilter && selectedFactions.size > 0}
-								<span class="text-xs text-gray-400">
+								<span class="text-xs text-gray-400 md:hidden">
 									({Array.from(selectedFactions).join(', ')})
 								</span>
 							{/if}
 						</button>
-						{#if showFactionFilter}
-							<div class="space-y-2">
-								{#each factions as faction}
-									<label class="flex items-center space-x-2">
-										<input
-											type="checkbox"
-											checked={selectedFactions.has(faction)}
-											onchange={() =>
-												(selectedFactions = toggleSelection(selectedFactions, faction))}
-											class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
-										/>
-										<span class="text-sm">{faction}</span>
-									</label>
-								{/each}
-							</div>
-						{/if}
+						<div class="space-y-2 md:block {showFactionFilter ? 'block' : 'hidden'}">
+							{#each factions as faction}
+								<label class="flex items-center space-x-2">
+									<input
+										type="checkbox"
+										checked={selectedFactions.has(faction)}
+										onchange={() => (selectedFactions = toggleSelection(selectedFactions, faction))}
+										class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
+									/>
+									<span class="text-sm">{faction}</span>
+								</label>
+							{/each}
+						</div>
 					</div>
 
 					<!-- Card Type Filter -->
 					<div>
 						<button
 							onclick={() => (showCardTypeFilter = !showCardTypeFilter)}
-							class="mb-2 flex w-full items-center gap-2 text-left text-sm font-medium hover:text-blue-400 focus:outline-none"
+							class="mb-2 flex w-full items-center gap-2 text-left text-sm font-medium hover:text-blue-400 focus:outline-none md:pointer-events-none md:hover:text-white"
 						>
-							<span class="transition-transform {showCardTypeFilter ? 'rotate-90' : ''}"> ▶ </span>
-							<span>Card Type</span>
+							<span class="transition-transform md:hidden {showCardTypeFilter ? 'rotate-90' : ''}">
+								▶
+							</span>
+							<span>Type</span>
 							{#if !showCardTypeFilter && selectedCardTypes.size > 0}
-								<span class="text-xs text-gray-400">
+								<span class="text-xs text-gray-400 md:hidden">
 									({Array.from(selectedCardTypes).join(', ')})
 								</span>
 							{/if}
 						</button>
-						{#if showCardTypeFilter}
-							<div class="space-y-2">
-								{#each cardTypes as type}
-									<label class="flex items-center space-x-2">
-										<input
-											type="checkbox"
-											checked={selectedCardTypes.has(type)}
-											onchange={() =>
-												(selectedCardTypes = toggleSelection(selectedCardTypes, type))}
-											class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
-										/>
-										<span class="text-sm">{type}</span>
-									</label>
-								{/each}
-							</div>
-						{/if}
+						<div class="space-y-2 md:block {showCardTypeFilter ? 'block' : 'hidden'}">
+							{#each cardTypes as type}
+								<label class="flex items-center space-x-2">
+									<input
+										type="checkbox"
+										checked={selectedCardTypes.has(type)}
+										onchange={() => (selectedCardTypes = toggleSelection(selectedCardTypes, type))}
+										class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
+									/>
+									<span class="text-sm">{type}</span>
+								</label>
+							{/each}
+						</div>
 					</div>
 
 					<!-- Rarity Filter -->
 					<div>
 						<button
 							onclick={() => (showRarityFilter = !showRarityFilter)}
-							class="mb-2 flex w-full items-center gap-2 text-left text-sm font-medium hover:text-blue-400 focus:outline-none"
+							class="mb-2 flex w-full items-center gap-2 text-left text-sm font-medium hover:text-blue-400 focus:outline-none md:pointer-events-none md:hover:text-white"
 						>
-							<span class="transition-transform {showRarityFilter ? 'rotate-90' : ''}"> ▶ </span>
+							<span class="transition-transform md:hidden {showRarityFilter ? 'rotate-90' : ''}">
+								▶
+							</span>
 							<span>Rarity</span>
 							{#if !showRarityFilter && selectedRarities.size > 0}
-								<span class="text-xs text-gray-400">
+								<span class="text-xs text-gray-400 md:hidden">
 									({Array.from(selectedRarities).join(', ')})
 								</span>
 							{/if}
 						</button>
-						{#if showRarityFilter}
-							<div class="space-y-2">
-								{#each rarities as rarity}
-									<label class="flex items-center space-x-2">
-										<input
-											type="checkbox"
-											checked={selectedRarities.has(rarity)}
-											onchange={() =>
-												(selectedRarities = toggleSelection(selectedRarities, rarity))}
-											class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
-										/>
-										<span class="text-sm">{rarity}</span>
-									</label>
-								{/each}
-							</div>
-						{/if}
+						<div class="space-y-2 md:block {showRarityFilter ? 'block' : 'hidden'}">
+							{#each rarities as rarity}
+								<label class="flex items-center space-x-2">
+									<input
+										type="checkbox"
+										checked={selectedRarities.has(rarity)}
+										onchange={() => (selectedRarities = toggleSelection(selectedRarities, rarity))}
+										class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
+									/>
+									<span class="text-sm">{rarity}</span>
+								</label>
+							{/each}
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<!-- Set Filter -->
-			<div class="mb-6">
-				<button
-					onclick={() => (showSetFilter = !showSetFilter)}
-					class="mb-2 flex w-full items-center gap-2 text-left text-sm font-medium hover:text-blue-400 focus:outline-none"
-				>
-					<span class="transition-transform {showSetFilter ? 'rotate-90' : ''}"> ▶ </span>
-					<span>Set</span>
-					{#if !showSetFilter && selectedSets.size > 0}
-						<span class="text-xs text-gray-400">
-							({Array.from(selectedSets).join(', ')})
-						</span>
-					{/if}
-				</button>
-				{#if showSetFilter}
-					<div class="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
-						{#each sets as set}
-							<label class="flex items-center space-x-2">
-								<input
-									type="checkbox"
-									checked={selectedSets.has(set)}
-									onchange={() => (selectedSets = toggleSelection(selectedSets, set))}
-									class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
-								/>
-								<span class="text-sm">{set}</span>
-							</label>
-						{/each}
-					</div>
-				{/if}
-			</div>
-
 			<!-- Numerical Filters -->
-			<div class="mb-6">
+			<div>
 				<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
-					<!-- Die Filter -->
-					<div>
-						<label class="mb-2 block text-xs font-medium text-gray-400">Die</label>
-						<div class="flex space-x-2">
-							<select
-								bind:value={dieOperator}
-								class="w-20 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-							>
-								<option value="exact">=</option>
-								<option value="higher">&gt;</option>
-								<option value="lower">&lt;</option>
-							</select>
-							<select
-								bind:value={dieValue}
-								class="flex-1 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-							>
-								<option value="">Any</option>
-								{#each dieValues as value}
-									<option {value}>{value}</option>
-								{/each}
-							</select>
-						</div>
-					</div>
-
 					<!-- Cost Filter -->
 					<div>
-						<label class="mb-2 block text-xs font-medium text-gray-400">Cost</label>
+						<label class="mb-2 block text-sm font-medium">Cost</label>
 						<div class="flex space-x-2">
 							<select
 								bind:value={costOperator}
@@ -717,9 +697,33 @@
 						</div>
 					</div>
 
+					<!-- Strength Filter -->
+					<div>
+						<label class="mb-2 block text-sm font-medium">Strength</label>
+						<div class="flex space-x-2">
+							<select
+								bind:value={strengthOperator}
+								class="w-20 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+							>
+								<option value="exact">=</option>
+								<option value="higher">&gt;</option>
+								<option value="lower">&lt;</option>
+							</select>
+							<select
+								bind:value={strengthValue}
+								class="flex-1 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+							>
+								<option value="">Any</option>
+								{#each strengthValues as value}
+									<option {value}>{value}</option>
+								{/each}
+							</select>
+						</div>
+					</div>
+
 					<!-- Tactic Points Filter -->
 					<div>
-						<label class="mb-2 block text-xs font-medium text-gray-400">Tactic Points</label>
+						<label class="mb-2 block text-sm font-medium">Tactic Points</label>
 						<div class="flex space-x-2">
 							<select
 								bind:value={tacticPointsOperator}
@@ -743,7 +747,7 @@
 
 					<!-- Leadership Filter -->
 					<div>
-						<label class="mb-2 block text-xs font-medium text-gray-400">Leadership</label>
+						<label class="mb-2 block text-sm font-medium">Leadership</label>
 						<div class="flex space-x-2">
 							<select
 								bind:value={leadershipOperator}
@@ -765,12 +769,12 @@
 						</div>
 					</div>
 
-					<!-- Strength Filter -->
+					<!-- Die Filter -->
 					<div>
-						<label class="mb-2 block text-xs font-medium text-gray-400">Strength</label>
+						<label class="mb-2 block text-sm font-medium">Die</label>
 						<div class="flex space-x-2">
 							<select
-								bind:value={strengthOperator}
+								bind:value={dieOperator}
 								class="w-20 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 							>
 								<option value="exact">=</option>
@@ -778,42 +782,16 @@
 								<option value="lower">&lt;</option>
 							</select>
 							<select
-								bind:value={strengthValue}
+								bind:value={dieValue}
 								class="flex-1 rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 							>
 								<option value="">Any</option>
-								{#each strengthValues as value}
+								{#each dieValues as value}
 									<option {value}>{value}</option>
 								{/each}
 							</select>
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<!-- Other Filters -->
-			<div class="flex space-x-4">
-				<div class="flex flex-col space-y-1">
-					<label class="text-sm font-medium">Banned</label>
-					<select
-						bind:value={bannedFilter}
-						class="rounded border-gray-600 bg-gray-700 px-2 py-1 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-					>
-						<option value="any">Any</option>
-						<option value="yes">Yes</option>
-						<option value="no">No</option>
-					</select>
-				</div>
-				<div class="flex flex-col space-y-1">
-					<label class="text-sm font-medium">Unique</label>
-					<select
-						bind:value={uniqueFilter}
-						class="rounded border-gray-600 bg-gray-700 px-2 py-1 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-					>
-						<option value="any">Any</option>
-						<option value="yes">Yes</option>
-						<option value="no">No</option>
-					</select>
 				</div>
 			</div>
 		</div>
