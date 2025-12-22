@@ -45,9 +45,7 @@
 		}
 	};
 
-	const highlightedText = $derived(
-		card.text ? highlightSearchTerms(card.text, searchQuery) : ''
-	);
+	const highlightedText = $derived(card.text ? highlightSearchTerms(card.text, searchQuery) : '');
 
 	// Determine cost circle color based on card type
 	const getCostCircleColor = (cardType: string): string => {
@@ -107,7 +105,9 @@
 						? 'text-gray-900'
 						: 'text-gray-300'}"
 				>
-					{card.strength ?? ''}
+					{#if card.strength !== undefined}
+						{card.type === 'Attachment' ? '+' : ''}{card.strength}
+					{/if}
 				</div>
 			</div>
 
@@ -124,7 +124,9 @@
 				{/if}
 			</div>
 			<div class="text-center text-sm font-bold text-gray-300">
-				{#if card.tacticPoints !== undefined}{card.tacticPoints}{/if}
+				{#if card.tacticPoints !== undefined}
+					{card.type === 'Attachment' ? '+' : ''}{card.tacticPoints}
+				{/if}
 			</div>
 
 			<!-- Row 3 -->
