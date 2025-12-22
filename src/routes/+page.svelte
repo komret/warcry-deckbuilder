@@ -201,10 +201,40 @@
 			// Search filter
 			if (searchQuery) {
 				const query = searchQuery.toLowerCase();
-				const nameMatch = card.name.toLowerCase().includes(query);
-				const textMatch = card.cardText.toLowerCase().includes(query);
-				if (!nameMatch && !textMatch) {
-					return false;
+
+				// Check if query contains operators
+				const hasOperators = query.includes('&') || query.includes('|');
+
+				if (hasOperators) {
+					// Split by | first (OR has lower precedence)
+					const orGroups = query.split('|').map((orTerm) => orTerm.trim());
+
+					// Each OR group passes if all its AND terms match
+					const orGroupMatches = orGroups.some((orGroup) => {
+						// Split by & (AND has higher precedence)
+						const andTerms = orGroup
+							.split('&')
+							.map((term) => term.trim())
+							.filter((t) => t);
+
+						// All AND terms must match
+						return andTerms.every((term) => {
+							const nameMatch = card.name.toLowerCase().includes(term);
+							const textMatch = card.cardText.toLowerCase().includes(term);
+							return nameMatch || textMatch;
+						});
+					});
+
+					if (!orGroupMatches) {
+						return false;
+					}
+				} else {
+					// Simple search without operators
+					const nameMatch = card.name.toLowerCase().includes(query);
+					const textMatch = card.cardText.toLowerCase().includes(query);
+					if (!nameMatch && !textMatch) {
+						return false;
+					}
 				}
 			}
 
@@ -422,7 +452,7 @@
 									onclick={() => toggleOperator(index)}
 									class="rounded bg-gray-600 px-2 py-1 text-xs font-medium text-white hover:bg-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 								>
-									{keywordOperators[index] === 'union' ? 'OR' : 'AND'}
+									{keywordOperators[index] === 'union' ? '|' : '&'}
 								</button>
 							{/if}
 						{/each}
