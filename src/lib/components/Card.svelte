@@ -45,8 +45,8 @@
 		}
 	};
 
-	const highlightedCardText = $derived(
-		card.cardText ? highlightSearchTerms(card.cardText, searchQuery) : ''
+	const highlightedText = $derived(
+		card.text ? highlightSearchTerms(card.text, searchQuery) : ''
 	);
 
 	// Determine cost circle color based on card type
@@ -80,7 +80,7 @@
 		}
 	};
 
-	const costCircleColor = getCostCircleColor(card.cardType);
+	const costCircleColor = getCostCircleColor(card.type);
 	const strengthCircleColor = getStrengthCircleColor(card.faction);
 </script>
 
@@ -197,8 +197,8 @@
 
 		<!-- Second column: Card text -->
 		<div class="space-y-2 text-sm text-gray-300">
-			{#if card.cardText}
-				{@html highlightedCardText}
+			{#if card.text}
+				{@html highlightedText}
 			{/if}
 		</div>
 	</div>

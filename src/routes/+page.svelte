@@ -220,7 +220,7 @@
 						// All AND terms must match
 						return andTerms.every((term) => {
 							const nameMatch = card.name.toLowerCase().includes(term);
-							const textMatch = card.cardText.toLowerCase().includes(term);
+							const textMatch = card.text.toLowerCase().includes(term);
 							return nameMatch || textMatch;
 						});
 					});
@@ -231,7 +231,7 @@
 				} else {
 					// Simple search without operators
 					const nameMatch = card.name.toLowerCase().includes(query);
-					const textMatch = card.cardText.toLowerCase().includes(query);
+					const textMatch = card.text.toLowerCase().includes(query);
 					if (!nameMatch && !textMatch) {
 						return false;
 					}
@@ -244,7 +244,7 @@
 			}
 
 			// Multi-select card type filter
-			if (selectedCardTypes.size > 0 && !selectedCardTypes.has(card.cardType)) {
+			if (selectedCardTypes.size > 0 && !selectedCardTypes.has(card.type)) {
 				return false;
 			}
 
@@ -411,7 +411,7 @@
 						bind:value={selectedFormat}
 						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 					>
-						<option value="any">Any</option>
+						<option value="any">Open</option>
 						<option value="warcry">WarCry</option>
 						<option value="attrition">Attrition</option>
 						<option value="oldschool">Old School</option>
