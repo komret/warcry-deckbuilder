@@ -14,6 +14,7 @@
 		type Keyword
 	} from '$lib/data/cards';
 	import Card from '$lib/components/Card.svelte';
+	import logo from '$lib/assets/warcry-logo.png';
 
 	let searchQuery = $state('');
 
@@ -435,8 +436,8 @@
 
 <div class="min-h-screen bg-gray-900 text-white">
 	<div class="mx-auto max-w-7xl px-4 py-8">
-		<header class="mb-8">
-			<h1 class="mb-2 text-4xl font-bold">WarCry CCG Deckbuilder</h1>
+		<header class="mb-4">
+			<img src={logo} alt="WarCry Logo" class="mb-3 h-16" />
 		</header>
 
 		<!-- Filters Section -->
