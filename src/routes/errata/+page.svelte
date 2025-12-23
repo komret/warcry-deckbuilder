@@ -15,7 +15,7 @@
 
 <div class="min-h-screen bg-gray-900 text-white">
 	<div class="mx-auto max-w-7xl px-4 py-8">
-		<header class="mb-4">
+		<header class="relative mb-4">
 			<div class="mb-3 flex items-center justify-between">
 				<a href="/" class="block">
 					<img src={logo} alt="WarCry Logo" class="h-16" />
@@ -50,16 +50,18 @@
 
 			<!-- Navigation Menu -->
 			{#if showMenu}
-				<nav class="mb-4 rounded-lg bg-gray-800 p-4 shadow-lg">
+				<nav
+					class="absolute top-20 right-0 z-50 min-w-[200px] rounded-lg border border-gray-700 bg-gray-950 p-4 shadow-lg"
+				>
 					<div class="flex flex-col gap-2">
 						<a
 							href="/"
 							class="rounded-lg px-4 py-2 text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
 						>
-							Deck Builder
+							Deckbuilder
 						</a>
 						<a href="/errata" class="rounded-lg bg-gray-700 px-4 py-2 font-semibold text-white">
-							Errata & Banned
+							Errata
 						</a>
 					</div>
 				</nav>
