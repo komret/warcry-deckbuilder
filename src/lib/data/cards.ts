@@ -7481,7 +7481,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Unit',
 		rarity: 'Rare',
-		text: '<p><b>Wizard</b>: 2</p><p><b>Support WarCry</b>: Roll. 1 or less: If you win this combat, rout the enemy unit. 2-4: Your unit gets +1 strength. 5+: Destroy your unit.</p>',
+		text: '<p><p><b>Wizard</b>: 2</p><p><b>Support WarCry</b>: Roll.</p><p>1 or less: If you win this combat, rout the enemy unit.</p><p>2-4: Your unit gets +1 strength.</p><p>5+: Destroy your unit.</p></p>',
 		releases: { 'Path of Glory': 24 }
 	},
 	{
@@ -15437,7 +15437,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Tactic',
 		rarity: 'Common',
-		text: '<p><b>Combat Tactic</b>: Roll. 3 or less: The enemy must roll. If the roll is 2 or less, when this combat ands the result is a slaughter. 4: No effect. 5+: Destroy this unit. The enemy may make a follow-up attack.</p>',
+		text: '<p><p><b>Combat Tactic</b>: Roll.</p><p>3 or less: The enemy must roll. If the roll is 2 or less, when this combat ands the result is a slaughter.</p><p>4: No effect.</p><p>5+: Destroy this unit. The enemy may make a follow-up attack.</p></p>',
 		releases: { 'Bringers of Darkness': 79 }
 	},
 	{
@@ -15449,7 +15449,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Tactic',
 		rarity: 'Common',
-		text: '<p><b>Combat Tactic</b>: Roll. 1 or less: The enemy unit gets -3 strength. 2: The enemy unit gets -2 strength. 3: The enemy unit gets -1 strength. 4: The enemy unit gets +1 strength. 5: Commit this unit. 6+: Destroy this unit.</p>',
+		text: '<p><p><b>Combat Tactic</b>: Roll.</p><p>1 or less: The enemy unit gets -3 strength.</p><p>2: The enemy unit gets -2 strength.</p><p>3: The enemy unit gets -1 strength.</p><p>4: The enemy unit gets +1 strength.</p><p>5: Commit this unit.</p><p>6+: Destroy this unit.</p></p>',
 		releases: { 'Bringers of Darkness': 80 }
 	},
 	{
@@ -15461,7 +15461,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Tactic',
 		rarity: 'Common',
-		text: '<p><b>Combat Tactic</b>: Roll. 1 or less: When this combat ends the result is a slaughter. 2: Commit both units. 3: Both units get a strength bonus equal to their gold cost. 4: Both units get +4 tactic points. 5+: Destroy this unit.</p><p>The enemy unit may make a follow-up attack.</p>',
+		text: '<p><p><b>Combat Tactic</b>: Roll.</p><p>1 or less: When this combat ends the result is a slaughter.</p><p>2: Commit both units.</p><p>3: Both units get a strength bonus equal to their gold cost.</p><p>4: Both units get +4 tactic points.</p><p>5+: Destroy this unit.</p><p>The enemy unit may make a follow-up attack.</p></p>',
 		releases: { 'Bringers of Darkness': 81 }
 	},
 	{
@@ -15473,7 +15473,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Tactic',
 		rarity: 'Common',
-		text: '<p><b>Combat Tactic</b>: Roll. 3 or less: This unit gets +3 strength. If this combat ends in a slaughter this unit wins instead. 4+: Destroy this unit. The enemy unit may make a follow-up attack.</p>',
+		text: '<p><p><b>Combat Tactic</b>: Roll.</p><p>3 or less: This unit gets +3 strength. If this combat ends in a slaughter this unit wins instead.</p><p>4+: Destroy this unit. The enemy unit may make a follow-up attack.</p></p>',
 		releases: { 'Bringers of Darkness': 82 }
 	},
 	{
@@ -15485,7 +15485,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Tactic',
 		rarity: 'Common',
-		text: '<p><b>Combat Tactic</b>: Roll. 2 or less: Draw 2 cards. 3: Both players draw 1 card. 4: Your enemy may draw 1 card. 5+: Discard your hand.</p>',
+		text: '<p><p><b>Combat Tactic</b>: Roll.</p><p>2 or less: Draw 2 cards.</p><p>3: Both players draw 1 card.</p><p>4: Your enemy may draw 1 card.</p><p>5+: Discard your hand.</p></p>',
 		releases: { 'Bringers of Darkness': 83 }
 	},
 	{
@@ -15497,7 +15497,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Tactic',
 		rarity: 'Common',
-		text: '<p><b>Combat Tactic</b>: Roll. 1 or less: This unit gets +3 strength. 2: This unit gets +2 strength. 3: This unit gets +1 strength. 4: This unit gets -1 strength. 5: Commit this unit. 6+: Destroy this unit. The enemy unit may make a follow-up attack.</p>',
+		text: '<p><p><b>Combat Tactic</b>: Roll.</p><p>1 or less: This unit gets +3 strength.</p><p>2: This unit gets +2 strength.</p><p>3: This unit gets +1 strength.</p><p>4: This unit gets -1 strength.</p><p>5: Commit this unit.</p><p>6+: Destroy this unit. The enemy unit may make a follow-up attack.</p></p>',
 		releases: { 'Bringers of Darkness': 84 }
 	},
 	{
@@ -15509,7 +15509,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Tactic',
 		rarity: 'Common',
-		text: '<p><b>Combat Tactic</b>: Roll. 2 or less: Both players may put the top card pf their army deck into play without cost (if the card is an attachment it may be attached to any legal unit). Remove this card from the game.</p><p>3+: This unit gets -3 strength.</p>',
+		text: '<p><p><b>Combat Tactic</b>: Roll.</p><p>2 or less: Both players may put the top card of their army deck into play without cost (if the card is an attachment it may be attached to any legal unit). Remove this card from the game.</p><p>3+: This unit gets -3 strength.</p></p>',
 		releases: { 'Bringers of Darkness': 85 }
 	},
 	{
@@ -15521,7 +15521,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Tactic',
 		rarity: 'Common',
-		text: '<p><b>Combat Tactic</b>: Roll. 2 or less: if you win this combat the enemy unit is routed (no roll necessary). 3: If you win this combat you may not make a follow-up attack. 4: If you lose this combat your unit is routed (no roll necessary). 5+: Destroy this unit.</p><p>The enemy unit may make a follow-up attack.</p>',
+		text: '<p><p><b>Combat Tactic</b>: Roll.</p><p>2 or less: if you win this combat the enemy unit is routed (no roll necessary).</p><p>3: If you win this combat you may not make a follow-up attack.</p><p>4: If you lose this combat your unit is routed (no roll necessary).</p><p>5+: Destroy this unit.</p><p>The enemy unit may make a follow-up attack.</p></p>',
 		releases: { 'Bringers of Darkness': 86 }
 	},
 	{
@@ -15533,7 +15533,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Tactic',
 		rarity: 'Common',
-		text: '<p> <b>WarCry</b>: Roll. 1 or less: Commit the enemy unit. 2: The enemy unit gets -2 strength. 3: The enemy unit gets -2 tactic points. 4: The enemy unit gets -2 leadership. 5+: Destroy this unit. The enemy unit may make a follow-up attack.</p>',
+		text: '<p><p><b>WarCry</b>: Roll.</p><p>1 or less: Commit the enemy unit.</p><p>2: The enemy unit gets -2 strength.</p><p>3: The enemy unit gets -2 tactic points.</p><p>4: The enemy unit gets -2 leadership.</p><p>5+: Destroy this unit. The enemy unit may make a follow-up attack.</p></p>',
 		releases: { 'Bringers of Darkness': 87 }
 	},
 	{
@@ -21069,7 +21069,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Reaction',
 		rarity: 'Rare',
-		text: "<p><b>Spell Reaction</b> (3): After your enemy pays the cost of a spell effect, roll:</p><p>1 or less: Your opponent's spell gets played as normal, then again without costs.</p><p>2-5: The spell is negated. 6: The spell is negated and then you may commit one enemy unit</p><p>7+: The spell is negated and you may destroy one enemy unit.</p>",
+		text: "<p><b>Spell Reaction</b> (3): After your enemy pays the cost of a spell effect, roll:</p><p>1 or less: Your opponent's spell gets played as normal, then again without costs.</p><p>2-5: The spell is negated.</p><p>6: The spell is negated and then you may commit one enemy unit</p><p>7+: The spell is negated and you may destroy one enemy unit.</p>",
 		releases: { 'Swords of Retribution': 81 }
 	},
 	{
@@ -23878,7 +23878,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Command',
 		rarity: 'Common',
-		text: '<p><b>Spell Command</b> (2): Roll. 1 or less: No effect. 2-3: Destroy one attachment with a printed spell ability on it. 4-5: Destroy two attachments with printed spell abilities on them. 6+: For each <b>Wizard</b> unit you have in play,</p><p>destroy either one attachment with a printed spell ability or one action card that has been attached to a unit.</p>',
+		text: '<p><p><b>Spell Command</b> (2): Roll.</p><p>1 or less: No effect.</p><p>2-3: Destroy one attachment with a printed spell ability on it.</p><p>4-5: Destroy two attachments with printed spell abilities on them.</p><p>6+: For each <b>Wizard</b> unit you have in play, destroy either one attachment with a printed spell ability or one action card that has been attached to a unit.</p></p>',
 		releases: { 'Marks of Power': 54 }
 	},
 	{
