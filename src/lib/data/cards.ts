@@ -16043,7 +16043,7 @@ export const cards: Card[] = [
 		maxCopies: 3,
 		faction: 'Grand Alliance',
 		type: 'Unit',
-		text: '<p> <b>Command</b> Commit: One by one, attach the top card of your deck to each of your Dwarf units. Those units have "<b>Victory</b>: +X". X equals the the die of the attached card. While this unit remains in play, your units may not declare attacks. Discard all cards attached this way if this unit leaves play or after battle resolution. Only playable as your first command.</p>',
+		text: '<p> <b>Command</b> Commit: One by one, attach the top card of your deck to each of your Dwarf units. Those units have "<b>Victory</b>: +X". X equals the die of the attached card. While this unit remains in play, your units may not declare attacks. Discard all cards attached this way if this unit leaves play or after battle resolution. Only playable as your first command.</p>',
 		releases: { Legends: 4 }
 	},
 	{
