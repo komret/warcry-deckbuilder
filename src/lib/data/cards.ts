@@ -19767,7 +19767,7 @@ export const cards: Card[] = [
 		maxCopies: 3,
 		faction: 'Hordes of Darkness',
 		type: 'Tactic',
-		text: '<p> <b>WarCry</b>: If this unit loses this combat, return it to the battle line ready instead of being destroyed; then your opponent may rally one of his units in the reserves at the end of this combat.</p>',
+		text: '<p><b>WarCry</b>: If this unit loses this combat, return it to the battle line ready instead of being destroyed; then your opponent may rally one of his units in the reserves at the end of this combat.</p>',
 		releases: { 'Valor and Treachery': 15 }
 	},
 	{
@@ -19778,7 +19778,7 @@ export const cards: Card[] = [
 		maxCopies: 3,
 		faction: 'Hordes of Darkness',
 		type: 'Tactic',
-		text: '<p> <b>WarCry</b>: If you win this combat, attach this card to one of your unique units in the reserves. While this card is in play, your other units gain +1 strength and +1 leadership.</p><p>Destroy this card if the unit it is attached to enters the battlefield or the battle line.</p>',
+		text: '<p><b>WarCry</b>: If you win this combat, attach this card to one of your unique units in the reserves. While this card is in play, your other units gain +1 strength and +1 leadership.</p><p>Destroy this card if the unit it is attached to enters the battlefield or the battle line.</p>',
 		releases: { 'Valor and Treachery': 16 }
 	},
 	{
@@ -19799,7 +19799,7 @@ export const cards: Card[] = [
 		maxCopies: 3,
 		faction: 'Hordes of Darkness',
 		type: 'Command',
-		text: "<p><b>Spell Command</b> (3) Choose one enemy unit. That unit must pass a strength test or be destroyed. Roll. 2 or less: Your enemy may choose one of your unit's to make a strength test as above. Roll again. 3-4: The command ends.</p><p>5+: You may choose another enemy unit and it must make a strength test as above. Roll again.</p>",
+		text: "<p><b>Spell Command</b> (3) Choose one enemy unit. That unit must pass a strength test or be destroyed. Roll.<p>2 or less: Your enemy may choose one of your unit's to make a strength test as above. Roll again.</p><p>3-4: The command ends.</p><p>5+: You may choose another enemy unit and it must make a strength test as above. Roll again.</p>",
 		releases: { 'Valor and Treachery': 18 },
 		banned: true
 	},
