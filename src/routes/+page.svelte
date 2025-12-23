@@ -48,7 +48,6 @@
 	let selectedRarities = $state(new Set<string>());
 	let selectedSet = $state('any');
 	let selectedFormat = $state('any');
-	let bannedFilter = $state('no');
 	let uniqueFilter = $state('any');
 	let showSetFilter = $state(false);
 
@@ -93,7 +92,6 @@
 		selectedRarities.size;
 		selectedSet;
 		selectedFormat;
-		bannedFilter;
 		uniqueFilter;
 		selectedKeywords.length;
 		keywordOperators.length;
@@ -292,7 +290,6 @@
 		selectedKeywords = [];
 		keywordOperators = [];
 		keywordInput = '';
-		bannedFilter = 'no';
 		uniqueFilter = 'any';
 		costOperator = 'exact';
 		costValue = '';
@@ -450,11 +447,8 @@
 				return false;
 			}
 
-			// Banned filter
-			if (bannedFilter === 'yes' && !card.banned) {
-				return false;
-			}
-			if (bannedFilter === 'no' && card.banned) {
+			// Banned filter: non-Open formats exclude banned cards
+			if (selectedFormat !== 'any' && card.banned) {
 				return false;
 			}
 
@@ -551,7 +545,20 @@
 						{/if}
 					</div>
 				</div>
-				<div class="col-span-2 w-full lg:col-span-1 lg:w-40">
+				<div class="col-span-2 w-full lg:col-span-1 lg:w-56">
+					<label for="set-filter" class="mb-2 block text-sm font-medium">Set</label>
+					<select
+						id="set-filter"
+						bind:value={selectedSet}
+						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+					>
+						<option value="any">Any</option>
+						{#each sets as set}
+							<option value={set}>{set}</option>
+						{/each}
+					</select>
+				</div>
+				<div class="w-full lg:w-40">
 					<label for="format" class="mb-2 flex items-center gap-1 text-sm font-medium">
 						<span>Format</span>
 						<button
@@ -585,36 +592,11 @@
 						{/each}
 					</select>
 				</div>
-				<div class="col-span-2 w-full lg:col-span-1 lg:w-56">
-					<label for="set-filter" class="mb-2 block text-sm font-medium">Set</label>
-					<select
-						id="set-filter"
-						bind:value={selectedSet}
-						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-					>
-						<option value="any">Any</option>
-						{#each sets as set}
-							<option value={set}>{set}</option>
-						{/each}
-					</select>
-				</div>
 				<div class="w-full lg:w-28">
 					<label for="unique-filter" class="mb-2 block text-sm font-medium">Unique</label>
 					<select
 						id="unique-filter"
 						bind:value={uniqueFilter}
-						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-					>
-						<option value="any">Any</option>
-						<option value="yes">Yes</option>
-						<option value="no">No</option>
-					</select>
-				</div>
-				<div class="w-full lg:w-28">
-					<label for="banned-filter" class="mb-2 block text-sm font-medium">Banned</label>
-					<select
-						id="banned-filter"
-						bind:value={bannedFilter}
 						class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 					>
 						<option value="any">Any</option>
