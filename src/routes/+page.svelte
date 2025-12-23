@@ -16,6 +16,9 @@
 	import Card from '$lib/components/Card.svelte';
 	import logo from '$lib/assets/warcry-logo.png';
 
+	// Type definitions
+	type NumericOperator = 'exact' | 'higher' | 'lower';
+
 	// Format definitions
 	const formats = [
 		{
@@ -46,10 +49,9 @@
 	let selectedFactions = $state(new Set<string>());
 	let selectedCardTypes = $state(new Set<string>());
 	let selectedRarities = $state(new Set<string>());
-	let selectedSet = $state('any');
-	let selectedFormat = $state('any');
-	let uniqueFilter = $state('any');
-	let showSetFilter = $state(false);
+	let selectedSet = $state<(typeof sets)[number] | 'any'>('any');
+	let selectedFormat = $state<(typeof formats)[number]['value'] | 'any'>('any');
+	let uniqueFilter = $state<'any' | 'yes' | 'no'>('any');
 
 	// Check if desktop (768px or wider) to set default open/closed state
 	const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768;
@@ -68,15 +70,15 @@
 	let selectedSuggestionIndex = $state(0);
 
 	// Numerical filter states
-	let costOperator = $state('exact');
+	let costOperator = $state<NumericOperator>('exact');
 	let costValue = $state('');
-	let strengthOperator = $state('exact');
+	let strengthOperator = $state<NumericOperator>('exact');
 	let strengthValue = $state('');
-	let tacticPointsOperator = $state('exact');
+	let tacticPointsOperator = $state<NumericOperator>('exact');
 	let tacticPointsValue = $state('');
-	let leadershipOperator = $state('exact');
+	let leadershipOperator = $state<NumericOperator>('exact');
 	let leadershipValue = $state('');
-	let dieOperator = $state('exact');
+	let dieOperator = $state<NumericOperator>('exact');
 	let dieValue = $state('');
 
 	// Filtered results (updated after debounce)
