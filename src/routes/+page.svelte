@@ -431,13 +431,27 @@
 			}
 
 			// Numerical filters
-			if (!compareNumbers(card.cost, costOperator, costValue)) {
+			// Cost filter: exclude Reaction and Command cards when using "less than"
+			if (
+				(costOperator === 'lower' && ['Reaction', 'Command'].includes(card.type)) ||
+				!compareNumbers(card.cost, costOperator, costValue)
+			) {
+				console.log(card.type, costOperator);
 				return false;
 			}
-			if (!compareNumbers(card.strength, strengthOperator, strengthValue)) {
+			// Strength filter: exclude Tactic, Reaction, and Command cards when using "less than"
+			if (
+				(strengthOperator === 'lower' && ['Tactic', 'Reaction', 'Command'].includes(card.type)) ||
+				!compareNumbers(card.strength, strengthOperator, strengthValue)
+			) {
 				return false;
 			}
-			if (!compareNumbers(card.tacticPoints, tacticPointsOperator, tacticPointsValue)) {
+			// Tactic Points filter: exclude Tactic, Reaction, and Command cards when using "less than"
+			if (
+				(tacticPointsOperator === 'lower' &&
+					['Tactic', 'Reaction', 'Command'].includes(card.type)) ||
+				!compareNumbers(card.tacticPoints, tacticPointsOperator, tacticPointsValue)
+			) {
 				return false;
 			}
 			if (!compareNumbers(card.leadership, leadershipOperator, leadershipValue)) {
