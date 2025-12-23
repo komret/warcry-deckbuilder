@@ -105,8 +105,10 @@
 						? 'text-gray-900'
 						: 'text-gray-300'}"
 				>
-					{#if card.strength !== undefined}
-						{card.type === 'Attachment' ? '+' : ''}{card.strength}
+					{#if typeof card.strength !== undefined}
+						{card.type === 'Attachment' && typeof card.strength === 'string'
+							? '+'
+							: ''}{card.strength}
 					{/if}
 				</div>
 			</div>
@@ -125,7 +127,9 @@
 			</div>
 			<div class="text-center text-sm font-bold text-gray-300">
 				{#if card.tacticPoints !== undefined}
-					{card.type === 'Attachment' ? '+' : ''}{card.tacticPoints}
+					{card.type === 'Attachment' && typeof card.tacticPoints === 'string'
+						? '+'
+						: ''}{card.tacticPoints}
 				{/if}
 			</div>
 
