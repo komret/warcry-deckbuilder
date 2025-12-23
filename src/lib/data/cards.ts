@@ -280,7 +280,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Unit',
 		rarity: 'Rare',
-		text: '<p> <b>WarCry</b>: Play any number of combat tactics from your hand. Those cards tactic point costs are reduced to 0.</p>',
+		text: '<p><b>WarCry</b>: Play any number of combat tactics from your hand. Those cards tactic point costs are reduced to 0.</p>',
 		releases: { WarCry: 11 },
 		banned: false
 	},

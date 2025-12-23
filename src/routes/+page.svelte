@@ -81,6 +81,9 @@
 	let dieOperator = $state<NumericOperator>('exact');
 	let dieValue = $state('');
 
+	// Navigation menu state
+	let showMenu = $state(false);
+
 	// Filtered results (updated after debounce)
 	let filteredCards = $state<typeof cards>([]);
 	let filterDebounceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -484,7 +487,47 @@
 <div class="min-h-screen bg-gray-900 text-white">
 	<div class="mx-auto max-w-7xl px-4 py-8">
 		<header class="mb-4">
-			<img src={logo} alt="WarCry Logo" class="mb-3 h-16" />
+			<div class="flex items-center justify-between mb-3">
+				<a href="/" class="block">
+					<img src={logo} alt="WarCry Logo" class="h-16" />
+				</a>
+				
+				<!-- Hamburger Menu Button -->
+				<button
+					onclick={() => showMenu = !showMenu}
+					class="p-2 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					aria-label="Toggle menu"
+					aria-expanded={showMenu}
+				>
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						{#if showMenu}
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+						{:else}
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+						{/if}
+					</svg>
+				</button>
+			</div>
+			
+			<!-- Navigation Menu -->
+			{#if showMenu}
+				<nav class="mb-4 rounded-lg bg-gray-800 p-4 shadow-lg">
+					<div class="flex flex-col gap-2">
+						<a
+							href="/"
+							class="rounded-lg px-4 py-2 text-white font-semibold bg-gray-700"
+						>
+							Deck Builder
+						</a>
+						<a
+							href="/errata"
+							class="rounded-lg px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+						>
+							Errata & Banned
+						</a>
+					</div>
+				</nav>
+			{/if}
 		</header>
 
 		<!-- Filters Section -->
