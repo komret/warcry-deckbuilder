@@ -47,7 +47,7 @@
 	let searchQuery = $state('');
 
 	let selectedFactions = $state(new Set<string>());
-	let selectedCardTypes = $state(new Set<string>());
+	let selectedTypes = $state(new Set<string>());
 	let selectedRarities = $state(new Set<string>());
 	let selectedSet = $state<(typeof sets)[number] | 'any'>('any');
 	let selectedFormat = $state<(typeof formats)[number]['value'] | 'any'>('any');
@@ -90,7 +90,7 @@
 		// Read all filter values to track changes
 		const currentSearch = searchQuery; // Watch for search changes
 		selectedFactions.size;
-		selectedCardTypes.size;
+		selectedTypes.size;
 		selectedRarities.size;
 		selectedSet;
 		selectedFormat;
@@ -285,7 +285,7 @@
 	function resetFilters() {
 		searchQuery = '';
 		selectedFactions = new Set<string>();
-		selectedCardTypes = new Set<string>();
+		selectedTypes = new Set<string>();
 		selectedRarities = new Set<string>();
 		selectedSet = 'any';
 		selectedFormat = 'any';
@@ -354,7 +354,7 @@
 			}
 
 			// Multi-select card type filter
-			if (selectedCardTypes.size > 0 && !selectedCardTypes.has(card.type)) {
+			if (selectedTypes.size > 0 && !selectedTypes.has(card.type)) {
 				return false;
 			}
 
@@ -641,15 +641,16 @@
 						</button>
 						<div class="space-y-2 md:block {showFactionFilter ? 'block' : 'hidden'}">
 							{#each factions as faction}
-								<label class="flex items-center space-x-2">
+								<div class="flex items-center space-x-2">
 									<input
+										id="faction-{faction}"
 										type="checkbox"
 										checked={selectedFactions.has(faction)}
 										onchange={() => (selectedFactions = toggleSelection(selectedFactions, faction))}
 										class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
 									/>
-									<span class="text-sm">{faction}</span>
-								</label>
+									<label for="faction-{faction}" class="cursor-pointer text-sm">{faction}</label>
+								</div>
 							{/each}
 						</div>
 					</div>
@@ -664,23 +665,24 @@
 								▶
 							</span>
 							<span>Type</span>
-							{#if !showCardTypeFilter && selectedCardTypes.size > 0}
+							{#if !showCardTypeFilter && selectedTypes.size > 0}
 								<span class="text-xs text-gray-400 md:hidden">
-									({Array.from(selectedCardTypes).join(', ')})
+									({Array.from(selectedTypes).join(', ')})
 								</span>
 							{/if}
 						</button>
 						<div class="space-y-2 md:block {showCardTypeFilter ? 'block' : 'hidden'}">
 							{#each cardTypes as type}
-								<label class="flex items-center space-x-2">
+								<div class="flex items-center space-x-2">
 									<input
+										id="type-{type}"
 										type="checkbox"
-										checked={selectedCardTypes.has(type)}
-										onchange={() => (selectedCardTypes = toggleSelection(selectedCardTypes, type))}
+										checked={selectedTypes.has(type)}
+										onchange={() => (selectedTypes = toggleSelection(selectedTypes, type))}
 										class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
 									/>
-									<span class="text-sm">{type}</span>
-								</label>
+									<label for="type-{type}" class="cursor-pointer text-sm">{type}</label>
+								</div>
 							{/each}
 						</div>
 					</div>
@@ -703,15 +705,16 @@
 						</button>
 						<div class="space-y-2 md:block {showRarityFilter ? 'block' : 'hidden'}">
 							{#each rarities as rarity}
-								<label class="flex items-center space-x-2">
+								<div class="flex items-center space-x-2">
 									<input
+										id="rarity-{rarity}"
 										type="checkbox"
 										checked={selectedRarities.has(rarity)}
 										onchange={() => (selectedRarities = toggleSelection(selectedRarities, rarity))}
 										class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-2 focus:ring-blue-500"
 									/>
-									<span class="text-sm">{rarity}</span>
-								</label>
+									<label for="rarity-{rarity}" class="cursor-pointer text-sm">{rarity}</label>
+								</div>
 							{/each}
 						</div>
 					</div>
