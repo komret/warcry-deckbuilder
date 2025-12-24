@@ -68,7 +68,7 @@ export const faq: FAQ[] = [
 	{
 		id: 9,
 		question:
-			'Does the WarCry on Katarin, Bringer of Winter create an aborted combat where players continue playing tactis until both of them pass, or does the combat end immediately?',
+			'Does the WarCry on Katarin, Bringer of Winter create an aborted combat where players continue playing tactics until both of them pass, or does the combat end immediately?',
 		answer: 'The combat ends immediately.',
 		source:
 			'https://web.archive.org/web/20060117155645/http://sabertoothgames.com/forum/forum_posts.asp?TID=5865&PN=2'
@@ -148,7 +148,7 @@ export const faq: FAQ[] = [
 	{
 		id: 20,
 		question:
-			"Does a unit attached to Invocation of Nehek count as an attachment or as a unit for the puposes of card effects? For example, can I use the reaction on attached Carstein's Flesh Eaters when they are destroyed?",
+			"Does a unit attached to Invocation of Nehek count as an attachment or as a unit for the purposes of card effects? For example, can I use the reaction on attached Carstein's Flesh Eaters when they are destroyed?",
 		answer:
 			"It counts as a unit. Whether a card is a unit or not is determined by it's card layout. The fact that they it is attached to another unit means that it has most of the usual rules for being a unit suspended. Carstein's Flesh Eaters' reaction can be used.",
 		source:
@@ -325,7 +325,7 @@ export const faq: FAQ[] = [
 	{
 		id: 45,
 		question:
-			"Does Brotherhood of Grimnir's static ability increses their strength, does it count as a bonus? Can it be mofied by card effects?",
+			"Does Brotherhood of Grimnir's static ability increases their strength, does it count as a bonus? Can it be modified by card effects?",
 		answer: 'Yes to both questions.',
 		source:
 			'https://web.archive.org/web/20051020093003/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=4756&PN=1'
@@ -630,7 +630,7 @@ export const faq: FAQ[] = [
 	{
 		id: 87,
 		question:
-			'If the attachment targetted by On Your Own is committed, is the unit newly created unit committed as well?',
+			'If the attachment targeted by On Your Own is committed, is the unit newly created unit committed as well?',
 		answer: 'No.',
 		source:
 			'https://web.archive.org/web/20051030193002/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=4529&PN=1'
@@ -1428,7 +1428,7 @@ export const faq: FAQ[] = [
 	{
 		id: 200,
 		question:
-			'If one of my units initiates a ranged attack, plays Hail of Doom, becomes comitted during the combat and wins the combat by three or more, can it make the additional attack?',
+			'If one of my units initiates a ranged attack, plays Hail of Doom, becomes committed during the combat and wins the combat by three or more, can it make the additional attack?',
 		answer: 'No.',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
@@ -1649,7 +1649,7 @@ export const faq: FAQ[] = [
 	{
 		id: 230,
 		question:
-			'What happens if I use the abilitiy on multiple copies of Bearers of the Sacred Flame?',
+			'What happens if I use the ability on multiple copies of Bearers of the Sacred Flame?',
 		answer:
 			'Reactions resolve one at a time. Perform an attack with one of them, including any follow-up attacks, before proceeding to the next one.',
 		source:
@@ -1814,7 +1814,7 @@ export const faq: FAQ[] = [
 		question:
 			"What kind of reactions can I trigger when I discard cards or when my opponent draws cards as a result of an opponent's static ability?",
 		answer:
-			"Because static abilities are not played, you can only play reactions to cards being discarded by an enemy card effect, but not reactions to an enemy playing an ability to discard cards. For example, when the abiility on A Fortunate Wind triggers, you can use  Leitdorf's Blood-oathed, but not The Birdmen of Catrazza.",
+			"Because static abilities are not played, you can only play reactions to cards being discarded by an enemy card effect, but not reactions to an enemy playing an ability to discard cards. For example, when the ability on A Fortunate Wind triggers, you can use  Leitdorf's Blood-oathed, but not The Birdmen of Catrazza.",
 		source:
 			'https://web.archive.org/web/20050418163922/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=2894&PN=1'
 	},
@@ -1851,7 +1851,7 @@ export const faq: FAQ[] = [
 	{
 		id: 257,
 		question:
-			'If you use switch a new unit into combat, can you use a WarCry card/ability on the new unit?',
+			'If you switch a new unit into combat, can you use a WarCry card/ability on the new unit?',
 		answer: "No, it's still treated as the same combat.",
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
@@ -1904,7 +1904,7 @@ export const faq: FAQ[] = [
 		id: 264,
 		question:
 			'What happens to cards and tokens attached to a unit during a combat when the unit is exchanged with another unit via the effect on The Guest Becomes the Host later during the same combat?',
-		answer: 'They are transfered to the new unit.',
+		answer: 'They are transferred to the new unit.',
 		source:
 			'https://web.archive.org/web/20051020090353/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=2573&PN=1'
 	},
