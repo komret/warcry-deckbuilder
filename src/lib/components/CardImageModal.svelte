@@ -52,12 +52,6 @@
 				src="/src/lib/assets/cards/{cardId.toLowerCase()}.jpg"
 				alt="Card {cardId}"
 				class="max-h-[90vh] w-auto rounded-lg shadow-2xl"
-				onerror={(e) => {
-					const img = e.currentTarget as HTMLImageElement;
-					if (img.src.endsWith('.jpg') && cardId) {
-						img.src = `/src/lib/assets/cards/${cardId.toLowerCase()}.jpeg`;
-					}
-				}}
 			/>
 		</div>
 	</div>
