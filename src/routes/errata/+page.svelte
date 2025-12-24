@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cards } from '$lib/data/cards';
 	import Card from '$lib/components/Card.svelte';
+	import CardImageModal from '$lib/components/CardImageModal.svelte';
 	import Header from '$lib/components/Header.svelte';
 
 	// Filter cards with errata property set (truthy)
@@ -43,50 +44,4 @@
 	</div>
 </div>
 
-<!-- Card Image Modal -->
-{#if selectedCardId}
-	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4"
-		onclick={() => (selectedCardId = null)}
-		onkeydown={(e) => e.key === 'Escape' && (selectedCardId = null)}
-		role="button"
-		tabindex="0"
-	>
-		<div
-			class="relative max-h-[90vh] max-w-[90vw]"
-			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.stopPropagation()}
-			role="button"
-			tabindex="0"
-		>
-			<!-- Close button -->
-			<button
-				type="button"
-				aria-label="Close card image"
-				class="absolute -right-4 -top-4 rounded-full bg-gray-800 p-2 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-				onclick={() => (selectedCardId = null)}
-			>
-				<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M6 18L18 6M6 6l12 12"
-					/>
-				</svg>
-			</button>
-			<!-- Card image -->
-			<img
-				src="/src/lib/assets/cards/{selectedCardId.toLowerCase()}.jpg"
-				alt="Card {selectedCardId}"
-				class="max-h-[90vh] w-auto rounded-lg shadow-2xl"
-				onerror={(e) => {
-					const img = e.currentTarget as HTMLImageElement;
-					if (img.src.endsWith('.jpg') && selectedCardId) {
-						img.src = `/src/lib/assets/cards/${selectedCardId.toLowerCase()}.jpeg`;
-					}
-				}}
-			/>
-		</div>
-	</div>
-{/if}
+<CardImageModal cardId={selectedCardId} onclose={() => (selectedCardId = null)} />
