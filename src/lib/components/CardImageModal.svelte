@@ -49,7 +49,7 @@
 			</button>
 			<!-- Card image -->
 			<img
-				src="/src/lib/assets/cards/{cardId.toLowerCase()}.jpg"
+				src="/cards/{cardId.toLowerCase()}.jpg"
 				alt="Card {cardId}"
 				class="max-h-[90vh] w-auto rounded-lg shadow-2xl"
 			/>
