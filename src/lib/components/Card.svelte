@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Card } from '$lib/data/cards';
+	import { highlightSearchTerms } from '$lib/utils/highlight';
 
 	type Props = {
 		card: Card;
@@ -8,43 +9,6 @@
 	};
 
 	let { card, searchQuery = '', showErrataHighlight = false }: Props = $props();
-
-	// Highlight search terms in card text
-	const highlightSearchTerms = (html: string, query: string): string => {
-		if (!query.trim()) return html;
-
-		// Parse search query for operators
-		const hasOperators = query.includes('&') || query.includes('|');
-
-		if (hasOperators) {
-			// Split by | first (OR has lower precedence)
-			const orGroups = query.split('|').map((orTerm) => orTerm.trim());
-
-			// Collect all unique search terms
-			const allTerms = new Set<string>();
-			orGroups.forEach((orGroup) => {
-				const andTerms = orGroup
-					.split('&')
-					.map((term) => term.trim())
-					.filter((t) => t);
-				andTerms.forEach((term) => allTerms.add(term));
-			});
-
-			// Highlight all terms
-			let result = html;
-			allTerms.forEach((term) => {
-				const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-				const regex = new RegExp(`(${escapedTerm})`, 'gi');
-				result = result.replace(regex, '<mark class="bg-yellow-300 text-gray-900">$1</mark>');
-			});
-			return result;
-		} else {
-			// Simple search - highlight the query
-			const escapedQuery = query.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-			const regex = new RegExp(`(${escapedQuery})`, 'gi');
-			return html.replace(regex, '<mark class="bg-yellow-300 text-gray-900">$1</mark>');
-		}
-	};
 
 	// Replace errata class with text-blue-500 if showing errata highlights
 	const processCardText = (html: string): string => {

@@ -2,45 +2,9 @@
 	import { faq, type FAQ } from '$lib/data/faq';
 	import Header from '$lib/components/Header.svelte';
 	import SearchInput from '$lib/components/SearchInput.svelte';
+	import { highlightSearchTerms } from '$lib/utils/highlight';
 
 	let searchQuery = $state('');
-
-	// Highlight search terms in text
-	const highlightSearchTerms = (text: string, query: string): string => {
-		if (!query.trim()) return text;
-
-		// Parse search query for operators
-		const hasOperators = query.includes('&') || query.includes('|');
-
-		if (hasOperators) {
-			// Split by | first (OR has lower precedence)
-			const orGroups = query.split('|').map((orTerm) => orTerm.trim());
-
-			// Collect all unique search terms
-			const allTerms = new Set<string>();
-			orGroups.forEach((orGroup) => {
-				const andTerms = orGroup
-					.split('&')
-					.map((term) => term.trim())
-					.filter((t) => t);
-				andTerms.forEach((term) => allTerms.add(term));
-			});
-
-			// Highlight all terms
-			let result = text;
-			allTerms.forEach((term) => {
-				const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-				const regex = new RegExp(`(${escapedTerm})`, 'gi');
-				result = result.replace(regex, '<mark class="bg-yellow-300 text-gray-900">$1</mark>');
-			});
-			return result;
-		} else {
-			// Simple search - highlight the query
-			const escapedQuery = query.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-			const regex = new RegExp(`(${escapedQuery})`, 'gi');
-			return text.replace(regex, '<mark class="bg-yellow-300 text-gray-900">$1</mark>');
-		}
-	};
 
 	// Filter FAQs based on search query
 	const filteredFAQs = $derived.by(() => {
@@ -110,7 +74,7 @@
 							href={item.source}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="absolute bottom-0 right-0 text-gray-500 hover:text-blue-400"
+							class="absolute right-0 bottom-0 text-gray-500 hover:text-blue-400"
 							aria-label="View source"
 						>
 							<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
