@@ -16,6 +16,7 @@
 	import Card from '$lib/components/Card.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import SearchInput from '$lib/components/SearchInput.svelte';
+	import { matchesSearch } from '$lib/utils/matchesSearch';
 
 	// Type definitions
 	type NumericOperator = 'exact' | 'higher' | 'lower';
@@ -310,43 +311,8 @@
 	function computeFilteredCards() {
 		return cards.filter((card) => {
 			// Search filter
-			if (searchQuery) {
-				const query = searchQuery.toLowerCase();
-
-				// Check if query contains operators
-				const hasOperators = query.includes('&') || query.includes('|');
-
-				if (hasOperators) {
-					// Split by | first (OR has lower precedence)
-					const orGroups = query.split('|').map((orTerm) => orTerm.trim());
-
-					// Each OR group passes if all its AND terms match
-					const orGroupMatches = orGroups.some((orGroup) => {
-						// Split by & (AND has higher precedence)
-						const andTerms = orGroup
-							.split('&')
-							.map((term) => term.trim())
-							.filter((t) => t);
-
-						// All AND terms must match
-						return andTerms.every((term) => {
-							const nameMatch = card.name.toLowerCase().includes(term);
-							const textMatch = card.text.toLowerCase().includes(term);
-							return nameMatch || textMatch;
-						});
-					});
-
-					if (!orGroupMatches) {
-						return false;
-					}
-				} else {
-					// Simple search without operators
-					const nameMatch = card.name.toLowerCase().includes(query);
-					const textMatch = card.text.toLowerCase().includes(query);
-					if (!nameMatch && !textMatch) {
-						return false;
-					}
-				}
+			if (searchQuery && !matchesSearch(searchQuery, () => [card.name, card.text])) {
+				return false;
 			}
 
 			// Multi-select faction filter

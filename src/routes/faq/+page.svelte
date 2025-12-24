@@ -2,7 +2,8 @@
 	import { faq, type FAQ } from '$lib/data/faq';
 	import Header from '$lib/components/Header.svelte';
 	import SearchInput from '$lib/components/SearchInput.svelte';
-	import { highlightSearchTerms } from '$lib/utils/highlight';
+	import { highlightSearchTerms } from '$lib/utils/highlightSearchTerms';
+	import { matchesSearch } from '$lib/utils/matchesSearch';
 
 	let searchQuery = $state('');
 
@@ -10,38 +11,7 @@
 	const filteredFAQs = $derived.by(() => {
 		if (!searchQuery.trim()) return faq;
 
-		const query = searchQuery.toLowerCase();
-		const hasOperators = query.includes('&') || query.includes('|');
-
-		return faq.filter((item) => {
-			if (hasOperators) {
-				// Split by | first (OR has lower precedence)
-				const orGroups = query.split('|').map((orTerm) => orTerm.trim());
-
-				// Each OR group passes if all its AND terms match
-				const orGroupMatches = orGroups.some((orGroup) => {
-					// Split by & (AND has higher precedence)
-					const andTerms = orGroup
-						.split('&')
-						.map((term) => term.trim())
-						.filter((t) => t);
-
-					// All AND terms must match
-					return andTerms.every((term) => {
-						const questionMatch = item.question.toLowerCase().includes(term);
-						const answerMatch = item.answer.toLowerCase().includes(term);
-						return questionMatch || answerMatch;
-					});
-				});
-
-				return orGroupMatches;
-			} else {
-				// Simple search without operators
-				const questionMatch = item.question.toLowerCase().includes(query);
-				const answerMatch = item.answer.toLowerCase().includes(query);
-				return questionMatch || answerMatch;
-			}
-		});
+		return faq.filter((item) => matchesSearch(searchQuery, () => [item.question, item.answer]));
 	});
 </script>
 

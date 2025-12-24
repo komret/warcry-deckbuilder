@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Card } from '$lib/data/cards';
-	import { highlightSearchTerms } from '$lib/utils/highlight';
+	import { highlightSearchTerms } from '$lib/utils/highlightSearchTerms';
 
 	type Props = {
 		card: Card;
