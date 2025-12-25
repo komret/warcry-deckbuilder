@@ -11,6 +11,16 @@
 			<div class="mb-6 space-y-4 text-gray-300">
 				<p>Created and maintained by Jan Komárek since 2025.</p>
 				<p>Card database created and kindly provided by Paul Hempsall.</p>
+				<p>
+					Card images downloaded from <a
+						href="http://ccggamez.com/index.php?opcja=gra&idgry=19"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-blue-500 underline hover:text-blue-400"
+					>
+						ccggamez.com
+					</a> and complemented by scans from my own collection.
+				</p>
 				<p>All rights to WarCry CCG belong to Games Workshop Ltd.</p>
 			</div>
 
