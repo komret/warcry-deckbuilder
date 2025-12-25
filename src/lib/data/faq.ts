@@ -1055,7 +1055,8 @@ export const faq: FAQ[] = [
 	},
 	{
 		id: 145,
-		question: 'What happens if I play Onward! on a committed unit and it wins combat?',
+		question:
+			'What happens if I play <span class="card-id-WA207">Onward!</span> on a committed unit and it wins combat?',
 		answer:
 			'You rout the enemy unit, but it is not destroyed, and you cannot make a follow-up attack.',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
@@ -1076,7 +1077,7 @@ export const faq: FAQ[] = [
 	{
 		id: 148,
 		question:
-			'Can Onward! or <span class="card-id-WA33">Dhargethen\'s Duskreavers</span> be used to make more than one follow-up attack?',
+			'Can <span class="card-id-WA207">Onward!</span> or <span class="card-id-WA33">Dhargethen\'s Duskreavers</span> be used to make more than one follow-up attack?',
 		answer: 'Yes.',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
@@ -1319,8 +1320,9 @@ export const faq: FAQ[] = [
 	{
 		id: 182,
 		question:
-			'Does Strike When They are Weak take effect before or after the winning unit is committed during Combat Clean-up?',
-		answer: 'Before. Strike When They are Weak should read "at the end of the tactics phase".',
+			'Does <span class="card-id-LC71">Strike When They are Weak</span> take effect before or after the winning unit is committed during Combat Clean-up?',
+		answer:
+			'Before. <span class="card-id-LC71">Strike When They are Weak</span> should read "at the end of the tactics phase".',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
 	{
@@ -1340,7 +1342,7 @@ export const faq: FAQ[] = [
 	{
 		id: 185,
 		question:
-			'What happens if Relent or We Both DIe! is rolled after combat resolution, e.g. as a rout check?',
+			'What happens if <span class="card-id-WA224">Relent or We Both Die!</span> is rolled after combat resolution, e.g. as a rout check?',
 		answer: 'It has no effect.',
 		source:
 			'https://web.archive.org/web/20051101105513/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=4528&PN=1'
@@ -1379,7 +1381,8 @@ export const faq: FAQ[] = [
 	},
 	{
 		id: 190,
-		question: 'When Reinforcements is played, who chooses their unit first?',
+		question:
+			'When <span class="card-id-SM68">Reinforcements!</span> is played, who chooses their unit first?',
 		answer: 'The player whose command it is chooses their unit first.',
 		source:
 			'https://web.archive.org/web/20050129111503/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=318'
@@ -1516,7 +1519,8 @@ export const faq: FAQ[] = [
 	},
 	{
 		id: 209,
-		question: 'How does <span class="card-id-WA192">March of the Damned</span> work in a Ranged Attack?',
+		question:
+			'How does <span class="card-id-WA192">March of the Damned</span> work in a Ranged Attack?',
 		answer:
 			'It always subtracts your roll from your combat total (be it Strength or Ranged Attack).',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
@@ -1859,7 +1863,8 @@ export const faq: FAQ[] = [
 	},
 	{
 		id: 254,
-		question: 'How does Steed of Shadow interact with <span class="card-id-WA174">High Winds</span>?',
+		question:
+			'How does <span class="card-id-WM71">Steed of Shadows</span> interact with <span class="card-id-WA174">High Winds</span>?',
 		answer: "The unit's keyword instantly changes back to Infantry before it declares the attack.",
 		source:
 			'https://web.archive.org/web/20050506085005/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=3164&PN=1'
@@ -1951,7 +1956,7 @@ export const faq: FAQ[] = [
 	{
 		id: 266,
 		question:
-			'What happens if a unit commits or readies during combat and is later exchanged with another unit via the effect on The Guest Becoms the Host?',
+			'What happens if a unit commits or readies during combat and is later exchanged with another unit via the effect on <span class="card-id-PW112">The Guest Becomes the Host</span>?',
 		answer:
 			'As the card states, "ready units remain ready and committed units remain committed". This is an exception from other effects.',
 		source:
@@ -1960,7 +1965,7 @@ export const faq: FAQ[] = [
 	{
 		id: 267,
 		question:
-			'Can I play The Guest Becomes The Host when there is only one unit left in combat or when either player only has a single unit in the play?',
+			'Can I play <span class="card-id-PW112">The Guest Becomes the Host</span> when there is only one unit left in combat or when either player only has a single unit in the play?',
 		answer: 'No.',
 		source:
 			'https://web.archive.org/web/20050416214416/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=2690&PN=1'
