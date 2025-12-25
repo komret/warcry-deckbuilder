@@ -17236,7 +17236,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'LW120',
-		name: "Whitestar's Guardians (BD)",
+		name: "Whitestar's Guardians",
 		cost: 5,
 		strength: 5,
 		tacticPoints: 5,
@@ -25648,7 +25648,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'MP45',
-		name: 'Death Dealer (MP)',
+		name: 'Death Dealer',
 		cost: 1,
 		die: 4,
 		keywords: [],
