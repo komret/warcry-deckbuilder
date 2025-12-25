@@ -422,7 +422,7 @@ export const faq: FAQ[] = [
 	{
 		id: 58,
 		question:
-			"Can Ha'asek's Grief be used if a unit is destroyed during combat, but is not actually one of the units in combat?",
+			'Can <span class="WA166">Ha\'asek\'s Grief</span> be used if a unit is destroyed during combat, but is not actually one of the units in combat?',
 		answer: 'No.',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
@@ -1845,7 +1845,7 @@ export const faq: FAQ[] = [
 		question:
 			"What kind of reactions can I trigger when I discard cards or when my opponent draws cards as a result of an opponent's static ability?",
 		answer:
-			'Because static abilities are not played, you can only play reactions to cards being discarded by an enemy card effect, but not reactions to an enemy playing an ability to discard cards. For example, when the ability on <span class="HW32">A Fortunate Wind</span> triggers, you can use  <span class="WA337">Leitdorfs Blood-oathed</span>\', but not <span class="PW79">The Birdmen of Catrazza</span>.',
+			'Because static abilities are not played, you can only play reactions to cards being discarded by an enemy card effect, but not reactions to an enemy playing an ability to discard cards. For example, when the ability on <span class="HW32">A Fortunate Wind</span> triggers, you can use  <span class="WA337">Leitdorf\'s Blood-oathed</span>, but not <span class="PW79">The Birdmen of Catrazza</span>.',
 		source:
 			'https://web.archive.org/web/20050418163922/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=2894&PN=1'
 	},
@@ -2135,7 +2135,7 @@ export const faq: FAQ[] = [
 	{
 		id: 290,
 		question:
-			"If Ha'asek's Bolt Slinger performs a ranged attack against a unit in the reserves and that unit is moved to the battle line by a card effect during combat, can its reaction be played after the combat?",
+			'If <span class="WA38">Ha\'asek\'s Bolt Slinger</span> performs a ranged attack against a unit in the reserves and that unit is moved to the battle line by a card effect during combat, can its reaction be played after the combat?',
 		answer: 'Yes.',
 		source:
 			'https://web.archive.org/web/20050505233912/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=3111&PN=1'

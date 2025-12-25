@@ -3,9 +3,11 @@
 	import Header from '$lib/components/Header.svelte';
 	import SearchInput from '$lib/components/SearchInput.svelte';
 	import FAQItem from '$lib/components/FAQItem.svelte';
+	import CardImageModal from '$lib/components/CardImageModal.svelte';
 	import { matchesSearch } from '$lib/utils/matchesSearch';
 
 	let searchQuery = $state('');
+	let selectedCardId = $state<string | null>(null);
 
 	// Filter FAQs based on search query
 	const filteredFAQs = $derived.by(() => {
@@ -13,6 +15,10 @@
 
 		return faq.filter((item) => matchesSearch(searchQuery, () => [item.question, item.answer]));
 	});
+
+	function handleCardClick(cardId: string) {
+		selectedCardId = cardId;
+	}
 </script>
 
 <div class="min-h-screen bg-gray-900 text-white">
@@ -32,7 +38,7 @@
 		<!-- FAQ List -->
 		<div class="space-y-3">
 			{#each filteredFAQs as item (item.id)}
-				<FAQItem {item} {searchQuery} />
+				<FAQItem {item} {searchQuery} onCardClick={handleCardClick} />
 			{/each}
 		</div>
 
@@ -42,4 +48,6 @@
 			</div>
 		{/if}
 	</div>
+
+	<CardImageModal cardId={selectedCardId} onclose={() => (selectedCardId = null)} />
 </div>
