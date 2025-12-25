@@ -17530,7 +17530,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW15',
-		name: 'WM',
+		name: 'Winds of Magic',
 		cost: 1,
 		die: 5,
 		keywords: [],
@@ -17613,7 +17613,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW22',
-		name: 'SD',
+		name: 'Siege of Darkness',
 		cost: 2,
 		die: 3,
 		keywords: [],
@@ -17859,7 +17859,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW41',
-		name: 'DW',
+		name: 'Dogs of War',
 		cost: 2,
 		die: 3,
 		keywords: [],
@@ -18046,7 +18046,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW55',
-		name: 'PG',
+		name: 'Path of Glory',
 		cost: 1,
 		die: 1,
 		keywords: [],
@@ -18424,7 +18424,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW83',
-		name: 'LC',
+		name: 'Legions of Chaos',
 		die: 2,
 		keywords: ['Strategy'],
 		maxCopies: 3,
@@ -18435,7 +18435,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW84',
-		name: 'SM',
+		name: 'Siege of Middenheim',
 		die: 3,
 		keywords: [],
 		maxCopies: 3,
@@ -18742,7 +18742,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW107',
-		name: 'LW',
+		name: 'Bringers of Darkness',
 		cost: 3,
 		die: 3,
 		keywords: [],
@@ -18754,7 +18754,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW108',
-		name: 'HW',
+		name: 'Harbingers of War',
 		cost: 4,
 		die: 2,
 		keywords: [],
@@ -19170,7 +19170,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW141',
-		name: 'BR',
+		name: 'Bearers of Redemption',
 		die: 3,
 		keywords: ['Strategy'],
 		maxCopies: 3,
@@ -19181,7 +19181,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PW142',
-		name: 'SR',
+		name: 'Swords of Retribution',
 		cost: 2,
 		die: 3,
 		keywords: [],
@@ -28331,7 +28331,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PA2',
-		name: 'WA',
+		name: 'War of Attrition',
 		die: 3,
 		keywords: [],
 		maxCopies: 3,
@@ -28342,7 +28342,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PA3',
-		name: 'HF',
+		name: 'Hand of Fate',
 		die: 5,
 		keywords: ['Strategy'],
 		maxCopies: 3,
@@ -28910,7 +28910,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PA48',
-		name: 'MP',
+		name: 'Marks of Power',
 		die: 4,
 		keywords: ['Strategy'],
 		maxCopies: 3,
@@ -28935,7 +28935,7 @@ export const cards: Card[] = [
 	},
 	{
 		id: 'PA50',
-		name: 'VB',
+		name: 'Veterans of Battle',
 		die: 3,
 		keywords: ['Strategy'],
 		maxCopies: 3,
