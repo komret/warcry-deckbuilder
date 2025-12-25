@@ -109,7 +109,7 @@ export const faq: FAQ[] = [
 	{
 		id: 15,
 		question:
-			'If you use Birdmen of Catrazza’s Reaction to attach an action card to them, do they get the benefits from cards that say “while this card is attached …”?',
+			'If you use <span class="PW79">The Birdmen of Catrazza</span>\'s Reaction to attach an action card to them, do they get the benefits from cards that say “while this card is attached …”?',
 		answer:
 			'Not if the attached effect is part of a Combat Tactic (i.e. there is no paragraph break between the Combat Tactic text and the attached effect).',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
@@ -117,7 +117,7 @@ export const faq: FAQ[] = [
 	{
 		id: 16,
 		question:
-			'If you play an action card that attaches itself to a unit, can you use the Birdmen of Catrazza’s Combat Tactic to discard and play the attached card?',
+			'If you play an action card that attaches itself to a unit, can you use the <span class="PW79">The Birdmen of Catrazza</span>’s Combat Tactic to discard and play the attached card?',
 		answer: 'Yes.',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
@@ -373,14 +373,14 @@ export const faq: FAQ[] = [
 	{
 		id: 51,
 		question:
-			'When using the WarCry on <span class="SD10">Minotaur</span>\'s Bane, can you nominate the unit it\'s attached to?',
+			'When using the WarCry on <span class="SD10">Minotaur\'s Bane</span>, can you nominate the unit it\'s attached to?',
 		answer: 'Yes.',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
 	{
 		id: 52,
 		question:
-			'What happens if you use the WarCry on <span class="SD10">Minotaur</span>\'s Bane, nominate the unit it\'s attached to and lose the combat?',
+			'What happens if you use the WarCry on <span class="SD10">Minotaur\'s Bane</span>, nominate the unit it\'s attached to and lose the combat?',
 		answer: 'Your unit is destroyed. The enemy may follow-up as normal.',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
@@ -484,7 +484,7 @@ export const faq: FAQ[] = [
 	{
 		id: 66,
 		question:
-			'If two delayed triggers cause a unit to be destroyed and prevent it from being destroyed at the same time (e.g. Bow of the Seafarer and <span class="CD30">Sacrificial Unit</span>), what happens to the unit?',
+			'If two delayed triggers cause a unit to be destroyed and prevent it from being destroyed at the same time (e.g. <span class="SD120">The Bow of the Seafarer</span> and <span class="CD30">Sacrificial Unit</span>), what happens to the unit?',
 		answer: 'Preservation effect takes precedence.',
 		source:
 			'https://web.archive.org/web/20050418162758/http://www.sabertoothgames.com/forum/forum_posts.asp?TID=2898&PN=1'
@@ -1298,7 +1298,7 @@ export const faq: FAQ[] = [
 		question:
 			'How do cards/abilities that take up multiple sentences work? What if one of the sentences includes a "may ..." disclaimer?',
 		answer:
-			'Resolve each sentence in order. If a sentence is not, or cannot, be resolved, it attempts to do as much as possible. Optional sentences do not need to be resolved in order to move on. Sentences that involve playing cards from your hand, or otherwise putting them in play (e.g. Birdmen of Catrazza) are also considered optional.',
+			'Resolve each sentence in order. If a sentence is not, or cannot, be resolved, it attempts to do as much as possible. Optional sentences do not need to be resolved in order to move on. Sentences that involve playing cards from your hand, or otherwise putting them in play (e.g. <span class="PW79">The Birdmen of Catrazza</span>) are also considered optional.',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
 	{
