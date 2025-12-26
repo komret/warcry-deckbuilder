@@ -1713,7 +1713,7 @@ export const faq: FAQ[] = [
 	{
 		id: 234,
 		question:
-			'If I play <span class="card-id-WA201">Nobody Lives Forever!</span> and may enemy destroys a unit, does it count as my unit destroying an enemy unit? For example, will it trigger the reaction on <span class="card-id-WA312">Malakai Makaisson\'s Goblin-Hewer</span>?',
+			'If I play <span class="card-id-WA201">Nobody Lives Forever!</span> and my enemy destroys a unit, does it count as my unit destroying an enemy unit? For example, will it trigger the reaction on <span class="card-id-WA312">Malakai Makaisson\'s Goblin-Hewer</span>?',
 		answer:
 			'No, because the unit is destroyed by your enemy. This is different from cards like <span class="card-id-WA277">Wind of Death</span> or <span class="card-id-WA156">Fire on Them Both</span>.',
 		source:
