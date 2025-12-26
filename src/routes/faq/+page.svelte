@@ -3,7 +3,6 @@
 	import { cards } from '$lib/data/cards';
 	import Header from '$lib/components/Header.svelte';
 	import SearchInput from '$lib/components/SearchInput.svelte';
-	import AutocompleteInput from '$lib/components/AutocompleteInput.svelte';
 	import SelectableInput from '$lib/components/SelectableInput.svelte';
 	import FilterSection from '$lib/components/FilterSection.svelte';
 	import FAQItem from '$lib/components/FAQItem.svelte';

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import AutocompleteInput from './AutocompleteInput.svelte';
 	import type { Keyword } from '$lib/data/cards';
 
 	type Item = {
@@ -144,7 +143,7 @@
 					<span class="mr-1 inline-flex items-center">
 						<button
 							onclick={() => (rest as MultiSelectionProps).onToggleOperator(index)}
-							class="flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-gray-600 text-sm font-medium text-white transition-colors hover:bg-gray-500 focus:bg-gray-500 focus:outline-none"
+							class="flex h-4 w-4 cursor-pointer items-center justify-center rounded bg-gray-600 text-xs font-medium text-white transition-colors hover:bg-gray-500 focus:bg-gray-500 focus:outline-none"
 							title="Click to toggle between AND (&) and OR (|)"
 							aria-label="Toggle operator between {item} and next keyword"
 						>
