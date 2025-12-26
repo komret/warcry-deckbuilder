@@ -451,7 +451,7 @@
 		<div class="mb-4 rounded-lg bg-gray-800 p-4 shadow-xl">
 			<!-- Search -->
 			<div class="mb-4">
-				<SearchInput bind:value={searchQuery} label="Title or text" />
+				<SearchInput bind:value={searchQuery} label="Name or text" />
 			</div>
 
 			<!-- Keyword Filter and Dropdowns Row -->
