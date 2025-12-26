@@ -530,13 +530,13 @@
 					<label for="keyword-input" class="mb-2 block text-sm font-medium">Keywords</label>
 					<div class="relative">
 						<div
-							class="flex min-h-[42px] flex-wrap items-center gap-2 rounded-lg border border-gray-600 bg-gray-700 px-3"
+							class="flex min-h-[42px] flex-wrap items-center rounded-lg border border-gray-600 bg-gray-700 px-2 py-1"
 						>
 							{#each selectedKeywords as keyword, index}
 								<button
 									onclick={() => removeKeyword(keyword)}
 									title="Remove keyword"
-									class="text-xs font-medium text-gray-300 hover:text-white focus:outline-none"
+									class="rounded bg-transparent px-1 py-0.5 font-normal text-white hover:bg-gray-600 focus:outline-none"
 									aria-label="Remove {keyword}"
 								>
 									{keyword}
@@ -544,7 +544,7 @@
 								{#if index < selectedKeywords.length - 1}
 									<button
 										onclick={() => toggleOperator(index)}
-										class="rounded bg-gray-600 px-2 py-1 text-xs font-medium text-white hover:bg-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+										class="rounded bg-gray-600 px-1 py-0.5 text-xs font-medium text-white hover:bg-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 									>
 										{keywordOperators[index] === '|' ? '|' : '&'}
 									</button>

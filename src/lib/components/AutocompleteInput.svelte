@@ -11,9 +11,19 @@
 		label?: string;
 		onSelect: (item: Item) => void;
 		onInput?: () => void;
+		isSelected?: boolean;
+		onClear?: () => void;
 	};
 
-	let { items, value = $bindable(''), label, onSelect, onInput }: Props = $props();
+	let {
+		items,
+		value = $bindable(''),
+		label,
+		onSelect,
+		onInput,
+		isSelected = false,
+		onClear
+	}: Props = $props();
 
 	let showSuggestions = $state(false);
 	let selectedSuggestionIndex = $state(0);
@@ -60,15 +70,25 @@
 		id="autocomplete-input"
 		type="text"
 		bind:value
+		readonly={isSelected}
 		onkeydown={handleKeydown}
-		onfocus={() => (showSuggestions = true)}
+		onfocus={() => (showSuggestions = !isSelected)}
 		onblur={() => setTimeout(() => (showSuggestions = false), 200)}
-		oninput={() => {
-			showSuggestions = true;
-			selectedSuggestionIndex = 0;
-			onInput?.();
+		onclick={() => {
+			if (isSelected && onClear) {
+				onClear();
+			}
 		}}
-		class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+		oninput={() => {
+			if (!isSelected) {
+				showSuggestions = true;
+				selectedSuggestionIndex = 0;
+				onInput?.();
+			}
+		}}
+		class="w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none {isSelected
+			? 'cursor-pointer'
+			: ''}"
 	/>
 	{#if showSuggestions && filteredSuggestions.length > 0}
 		<div
