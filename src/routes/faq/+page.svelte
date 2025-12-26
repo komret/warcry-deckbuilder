@@ -79,8 +79,9 @@
 		<FilterSection
 			resultsCount={filteredFAQs.length}
 			onReset={resetFilters}
-			selectedCardName={selectedCard ? cards.find((c) => c.id === selectedCard)?.name : undefined}
-			selectedCardId={selectedCard}
+			selectedCard={selectedCard
+				? cards.find((c) => c.id === selectedCard) || undefined
+				: undefined}
 			onCardClick={handleCardClick}
 			{hasActiveFilters}
 		>

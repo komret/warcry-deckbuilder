@@ -1,10 +1,12 @@
 <script lang="ts">
+	import Card from './Card.svelte';
+	import type { Card as CardType } from '$lib/data/cards';
+
 	type Props = {
 		resultsCount: number;
 		onReset: () => void;
 		children: any;
-		selectedCardName?: string;
-		selectedCardId?: string | null;
+		selectedCard?: CardType;
 		onCardClick?: (cardId: string) => void;
 		hasActiveFilters?: boolean;
 	};
@@ -13,8 +15,7 @@
 		resultsCount,
 		onReset,
 		children,
-		selectedCardName,
-		selectedCardId,
+		selectedCard,
 		onCardClick,
 		hasActiveFilters = false
 	}: Props = $props();
@@ -25,20 +26,17 @@
 	{@render children()}
 </div>
 
+<!-- Selected Card Display -->
+{#if selectedCard && onCardClick}
+	<div class="mb-4">
+		<Card card={selectedCard} onclick={() => onCardClick(selectedCard.id)} />
+	</div>
+{/if}
+
 <!-- Results Count -->
 <div class="mb-4 flex items-center justify-between">
 	<div class="text-sm text-gray-400">
-		{#if selectedCardName && !!selectedCardId && onCardClick}
-			{resultsCount} result{resultsCount !== 1 ? 's' : ''} for
-			<button
-				onclick={() => onCardClick(selectedCardId)}
-				class="cursor-pointer text-blue-400 transition-colors hover:text-blue-300"
-			>
-				{selectedCardName}
-			</button>
-		{:else}
-			{resultsCount} result{resultsCount !== 1 ? 's' : ''}
-		{/if}
+		{resultsCount} result{resultsCount !== 1 ? 's' : ''}
 	</div>
 	<button
 		onclick={onReset}

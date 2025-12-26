@@ -7754,7 +7754,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Unit',
 		rarity: 'Uncommon',
-		text: '<p>After this unit enters combat woth a unit with "<b>Terror</b>", commit this unit.</p>',
+		text: '<p>After this unit enters combat with a unit with "<b>Terror</b>", commit this unit.</p>',
 		releases: {
 			DW: 15
 		},
@@ -35256,7 +35256,7 @@ export const cards: Card[] = [
 		maxCopies: 3,
 		faction: 'Neutral',
 		type: 'Reaction',
-		text: "<p><b>Reaction</b>: After one of your units has been destroyed in combat, put 1 poison token on the enemy unit and return this card to your hand (you may not react to the same trigger again with any copy of this card).</p><p><b>Reaction</b>: After one of your units enters combat against a unit with at least X pison tokens, rout and destroy that unit. X equals the enemy unit's printed strength plus 1.</p>",
+		text: "<p><b>Reaction</b>: After one of your units has been destroyed in combat, put 1 poison token on the enemy unit and return this card to your hand (you may not react to the same trigger again with any copy of this card).</p><p><b>Reaction</b>: After one of your units enters combat against a unit with at least X poison tokens, rout and destroy that unit. X equals the enemy unit's printed strength plus 1.</p>",
 		releases: {
 			PA: 25
 		},

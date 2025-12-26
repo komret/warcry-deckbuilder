@@ -863,7 +863,7 @@ export const faq: FAQ[] = [
 	},
 	{
 		id: 118,
-		question: 'What does it "WarCry cards and abilities" mean?',
+		question: 'What does "WarCry cards and abilities" mean?',
 		answer: 'It is short for WarCry cards and WarCry abilities.',
 		source: 'https://web.archive.org/web/20071015175836/http://sabertoothgames.com/warcry/faq.asp'
 	},
