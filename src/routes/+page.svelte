@@ -21,6 +21,7 @@
 	import SelectableInput from '$lib/components/SelectableInput.svelte';
 	import FilterSection from '$lib/components/FilterSection.svelte';
 	import { matchesSearch } from '$lib/utils/matchesSearch';
+	import { onMount } from 'svelte';
 
 	// Type definitions
 	type NumericOperator = 'exact' | 'higher' | 'lower';
@@ -140,6 +141,63 @@
 	// Filtered results (updated after debounce)
 	let filteredCards = $state<typeof cards>([]);
 	let filterDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+	onMount(() => {
+		const saved = localStorage.getItem('homeFilters');
+		if (saved) {
+			try {
+				const f = JSON.parse(saved);
+				searchQuery = f.searchQuery ?? DEFAULT_FILTERS.searchQuery;
+				selectedFactions = new Set(f.selectedFactions ?? []);
+				selectedTypes = new Set(f.selectedTypes ?? []);
+				selectedRarities = new Set(f.selectedRarities ?? []);
+				selectedSet = f.selectedSet ?? DEFAULT_FILTERS.selectedSet;
+				selectedFormat = f.selectedFormat ?? DEFAULT_FILTERS.selectedFormat;
+				selectedKeywords = f.selectedKeywords ?? DEFAULT_FILTERS.selectedKeywords;
+				keywordOperators = f.keywordOperators ?? DEFAULT_FILTERS.keywordOperators;
+				keywordInput = f.keywordInput ?? DEFAULT_FILTERS.keywordInput;
+				uniqueFilter = f.uniqueFilter ?? DEFAULT_FILTERS.uniqueFilter;
+				costOperator = f.costOperator ?? DEFAULT_FILTERS.costOperator;
+				costValue = f.costValue ?? DEFAULT_FILTERS.costValue;
+				strengthOperator = f.strengthOperator ?? DEFAULT_FILTERS.strengthOperator;
+				strengthValue = f.strengthValue ?? DEFAULT_FILTERS.strengthValue;
+				tacticPointsOperator = f.tacticPointsOperator ?? DEFAULT_FILTERS.tacticPointsOperator;
+				tacticPointsValue = f.tacticPointsValue ?? DEFAULT_FILTERS.tacticPointsValue;
+				leadershipOperator = f.leadershipOperator ?? DEFAULT_FILTERS.leadershipOperator;
+				leadershipValue = f.leadershipValue ?? DEFAULT_FILTERS.leadershipValue;
+				dieOperator = f.dieOperator ?? DEFAULT_FILTERS.dieOperator;
+				dieValue = f.dieValue ?? DEFAULT_FILTERS.dieValue;
+			} catch (e) {
+				console.warn('Failed to load saved filters', e);
+			}
+		}
+	});
+
+	$effect(() => {
+		const filters = {
+			searchQuery,
+			selectedFactions: Array.from(selectedFactions),
+			selectedTypes: Array.from(selectedTypes),
+			selectedRarities: Array.from(selectedRarities),
+			selectedSet,
+			selectedFormat,
+			selectedKeywords,
+			keywordOperators,
+			keywordInput,
+			uniqueFilter,
+			costOperator,
+			costValue,
+			strengthOperator,
+			strengthValue,
+			tacticPointsOperator,
+			tacticPointsValue,
+			leadershipOperator,
+			leadershipValue,
+			dieOperator,
+			dieValue
+		};
+		localStorage.setItem('homeFilters', JSON.stringify(filters));
+	});
 
 	// Watch for filter changes and trigger debounced filter update
 	$effect(() => {
