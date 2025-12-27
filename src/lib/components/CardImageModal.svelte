@@ -14,6 +14,11 @@
 		}
 	});
 
+	function handleImageClick(e: Event) {
+		e.stopPropagation();
+		onclose();
+	}
+
 	// Mapping of missing WA card images to their alternative filenames from other sets
 	// Remove items from this list as images are added
 	const waCardFallbacks: Record<string, string> = {
@@ -54,28 +59,19 @@
 			role="button"
 			tabindex="0"
 		>
-			<!-- Close button -->
+			<!-- Card image -->
 			<button
 				type="button"
-				class="absolute -top-4 -right-4 rounded-full bg-gray-800 p-2 text-white hover:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-				onclick={onclose}
+				class="border-none bg-transparent p-0 focus:outline-none"
+				onclick={handleImageClick}
 				aria-label="Close card image"
 			>
-				<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M6 18L18 6M6 6l12 12"
-					/>
-				</svg>
+				<img
+					src="/cards/{getImageFilename()}"
+					alt="Card {cardId}"
+					class="max-h-[90vh] w-auto rounded-lg shadow-2xl"
+				/>
 			</button>
-			<!-- Card image -->
-			<img
-				src="/cards/{getImageFilename()}"
-				alt="Card {cardId}"
-				class="max-h-[90vh] w-auto rounded-lg shadow-2xl"
-			/>
 		</div>
 	</div>
 {/if}
