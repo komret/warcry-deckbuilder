@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Card as CardType } from '$lib/data/cards';
+	import CardControls from './CardControls.svelte';
 
 	type Props = {
 		title: string;
@@ -32,32 +33,13 @@
 							<div class="truncate text-sm font-medium text-white">{card.name}</div>
 							<div class="text-xs text-gray-400">{card.type} • {card.faction}</div>
 						</div>
-						<div class="ml-2 flex items-center">
-							<button
-								onclick={() => onRemoveCard(cardId)}
-								class="flex h-6 w-6 items-center justify-center text-lg {count <= 0
-									? 'cursor-pointer text-red-400 hover:text-red-300'
-									: 'cursor-pointer text-blue-300 hover:text-blue-400'} focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-50"
-								disabled={false}
-								aria-label={count === 0 ? 'Remove card from deck' : 'Remove one copy'}
-							>
-								{count === 0 ? '×' : '−'}
-							</button>
-							<span class="flex h-6 w-7 items-center justify-center text-lg text-gray-300"
-								>{count}</span
-							>
-							<button
-								onclick={() => onAddCard(cardId)}
-								class="flex h-6 w-6 items-center justify-center text-lg {count >=
-								(card.maxCopies || 3)
-									? 'cursor-default text-gray-400'
-									: 'cursor-pointer text-blue-300 hover:text-blue-400'} focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-50"
-								disabled={count >= (card.maxCopies || 3)}
-								aria-label="Add one copy"
-							>
-								+
-							</button>
-						</div>
+						<CardControls
+							{count}
+							maxCopies={card.maxCopies || 3}
+							onRemove={() => onRemoveCard(cardId)}
+							onAdd={() => onAddCard(cardId)}
+							showRemoveAsCross={true}
+						/>
 					</div>
 				{/if}
 			{/each}

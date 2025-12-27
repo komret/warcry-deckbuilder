@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Card as CardType } from '$lib/data/cards';
+	import type { Card as CardType, Type } from '$lib/data/cards';
 	import DeckSection from './DeckSection.svelte';
 
 	type Props = {
@@ -17,7 +17,7 @@
 	}
 
 	// Helper function to get filtered and sorted cards
-	function getFilteredCards(cardTypes: string[]): [string, number][] {
+	function getFilteredCards(cardTypes: Type[]): [string, number][] {
 		return Array.from(deck.entries())
 			.filter(([cardId]) => {
 				const card = getCard(cardId);
@@ -33,7 +33,7 @@
 
 	// Calculate deck sections
 	const armyCards = $derived(() => getFilteredCards(['Unit', 'Attachment']));
-	const actionCards = $derived(() => getFilteredCards(['Tactic', 'Command', 'Reaction', 'Objective']));
+	const actionCards = $derived(() => getFilteredCards(['Tactic', 'Command', 'Reaction']));
 
 	const armyTotal = $derived(() => {
 		return armyCards().reduce((sum: number, [, count]: [string, number]) => sum + count, 0);
@@ -70,9 +70,9 @@
 			cards={armyCards()}
 			total={armyTotal()}
 			required={30}
-			getCard={getCard}
-			onRemoveCard={onRemoveCard}
-			onAddCard={onAddCard}
+			{getCard}
+			{onRemoveCard}
+			{onAddCard}
 		/>
 
 		<DeckSection
@@ -80,9 +80,9 @@
 			cards={actionCards()}
 			total={actionTotal()}
 			required={30}
-			getCard={getCard}
-			onRemoveCard={onRemoveCard}
-			onAddCard={onAddCard}
+			{getCard}
+			{onRemoveCard}
+			{onAddCard}
 		/>
 	</div>
 </div>
