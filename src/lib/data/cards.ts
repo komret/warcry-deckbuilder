@@ -10467,7 +10467,6 @@ export const cards: Card[] = [
 		releases: {
 			PG: 54
 		},
-		banned: true,
 		faq: [291]
 	},
 	{
@@ -27358,6 +27357,7 @@ export const cards: Card[] = [
 		releases: {
 			SR: 33
 		},
+		banned: true,
 		faq: [194, 291]
 	},
 	{
