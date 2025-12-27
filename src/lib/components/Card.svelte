@@ -9,6 +9,9 @@
 		showErrataHighlight?: boolean;
 		onclick?: () => void;
 		isOnFaqPage?: boolean;
+		deckCount?: number;
+		onAddToDeck?: () => void;
+		onRemoveFromDeck?: () => void;
 	};
 
 	let {
@@ -16,7 +19,10 @@
 		searchQuery = '',
 		showErrataHighlight = false,
 		onclick,
-		isOnFaqPage = false
+		isOnFaqPage = false,
+		deckCount = 0,
+		onAddToDeck,
+		onRemoveFromDeck
 	}: Props = $props();
 
 	// Replace errata class with text-blue-500 if showing errata highlights
@@ -68,10 +74,17 @@
 	const strengthCircleColor = $derived(getStrengthCircleColor(card.faction));
 </script>
 
-<button
-	type="button"
+<div
 	class="w-full cursor-default rounded-lg border border-gray-700 bg-gray-800 p-4 text-left shadow-lg transition-all hover:border-blue-500 hover:shadow-xl"
+	role="button"
+	tabindex="0"
 	{onclick}
+	onkeydown={(e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			onclick?.();
+		}
+	}}
 >
 	<!-- Two column layout on larger screens, single column on mobile -->
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(auto,380px)_1fr]">
@@ -203,27 +216,70 @@
 			</div>
 
 			{#if !isOnFaqPage && card.faq && card.faq.length > 0}
-				<span
-					class="flex h-5 w-5 cursor-pointer items-center justify-center self-end text-gray-500 hover:text-blue-300"
-					role="button"
-					title="Show related FAQ"
-					tabindex="0"
-					aria-label="Go to FAQ for this card"
-					onclick={(e) => {
-						e.stopPropagation();
-						goto(`/faq?card=${card.id}`);
-					}}
-					onkeydown={(e) => {
-						if (e.key === 'Enter' || e.key === ' ') {
-							e.preventDefault();
+				<div
+					class="flex items-center gap-2 self-end"
+					onclick={(e) => e.stopPropagation()}
+					role="presentation"
+				>
+					<!-- FAQ Button -->
+					<span
+						class="flex h-6 w-6 cursor-pointer items-center justify-center text-lg text-blue-300 hover:text-blue-400"
+						role="button"
+						title="Show related FAQ"
+						tabindex="0"
+						aria-label="Go to FAQ for this card"
+						onclick={(e) => {
 							e.stopPropagation();
 							goto(`/faq?card=${card.id}`);
-						}
-					}}
-				>
-					?
-				</span>
+						}}
+						onkeydown={(e) => {
+							if (e.key === 'Enter' || e.key === ' ') {
+								e.preventDefault();
+								e.stopPropagation();
+								goto(`/faq?card=${card.id}`);
+							}
+						}}
+					>
+						?
+					</span>
+
+					<!-- Deck Controls -->
+					{#if onAddToDeck && onRemoveFromDeck}
+						<div class="flex items-center">
+							<button
+								onclick={(e) => {
+									e.stopPropagation();
+									onRemoveFromDeck();
+								}}
+								class="flex h-6 w-6 items-center justify-center text-lg {deckCount <= 0
+									? 'cursor-default text-gray-400'
+									: 'cursor-pointer text-blue-300 hover:text-blue-400'} focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-50"
+								disabled={deckCount <= 0}
+								aria-label="Remove from deck"
+							>
+								−
+							</button>
+							<span class="flex h-6 w-7 items-center justify-center text-lg text-gray-300"
+								>{deckCount}</span
+							>
+							<button
+								onclick={(e) => {
+									e.stopPropagation();
+									onAddToDeck();
+								}}
+								class="flex h-6 w-6 items-center justify-center text-lg {deckCount >=
+								(card.maxCopies || 3)
+									? 'cursor-default text-gray-400'
+									: 'cursor-pointer text-blue-300 hover:text-blue-400'} focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-50"
+								disabled={deckCount >= (card.maxCopies || 3)}
+								aria-label="Add to deck"
+							>
+								+
+							</button>
+						</div>
+					{/if}
+				</div>
 			{/if}
 		</div>
 	</div>
-</button>
+</div>

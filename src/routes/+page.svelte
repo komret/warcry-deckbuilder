@@ -20,6 +20,7 @@
 	import SearchInput from '$lib/components/SearchInput.svelte';
 	import SelectableInput from '$lib/components/SelectableInput.svelte';
 	import FilterSection from '$lib/components/FilterSection.svelte';
+	import DeckBuilder from '$lib/components/DeckBuilder.svelte';
 	import { matchesSearch } from '$lib/utils/matchesSearch';
 	import { onMount } from 'svelte';
 
@@ -138,6 +139,9 @@
 	// Modal state
 	let selectedCardId = $state<string | null>(null);
 
+	// Deck state
+	let deck = $state(new Map<string, number>());
+
 	// Filtered results (updated after debounce)
 	let filteredCards = $state<typeof cards>([]);
 	let filterDebounceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -171,6 +175,17 @@
 				console.warn('Failed to load saved filters', e);
 			}
 		}
+
+		// Load deck
+		const savedDeck = localStorage.getItem('deck');
+		if (savedDeck) {
+			try {
+				const deckData = JSON.parse(savedDeck);
+				deck = new Map(Object.entries(deckData));
+			} catch (e) {
+				console.warn('Failed to load saved deck', e);
+			}
+		}
 	});
 
 	$effect(() => {
@@ -197,6 +212,12 @@
 			dieValue
 		};
 		localStorage.setItem('homeFilters', JSON.stringify(filters));
+	});
+
+	// Save deck to localStorage
+	$effect(() => {
+		const deckData = Object.fromEntries(deck);
+		localStorage.setItem('deck', JSON.stringify(deckData));
 	});
 
 	// Watch for filter changes and trigger debounced filter update
@@ -442,6 +463,29 @@
 		dieValue = DEFAULT_FILTERS.dieValue;
 	}
 
+	// Deck functions
+	function addToDeck(cardId: string) {
+		const currentCount = deck.get(cardId) || 0;
+		const card = cards.find((c) => c.id === cardId);
+		const maxCopies = card?.maxCopies || 3;
+		if (currentCount < maxCopies) {
+			deck.set(cardId, currentCount + 1);
+			deck = new Map(deck); // Trigger reactivity
+		}
+	}
+
+	function removeFromDeck(cardId: string) {
+		const currentCount = deck.get(cardId) || 0;
+		if (currentCount > 0) {
+			if (currentCount === 1) {
+				deck.delete(cardId);
+			} else {
+				deck.set(cardId, currentCount - 1);
+			}
+			deck = new Map(deck); // Trigger reactivity
+		}
+	}
+
 	// Compute filtered cards based on current filter state
 	function computeFilteredCards() {
 		return cards.filter((card) => {
@@ -576,6 +620,8 @@
 <div class="min-h-screen bg-gray-900 text-white">
 	<div class="mx-auto max-w-7xl px-4 py-8">
 		<Header currentPage="home" />
+
+		<DeckBuilder {deck} {cards} onRemoveCard={removeFromDeck} onAddCard={addToDeck} />
 
 		<FilterSection resultsCount={filteredCards.length} onReset={resetFilters} {hasActiveFilters}>
 			<!-- Search -->
@@ -903,7 +949,14 @@
 		<!-- Cards List -->
 		<div class="space-y-4">
 			{#each filteredCards as card, index (card.name + '-' + index)}
-				<Card {card} {searchQuery} onclick={() => (selectedCardId = card.id)} />
+				<Card
+					{card}
+					{searchQuery}
+					deckCount={deck.get(card.id) || 0}
+					onAddToDeck={() => addToDeck(card.id)}
+					onRemoveFromDeck={() => removeFromDeck(card.id)}
+					onclick={() => (selectedCardId = card.id)}
+				/>
 			{/each}
 		</div>
 
