@@ -82,8 +82,9 @@
 			<h2 class="mb-4 text-xl font-bold">Notes</h2>
 			<div class="space-y-4 text-gray-300">
 				<p>
-					The lists of errata and banned cards are based on official rulings. I collected them from
-					various sources and cannot guarantee their accuracy or exhaustiveness.
+					The lists of errata and banned cards as well as the FAQ entries are based on official
+					rulings. I collected them from various sources and cannot guarantee their accuracy or
+					exhaustiveness.
 				</p>
 				<p>
 					The restricted formats supported by the deckbuilder all represent a state the game was in
