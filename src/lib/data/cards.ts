@@ -8435,8 +8435,8 @@ export const cards: Card[] = [
 		faq: [124]
 	},
 	{
-		id: 'DW55',
-		name: 'Leitdorf Maneuver',
+		id: 'WA182',
+		name: 'Leittdorf Maneuver',
 		cost: 1,
 		die: 3,
 		keywords: [],
@@ -8446,7 +8446,8 @@ export const cards: Card[] = [
 		rarity: 'Rare',
 		text: '<p><b>Combat Tactic</b>: Play a support tactic printed on this unit paying all costs.</p>',
 		releases: {
-			DW: 55
+			DW: 55,
+			WA: 182
 		},
 		faq: []
 	},
@@ -10245,7 +10246,7 @@ export const cards: Card[] = [
 		faq: []
 	},
 	{
-		id: 'PG41',
+		id: 'WA155',
 		name: 'Fire as They Come',
 		cost: 2,
 		die: 3,
@@ -10256,7 +10257,8 @@ export const cards: Card[] = [
 		rarity: 'Rare',
 		text: "<p><b>Combat Tactic</b>: This unit gets a strength bonus equal to half of it's ranged attack (rounded down).</p>",
 		releases: {
-			PG: 41
+			PG: 41,
+			WA: 155
 		},
 		faq: []
 	},
@@ -10754,7 +10756,7 @@ export const cards: Card[] = [
 		faq: [112, 114]
 	},
 	{
-		id: 'PG73',
+		id: 'WA249',
 		name: 'Strike as They Are Falling',
 		cost: 2,
 		die: 3,
@@ -10765,7 +10767,8 @@ export const cards: Card[] = [
 		rarity: 'Common',
 		text: '<p><b>Combat Tactic</b>: This unit gets +1 strength.Draw 1 card.</p>',
 		releases: {
-			PG: 73
+			PG: 73,
+			WA: 249
 		},
 		faq: []
 	},
@@ -13063,8 +13066,8 @@ export const cards: Card[] = [
 		faq: []
 	},
 	{
-		id: 'LC49',
-		name: 'Fire On Them Both',
+		id: 'WA156',
+		name: 'Fire on Them Both',
 		cost: 1,
 		die: 3,
 		keywords: [],
@@ -13074,9 +13077,10 @@ export const cards: Card[] = [
 		rarity: 'Uncommon',
 		text: '<p><b>WarCry</b>: Choose one enemy unit not in this combat. The enemy unit gets a strength and tactic point bonus equal to those of the chosen unit. If you win this combat, the chosen unit suffers the same result as the enemy unit.</p><p>Only playable during a ranged attack by the attacker.</p>',
 		releases: {
-			LC: 49
+			LC: 49,
+			WA: 156
 		},
-		faq: [4]
+		faq: []
 	},
 	{
 		id: 'LC50',
@@ -13427,8 +13431,8 @@ export const cards: Card[] = [
 		faq: [182]
 	},
 	{
-		id: 'LC72',
-		name: 'Take Up The Charge',
+		id: 'WA257',
+		name: 'Take Up the Charge',
 		die: 3,
 		keywords: [],
 		maxCopies: 3,
@@ -13437,7 +13441,8 @@ export const cards: Card[] = [
 		rarity: 'Common',
 		text: '<p><b>Reaction</b>: After you rout an enemy unit, exchange this unit with one of your other ready units. The new unit performs the follow-up attack.</p>',
 		releases: {
-			LC: 72
+			LC: 72,
+			WA: 257
 		},
 		faq: []
 	},
@@ -15863,8 +15868,8 @@ export const cards: Card[] = [
 		faq: [95]
 	},
 	{
-		id: 'SM81',
-		name: 'The Time is Not Right',
+		id: 'WA260',
+		name: 'The Time Is Not Right',
 		die: 5,
 		keywords: [],
 		maxCopies: 3,
@@ -15873,7 +15878,8 @@ export const cards: Card[] = [
 		rarity: 'Rare',
 		text: '<p><b>Command</b> Discard 1 card: Draw 2 cards.</p><p><b>Spell Command</b> (1): All action cards attached to units are discarded.</p>',
 		releases: {
-			SM: 81
+			SM: 81,
+			WA: 260
 		},
 		faq: []
 	},
@@ -17990,7 +17996,7 @@ export const cards: Card[] = [
 		faq: [194]
 	},
 	{
-		id: 'HW85',
+		id: 'WA262',
 		name: 'The Weak Fall, the Strong Stand',
 		die: 4,
 		keywords: [],
@@ -18000,7 +18006,8 @@ export const cards: Card[] = [
 		rarity: 'Rare',
 		text: '<p><b>Command</b>: Choose a unit with a strength of 0 (or less). That unit is destroyed.</p>',
 		releases: {
-			HW: 85
+			HW: 85,
+			WA: 262
 		},
 		faq: []
 	},
@@ -28770,115 +28777,6 @@ export const cards: Card[] = [
 		text: '<p>High Elf Only</p><p><b>Support WarCry</b>: Your High Elf unit gets +1 strength. If your High Elf unit has at least twice as many printed tactic points than the enemy unit, it gets +3 strength instead.</p>',
 		releases: {
 			SR: 120
-		},
-		faq: []
-	},
-	{
-		id: 'WA155',
-		name: 'Fire As They Come',
-		cost: 2,
-		die: 3,
-		keywords: [],
-		maxCopies: 3,
-		faction: 'Neutral',
-		type: 'Tactic',
-		rarity: 'Rare',
-		text: "<p><b>Combat Tactic</b>: This unit gets a strength bonus equal to half of it's ranged attack (rounded down).</p>",
-		releases: {
-			WA: 155
-		},
-		faq: []
-	},
-	{
-		id: 'WA156',
-		name: 'Fire on Them Both',
-		cost: 1,
-		die: 3,
-		keywords: [],
-		maxCopies: 3,
-		faction: 'Neutral',
-		type: 'Tactic',
-		rarity: 'Uncommon',
-		text: '<p><b>WarCry</b>: Choose one enemy unit not in this combat. The enemy unit gets a strength and tactic point bonus equal to those of the chosen unit. If you win this combat, the chosen unit suffers the same result as the enemy unit.</p><p>Only playable during a ranged attack by the attacker.</p>',
-		releases: {
-			WA: 156
-		},
-		faq: []
-	},
-	{
-		id: 'WA182',
-		name: 'Leitdorf Manuever',
-		cost: 1,
-		die: 3,
-		keywords: [],
-		maxCopies: 3,
-		faction: 'Neutral',
-		type: 'Tactic',
-		rarity: 'Rare',
-		text: '<p><b>Combat Tactic</b>: Play a support tactic printed on this unit paying all costs.</p>',
-		releases: {
-			WA: 182
-		},
-		faq: []
-	},
-	{
-		id: 'WA249',
-		name: 'Strike As They Are Falling',
-		cost: 2,
-		die: 3,
-		keywords: [],
-		maxCopies: 3,
-		faction: 'Neutral',
-		type: 'Tactic',
-		rarity: 'Common',
-		text: '<p><b>Combat Tactic</b>: This unit gets +1 strength.Draw 1 card.</p>',
-		releases: {
-			WA: 249
-		},
-		faq: []
-	},
-	{
-		id: 'WA257',
-		name: 'Take Up the Charge',
-		die: 3,
-		keywords: [],
-		maxCopies: 3,
-		faction: 'Neutral',
-		type: 'Reaction',
-		rarity: 'Common',
-		text: '<p><b>Reaction</b>: After you rout an enemy unit, exchange this unit with one of your other ready units. The new unit performs the follow-up attack.</p>',
-		releases: {
-			WA: 257
-		},
-		faq: []
-	},
-	{
-		id: 'WA260',
-		name: 'The Time Is Not Right',
-		die: 5,
-		keywords: [],
-		maxCopies: 3,
-		faction: 'Neutral',
-		type: 'Command',
-		rarity: 'Rare',
-		text: '<p><b>Command</b> Discard 1 card: Draw 2 cards.</p><p><b>Spell Command</b> (1): All action cards attached to units are discarded.</p>',
-		releases: {
-			WA: 260
-		},
-		faq: []
-	},
-	{
-		id: 'WA262',
-		name: 'The Weak Fall, The Strong Stand',
-		die: 4,
-		keywords: [],
-		maxCopies: 3,
-		faction: 'Neutral',
-		type: 'Command',
-		rarity: 'Rare',
-		text: '<p><b>Command</b>: Choose a unit with a strength of 0 (or less). That unit is destroyed.</p>',
-		releases: {
-			WA: 262
 		},
 		faq: []
 	},
