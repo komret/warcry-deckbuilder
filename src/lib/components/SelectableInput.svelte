@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Keyword } from '$lib/data/cards';
+	import ClearButton from './ClearButton.svelte';
 
 	type Item = {
 		id: string;
@@ -168,26 +169,15 @@
 			/>
 			<!-- Clear button -->
 			{#if (rest as MultiSelectionProps).selectedItems.length > 0 || value}
-				<button
-					onclick={() => {
+				<ClearButton
+					onClick={() => {
 						// Clear all selected items and input value
 						(rest as MultiSelectionProps).selectedItems.forEach((item) => {
 							(rest as MultiSelectionProps).onRemoveItem(item);
 						});
 						value = '';
 					}}
-					class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
-					aria-label="Clear all keywords"
-				>
-					<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M6 18L18 6M6 6l12 12"
-						/>
-					</svg>
-				</button>
+				/>
 			{/if}
 		</div>
 	{:else}
@@ -227,26 +217,15 @@
 			{/if}
 			<!-- Clear button -->
 			{#if hasSingleSelection() || value}
-				<button
-					onclick={() => {
+				<ClearButton
+					onClick={() => {
 						// Clear selected item and input value
 						if (mode === 'single' && hasSingleSelection()) {
 							(rest as SingleSelectionProps).onClear();
 						}
 						value = '';
 					}}
-					class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
-					aria-label="Clear selection"
-				>
-					<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M6 18L18 6M6 6l12 12"
-						/>
-					</svg>
-				</button>
+				/>
 			{/if}
 		</div>
 	{/if}

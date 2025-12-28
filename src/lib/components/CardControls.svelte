@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { Card as CardType } from '$lib/data/cards';
-
 	type Props = {
 		count: number;
 		maxCopies: number;
