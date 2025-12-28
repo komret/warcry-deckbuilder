@@ -26279,7 +26279,7 @@ export const cards: Card[] = [
 		maxCopies: 3,
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
-		text: '<p>Skaven Only</p><p><b>Reaction</b>: After your enemy declares a ranged attack against this unit, they must roll. If the roll is less than 5, they must choose a different unit to be the target of the ranged attack if there is another legal target.</p>',
+		text: '<p><b>Skaven Only</b></p><p><b>Reaction</b>: After your enemy declares a ranged attack against this unit, they must roll. If the roll is less than 5, they must choose a different unit to be the target of the ranged attack if there is another legal target.</p>',
 		releases: {
 			VT: 10
 		},
@@ -26310,7 +26310,7 @@ export const cards: Card[] = [
 		maxCopies: 3,
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
-		text: '<p>Skaven Only</p><p><b>Reaction</b>: After the enemy unit play a WarCry ability or card (including Spell and <b>Support WarCry</b>s), this unit gets +3 strength.</p>',
+		text: '<p><b>Skaven Only</b></p><p><b>Reaction</b>: After the enemy unit plays a WarCry ability or card <i>(including Spell and Support WarCries)</i>, this unit gets +3 strength.</p>',
 		releases: {
 			VT: 12
 		},
@@ -26632,7 +26632,7 @@ export const cards: Card[] = [
 		maxCopies: 3,
 		faction: 'Grand Alliance',
 		type: 'Attachment',
-		text: '<p>Wood Elf Only</p><p><b>WarCry</b>: This unit gets +d6 strength. If this roll is 5 or higher, destroy this unit at the end of the combat.</p>',
+		text: '<p><b>Wood Elf Only</b></p><p><b>WarCry</b>: This unit gets +d6 strength. If this roll is 5 or higher, destroy this unit at the end of the combat.</p>',
 		releases: {
 			VT: 39
 		},
@@ -26647,7 +26647,7 @@ export const cards: Card[] = [
 		maxCopies: 3,
 		faction: 'Grand Alliance',
 		type: 'Attachment',
-		text: '<p>Wood Elf Only</p><p>This unit has <b>Ranged Attack</b>: 4</p><p><b>Command</b>: Once per battle, this unit may make a ranged attack and does not commit after the combat.</p>',
+		text: '<p><b>Wood Elf Only</b></p><p>This unit has <b>Ranged Attack</b>: 4</p><p><b>Command</b>: Once per battle, this unit may make a ranged attack and does not commit after the combat.</p>',
 		releases: {
 			VT: 40
 		},
@@ -26919,7 +26919,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
 		rarity: 'Common',
-		text: '<p>Chaos Only</p><p><b>Support WarCry</b>: Your Chaos unit gets +3 strength. Only playable if you have a Daemon unit and a Beastman unit in play.</p>',
+		text: '<p><b>Chaos Only</b></p><p><b>Support WarCry</b>: Your Chaos unit gets +3 strength. Only playable if you have a Daemon unit and a Beastman unit in play.</p>',
 		releases: {
 			SR: 8
 		},
@@ -27081,7 +27081,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
 		rarity: 'Rare',
-		text: '<p>Dark Elf Only</p><p><b>Reaction</b>: Before the attacker plays his first tactic in a combat with this unit, this unit may play a tactic. Only playable as the defender.</p>',
+		text: '<p><b>Dark Elf Only</b></p><p><b>Reaction</b>: Before the attacker plays his first tactic in a combat with this unit, this unit may play a tactic. Only playable as the defender.</p>',
 		releases: {
 			SR: 17
 		},
@@ -27097,7 +27097,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
 		rarity: 'Common',
-		text: '<p>Dark Elf Only</p><p><b>Support WarCry</b>: Your Dark Elf unit gets +2 strength if you control more units with support tactics and attachments with support tactics than your enemy.</p>',
+		text: '<p><b>Dark Elf Only</b></p><p><b>Support WarCry</b>: Your Dark Elf unit gets +2 strength if you control more units with support tactics and attachments with support tactics than your enemy.</p>',
 		releases: {
 			SR: 18
 		},
@@ -27259,7 +27259,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
 		rarity: 'Rare',
-		text: '<p>Orc Only</p><p>Your Orc units get +1 leadership.</p>',
+		text: '<p><b>Orc Only</b></p><p>Your Orc units get +1 leadership.</p>',
 		releases: {
 			SR: 27
 		},
@@ -28317,7 +28317,7 @@ export const cards: Card[] = [
 		faction: 'Grand Alliance',
 		type: 'Unit',
 		rarity: 'Rare',
-		text: '<p><b>Runesmith</b>: 1 <i>(Counts as Wizard)</i></p><p>Spell Supprt Tactic (1): Your war machine unit gets +2 strength.</p><p><b>Spell WarCry</b> (2): If this unit wins the combat this unit is not committed, but it may not make a follow-up attack. Only playable while defending.</p>',
+		text: '<p><b>Runesmith</b>: 1 <i>(Counts as Wizard)</i></p><p>Spell Support Tactic (1): Your war machine unit gets +2 strength.</p><p><b>Spell WarCry</b> (2): If this unit wins the combat this unit is not committed, but it may not make a follow-up attack. Only playable while defending.</p>',
 		releases: {
 			SR: 94
 		},
@@ -28441,7 +28441,7 @@ export const cards: Card[] = [
 		faction: 'Grand Alliance',
 		type: 'Attachment',
 		rarity: 'Common',
-		text: '<p>Dwarf Only</p><p><b>Support WarCry</b>: Your Dwarf unit gets +3 strength. Only playable if you have a war machine and a fortification in play.</p>',
+		text: '<p><b>Dwarf Only</b></p><p><b>Support WarCry</b>: Your Dwarf unit gets +3 strength. Only playable if you have a war machine and a fortification in play.</p>',
 		releases: {
 			SR: 101
 		},
@@ -28457,7 +28457,7 @@ export const cards: Card[] = [
 		faction: 'Grand Alliance',
 		type: 'Attachment',
 		rarity: 'Rare',
-		text: '<p>Dwarf Only</p><p><b>Victory</b>: +1</p><p><b>Reaction</b>: After set-up, choose one enemy unit. That unit must attack this unit as your enemies first command (if it may). Your enemy may commit the chosen unit to negate this effect.</p>',
+		text: '<p><b>Dwarf Only</b></p><p><b>Victory</b>: +1</p><p><b>Reaction</b>: After set-up, choose one enemy unit. That unit must attack this unit as your enemies first command (if it may). Your enemy may commit the chosen unit to negate this effect.</p>',
 		releases: {
 			SR: 102
 		},
@@ -28600,7 +28600,7 @@ export const cards: Card[] = [
 		faction: 'Grand Alliance',
 		type: 'Attachment',
 		rarity: 'Rare',
-		text: '<p>Empire Only</p><p><b>Reaction</b>: When this unit targeted for an attack, the attacking unit must pass a leadership test. If the test is not passed, the enemy player must target another legal unit for the attack (if one exists) or forfeit their command (this is not considered "passing").</p>',
+		text: '<p><b>Empire Only</b></p><p><b>Reaction</b>: When this unit targeted for an attack, the attacking unit must pass a leadership test. If the test is not passed, the enemy player must target another legal unit for the attack (if one exists) or forfeit their command (this is not considered "passing").</p>',
 		releases: {
 			SR: 110
 		},
@@ -28615,7 +28615,7 @@ export const cards: Card[] = [
 		faction: 'Grand Alliance',
 		type: 'Attachment',
 		rarity: 'Common',
-		text: '<p>Empire Only</p><p><b>Support WarCry</b>: Play 2 support tactics printed on your Empire units, paying all costs.</p>',
+		text: '<p><b>Empire Only</b></p><p><b>Support WarCry</b>: Play 2 support tactics printed on your Empire units, paying all costs.</p>',
 		releases: {
 			SR: 111
 		},
@@ -28759,7 +28759,7 @@ export const cards: Card[] = [
 		faction: 'Grand Alliance',
 		type: 'Attachment',
 		rarity: 'Rare',
-		text: '<p>High Elf Only</p><p>This unit may not be chosen or targeted by spell effects generated by your enemy.</p>',
+		text: '<p><b>High Elf Only</b></p><p>This unit may not be chosen or targeted by spell effects generated by your enemy.</p>',
 		releases: {
 			SR: 119
 		},
@@ -28774,7 +28774,7 @@ export const cards: Card[] = [
 		faction: 'Grand Alliance',
 		type: 'Attachment',
 		rarity: 'Common',
-		text: '<p>High Elf Only</p><p><b>Support WarCry</b>: Your High Elf unit gets +1 strength. If your High Elf unit has at least twice as many printed tactic points than the enemy unit, it gets +3 strength instead.</p>',
+		text: '<p><b>High Elf Only</b></p><p><b>Support WarCry</b>: Your High Elf unit gets +1 strength. If your High Elf unit has at least twice as many printed tactic points than the enemy unit, it gets +3 strength instead.</p>',
 		releases: {
 			SR: 120
 		},
@@ -30206,7 +30206,7 @@ export const cards: Card[] = [
 		faction: 'Neutral',
 		type: 'Attachment',
 		rarity: 'Uncommon',
-		text: '<p>Skaven and Dwarf only</p><p><b>Reaction</b> Destroy this card: Before this unit declares an attack, target an enemy unit in the reserves. This attack may not be blocked.</p>',
+		text: '<p><b>Skaven and Dwarf only</b></p><p><b>Reaction</b> Destroy this card: Before this unit declares an attack, target an enemy unit in the reserves. This attack may not be blocked.</p>',
 		releases: {
 			HF: 87
 		},
@@ -30926,7 +30926,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
 		rarity: 'Uncommon',
-		text: '<p>Chaos Only</p><p><b>Combat Tactic</b>: The enemy unit gets -2 strength unless your enemy discards 1 card.</p>',
+		text: '<p><b>Chaos Only</b></p><p><b>Combat Tactic</b>: The enemy unit gets -2 strength unless your enemy discards 1 card.</p>',
 		releases: {
 			MP: 9
 		},
@@ -30943,7 +30943,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
 		rarity: 'Uncommon',
-		text: '<p>Chaos Only</p><p>This unit gets "<b>Wizard</b>: 1".</p><p><b>Spell Combat Tactic</b> (1): Both players roll. Both units get a strength bonus equal to their roll.</p>',
+		text: '<p><b>Chaos Only</b></p><p>This unit gets "<b>Wizard</b>: 1".</p><p><b>Spell Combat Tactic</b> (1): Both players roll. Both units get a strength bonus equal to their roll.</p>',
 		releases: {
 			MP: 10
 		},
@@ -30959,7 +30959,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
 		rarity: 'Uncommon',
-		text: '<p>Chaos Only</p><p>This unit is immune to "<b>Terror</b>".</p>',
+		text: '<p><b>Chaos Only</b></p><p>This unit is immune to "<b>Terror</b>".</p>',
 		releases: {
 			MP: 11
 		},
@@ -31121,7 +31121,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
 		rarity: 'Rare',
-		text: '<p>Dark Elf Only</p><p>When this card comes in to play, choose an ability printed on another card in play. While this card is in play the chosen ability has no effect and may not be played or activated.</p>',
+		text: '<p><b>Dark Elf Only</b></p><p>When this card comes in to play, choose an ability printed on another card in play. While this card is in play the chosen ability has no effect and may not be played or activated.</p>',
 		releases: {
 			MP: 20
 		},
@@ -31137,7 +31137,7 @@ export const cards: Card[] = [
 		faction: 'Hordes of Darkness',
 		type: 'Attachment',
 		rarity: 'Rare',
-		text: "<p>Dark Elf Only</p><p><b>Spell Command</b> Destroy this unit (3): Choose three units in your enemy's battle line. Each of these units is destroyed unless they pass a strength test.</p>",
+		text: "<p><b>Dark Elf Only</b></p><p><b>Spell Command</b> Destroy this unit (3): Choose three units in your enemy's battle line. Each of these units is destroyed unless they pass a strength test.</p>",
 		releases: {
 			MP: 21
 		},
@@ -32292,7 +32292,7 @@ export const cards: Card[] = [
 		faction: 'Grand Alliance',
 		type: 'Attachment',
 		rarity: 'Rare',
-		text: '<p>Dwarf Only</p><p><b>Spell Combat Tactic</b> (1): Your unit gets +2 strength and if this combat ends in a slaughter, you win instead. Only playable while losing a combat.</p>',
+		text: '<p><b>Dwarf Only</b></p><p><b>Spell Combat Tactic</b> (1): Your unit gets +2 strength and if this combat ends in a slaughter, you win instead. Only playable while losing a combat.</p>',
 		releases: {
 			MP: 93
 		},
@@ -32756,11 +32756,11 @@ export const cards: Card[] = [
 		faction: 'Grand Alliance',
 		type: 'Command',
 		rarity: 'Uncommon',
-		text: "<p>After your enemy plays a spell card or ability, you may put this card into play as a <b>Reaction</b> for 3 spell points.</p><p><b>Spell Reaction</b> (2): After your enemy plays a spell card or ability, make a tactic point test with one of your Dwarf <b>Runesmith</b>s. If you pass the test, cancel the spell card or ability's effect.</p>",
+		text: "<p>After your enemy plays a spell card or ability, you may put this card into play as a Reaction for 3 spell points.</p><p><b>Spell Reaction</b> (2): After your enemy plays a spell card or ability, make a tactic point test with one of your Dwarf Runesmiths. If you pass the test, cancel the spell card or ability's effect.</p>",
 		releases: {
 			MP: 120
 		},
-		faq: [270]
+		faq: [228, 270]
 	},
 	{
 		id: 'VB1',
