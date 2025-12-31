@@ -146,7 +146,7 @@
 	// Filtered results (updated after debounce)
 	let filteredCards = $state<typeof cards>([]);
 	let filterDebounceTimer: ReturnType<typeof setTimeout> | null = null;
-	let isFiltering = $state(false);
+	let isFiltering = $state(true);
 
 	onMount(() => {
 		const saved = localStorage.getItem('homeFilters');
@@ -224,6 +224,13 @@
 
 	// Watch for filter changes and trigger debounced filter update
 	$effect(() => {
+		// If no filters are active, show all cards immediately
+		if (!hasActiveFilters) {
+			filteredCards = cards;
+			isFiltering = false;
+			return;
+		}
+
 		// Read all filter values to track changes
 		searchQuery; // Watch for search changes
 		selectedFactions.size;
@@ -970,10 +977,9 @@
 			{/each}
 		</div>
 
-		{#if filteredCards.length === 0}
+		{#if filteredCards.length === 0 && !isFiltering}
 			<div class="mt-8 text-center text-gray-400">
 				<p class="text-lg">No cards found matching your filters.</p>
-				<p class="mt-2">Try adjusting your search criteria.</p>
 			</div>
 		{/if}
 	</div>

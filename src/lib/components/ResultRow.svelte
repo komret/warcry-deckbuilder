@@ -11,7 +11,7 @@
 
 <div class="mb-4 flex items-center justify-between">
 	<div class="text-sm text-gray-400">
-		{isFiltering ? 'Filtering...' : `${resultsCount} result${resultsCount !== 1 ? 's' : ''}`}
+		{isFiltering ? 'Loading...' : `${resultsCount} result${resultsCount !== 1 ? 's' : ''}`}
 	</div>
 	<button
 		onclick={onReset}
