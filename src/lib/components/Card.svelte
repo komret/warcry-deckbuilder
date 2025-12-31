@@ -9,8 +9,8 @@
 		showErrataHighlight?: boolean;
 		onclick?: () => void;
 		isOnFaqPage?: boolean;
-		deckCount?: number;
 		onAddToDeck?: () => void;
+		isInDeck?: boolean;
 	};
 
 	let {
@@ -19,8 +19,8 @@
 		showErrataHighlight = false,
 		onclick,
 		isOnFaqPage = false,
-		deckCount = 0,
-		onAddToDeck
+		onAddToDeck,
+		isInDeck = false
 	}: Props = $props();
 
 	// Replace errata class with text-blue-500 if showing errata highlights
@@ -246,8 +246,8 @@
 				{#if onAddToDeck}
 					<button
 						onclick={() => onAddToDeck()}
-						disabled={deckCount > 0}
-						class="flex h-6 w-6 items-center justify-center text-lg {deckCount > 0
+						disabled={isInDeck}
+						class="flex h-6 w-6 items-center justify-center text-lg {isInDeck
 							? 'cursor-default text-gray-400'
 							: 'cursor-pointer text-blue-300 hover:text-blue-400'} focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-50"
 						aria-label="Add card to deck"

@@ -476,7 +476,7 @@
 
 	// Deck functions
 	function addToDeck(cardId: string) {
-		const currentCount = deck.get(cardId) || 0;
+		const currentCount = deck.get(cardId) ?? -1;
 		const card = cards.find((c) => c.id === cardId);
 		const maxCopies = card?.maxCopies || 3;
 		if (currentCount < maxCopies) {
@@ -488,13 +488,11 @@
 	function removeFromDeck(cardId: string) {
 		const currentCount = deck.get(cardId) || 0;
 		if (currentCount > 0) {
-			if (currentCount === 1) {
-				deck.delete(cardId);
-			} else {
-				deck.set(cardId, currentCount - 1);
-			}
-			deck = new Map(deck); // Trigger reactivity
+			deck.set(cardId, currentCount - 1);
+		} else if (currentCount === 0) {
+			deck.delete(cardId);
 		}
+		deck = new Map(deck); // Trigger reactivity
 	}
 
 	// Compute filtered cards based on current filter state
@@ -970,7 +968,7 @@
 				<Card
 					{card}
 					{searchQuery}
-					deckCount={deck.get(card.id) || 0}
+					isInDeck={deck.has(card.id)}
 					onAddToDeck={() => addToDeck(card.id)}
 					onclick={() => (selectedCardId = card.id)}
 				/>
