@@ -1,4 +1,16 @@
 /**
+ * Strips HTML tags from a string, leaving only the text content
+ * @param html - The HTML string to strip
+ * @returns The text content without HTML tags
+ */
+function stripHtmlTags(html: string): string {
+	// Create a temporary DOM element to parse the HTML
+	const tempDiv = document.createElement('div');
+	tempDiv.innerHTML = html;
+	return tempDiv.textContent || tempDiv.innerText || '';
+}
+
+/**
  * Checks if an item matches a search query with support for & (AND) and | (OR) operators
  * @param query - The search query
  * @param getSearchableText - Function that returns searchable text from the item
@@ -24,11 +36,19 @@ export function matchesSearch(query: string, getSearchableText: () => string[]):
 
 			// All AND terms must match at least one searchable field
 			return andTerms.every((term) => {
-				return getSearchableText().some((text) => text.toLowerCase().includes(term));
+				return getSearchableText().some((text) => {
+					// Strip HTML tags before searching
+					const cleanText = stripHtmlTags(text);
+					return cleanText.toLowerCase().includes(term);
+				});
 			});
 		});
 	} else {
 		// Simple search without operators - at least one field must match
-		return getSearchableText().some((text) => text.toLowerCase().includes(queryLower));
+		return getSearchableText().some((text) => {
+			// Strip HTML tags before searching
+			const cleanText = stripHtmlTags(text);
+			return cleanText.toLowerCase().includes(queryLower);
+		});
 	}
 }
