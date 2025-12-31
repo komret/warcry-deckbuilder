@@ -51,20 +51,6 @@
 </script>
 
 <Box>
-	<div class="mb-4 flex items-center justify-between">
-		<h2 class="text-xl font-bold text-white">Deck Builder</h2>
-		<div class="text-sm text-gray-400">
-			Total: {totalCards()} cards
-			<span class="ml-4 text-red-400">
-				{#if !isValidDeck()}
-					(Need {Math.max(0, 30 - armyTotal())} more Army, {Math.max(0, 30 - actionTotal())} more Action)
-				{:else}
-					<span class="text-green-400">✓ Valid deck</span>
-				{/if}
-			</span>
-		</div>
-	</div>
-
 	<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
 		<DeckSection
 			title="Army Deck"
