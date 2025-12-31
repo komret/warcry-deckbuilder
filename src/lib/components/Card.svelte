@@ -2,7 +2,6 @@
 	import type { Card } from '$lib/data/cards';
 	import { highlightSearchTerms } from '$lib/utils/highlightSearchTerms';
 	import { goto } from '$app/navigation';
-	import CardControls from './CardControls.svelte';
 
 	type Props = {
 		card: Card;
@@ -12,7 +11,6 @@
 		isOnFaqPage?: boolean;
 		deckCount?: number;
 		onAddToDeck?: () => void;
-		onRemoveFromDeck?: () => void;
 	};
 
 	let {
@@ -22,8 +20,7 @@
 		onclick,
 		isOnFaqPage = false,
 		deckCount = 0,
-		onAddToDeck,
-		onRemoveFromDeck
+		onAddToDeck
 	}: Props = $props();
 
 	// Replace errata class with text-blue-500 if showing errata highlights
@@ -221,7 +218,7 @@
 				onclick={(e) => e.stopPropagation()}
 				role="presentation"
 			>
-				<!-- FAQ Button -->
+				<!-- Show FAQ -->
 				{#if !isOnFaqPage && card.faq && card.faq.length > 0}
 					<span
 						class="flex h-6 w-6 cursor-pointer items-center justify-center text-lg text-blue-300 hover:text-blue-400"
@@ -245,15 +242,18 @@
 					</span>
 				{/if}
 
-				<!-- Deck Controls -->
-				{#if onAddToDeck && onRemoveFromDeck}
-					<CardControls
-						count={deckCount}
-						maxCopies={card.maxCopies || 3}
-						onRemove={() => onRemoveFromDeck()}
-						onAdd={() => onAddToDeck()}
-						showRemoveAsCross={false}
-					/>
+				<!-- Add to deck -->
+				{#if onAddToDeck}
+					<button
+						onclick={() => onAddToDeck()}
+						disabled={deckCount > 0}
+						class="flex h-6 w-6 items-center justify-center text-lg {deckCount > 0
+							? 'cursor-default text-gray-400'
+							: 'cursor-pointer text-blue-300 hover:text-blue-400'} focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-50"
+						aria-label="Add card to deck"
+					>
+						+
+					</button>
 				{/if}
 			</div>
 		</div>

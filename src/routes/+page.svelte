@@ -965,7 +965,6 @@
 					{searchQuery}
 					deckCount={deck.get(card.id) || 0}
 					onAddToDeck={() => addToDeck(card.id)}
-					onRemoveFromDeck={() => removeFromDeck(card.id)}
 					onclick={() => (selectedCardId = card.id)}
 				/>
 			{/each}
