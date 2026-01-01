@@ -58,15 +58,10 @@
 	const actionTotal = $derived(() => {
 		return actionCards().reduce((sum: number, [, count]: [string, number]) => sum + count, 0);
 	});
-
-	const totalCards = $derived(() => armyTotal() + actionTotal());
-
-	// Check if deck is valid (at least 30 cards each)
-	const isValidDeck = $derived(() => armyTotal() >= 30 && actionTotal() >= 30);
 </script>
 
 <Box>
-	<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+	<div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
 		<DeckSection
 			title="Army Deck"
 			cards={armyCards()}

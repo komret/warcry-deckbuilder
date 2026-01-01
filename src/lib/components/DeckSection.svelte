@@ -20,8 +20,8 @@
 	let selectedCardId = $state<string | null>(null);
 </script>
 
-<div class="rounded-lg bg-gray-700 p-4">
-	<div class="mb-3 flex items-center justify-between">
+<div class="rounded-lg bg-gray-700 p-3">
+	<div class="mb-2 flex items-center justify-between">
 		<h3 class="text-lg font-semibold text-white">{title}</h3>
 		<span class="text-sm text-gray-400">{total} card{total !== 1 ? 's' : ''}</span>
 	</div>
