@@ -2,6 +2,7 @@
 	import type { Card as CardType, Type } from '$lib/data/cards';
 	import DeckSection from './DeckSection.svelte';
 	import Box from './Box.svelte';
+	import { cardMatchesFormat } from '$lib/utils/cardMatchesFormat';
 
 	type Props = {
 		deck: Map<string, number>;
@@ -59,45 +60,78 @@
 		return actionCards().reduce((sum: number, [, count]: [string, number]) => sum + count, 0);
 	});
 
-	// Deck validation
-	const isDeckValid = $derived(() => {
+	// Optimized format determination for deck validation
+	function getDeckFormatOptimized(cards: CardType[]): string {
+		if (cards.length === 0) return 'Open';
+
+		let isOldSchool = true;
+		let isWarcry = true;
+		let isAttrition = true;
+
+		for (const card of cards) {
+			// Check Old School (skip if already ruled out)
+			if (isOldSchool && !cardMatchesFormat(card, 'oldschool')) {
+				isOldSchool = false;
+			}
+
+			// Check WarCry (skip if already ruled out)
+			if (isWarcry && !cardMatchesFormat(card, 'warcry')) {
+				isWarcry = false;
+			}
+
+			// Check Attrition (skip if already ruled out)
+			if (isAttrition && !cardMatchesFormat(card, 'attrition')) {
+				isAttrition = false;
+			}
+
+			// Early exit if all formats ruled out
+			if (!isOldSchool && !isWarcry && !isAttrition) {
+				break;
+			}
+		}
+
+		if (isOldSchool) return 'Old School';
+		if (isWarcry) return 'WarCry';
+		if (isAttrition) return 'Attrition';
+		return 'Open';
+	}
+
+	// Deck validation - returns validation message
+	const getValidationStatus = $derived(() => {
+		let validationMessages = [];
+
 		// Check minimum card counts
 		if (armyTotal() < 30 || actionTotal() < 30) {
-			return false;
+			validationMessages.push(`not enough cards`);
 		}
 
 		// Check faction compatibility
 		const allCardsInDeck = Array.from(deck.entries())
 			.map(([cardId]) => getCard(cardId))
-			.filter(Boolean);
-		const factionsInDeck = new Set(allCardsInDeck.map((card) => card!.faction));
+			.filter((card): card is CardType => card !== undefined);
+		const factionsInDeck = new Set(allCardsInDeck.map((card) => card.faction));
 
 		// Invalid if both Hordes of Darkness and Grand Alliance are present
 		if (factionsInDeck.has('Hordes of Darkness') && factionsInDeck.has('Grand Alliance')) {
-			return false;
+			validationMessages.push('mixed factions');
 		}
 
-		return true;
-	});
-
-	const validationMessage = $derived(() => {
-		if (armyTotal() < 30) {
-			return `Army deck needs ${30 - armyTotal()} more cards`;
-		}
-		if (actionTotal() < 30) {
-			return `Action deck needs ${30 - actionTotal()} more cards`;
+		if (validationMessages.length > 0) {
+			return `Invalid deck: ${validationMessages.join(', ')}.`;
 		}
 
-		const allCardsInDeck = Array.from(deck.entries())
-			.map(([cardId]) => getCard(cardId))
-			.filter(Boolean);
-		const factionsInDeck = new Set(allCardsInDeck.map((card) => card!.faction));
-
-		if (factionsInDeck.has('Hordes of Darkness') && factionsInDeck.has('Grand Alliance')) {
-			return 'Cannot mix Hordes of Darkness and Grand Alliance cards';
+		// Valid deck - determine faction and format
+		let faction = 'Neutral';
+		if (factionsInDeck.has('Grand Alliance')) {
+			faction = 'Grand Alliance';
+		} else if (factionsInDeck.has('Hordes of Darkness')) {
+			faction = 'Hordes of Darkness';
 		}
 
-		return 'Deck is valid';
+		// Determine format using shared utility
+		const format = getDeckFormatOptimized(allCardsInDeck);
+
+		return `Faction: ${faction}, Format: ${format}`;
 	});
 </script>
 
@@ -124,9 +158,11 @@
 		/>
 	</div>
 
-	<div class="flex items-center justify-between">
-		<span class="text-sm font-medium {isDeckValid() ? 'text-green-400' : 'text-red-400'}">
-			{validationMessage()}
-		</span>
-	</div>
+	{#if deck.size > 0}
+		<div class="mt-2 flex items-center justify-between">
+			<span class="text-sm font-medium text-gray-300">
+				{getValidationStatus()}
+			</span>
+		</div>
+	{/if}
 </Box>

@@ -14,6 +14,7 @@
 		leadershipValues,
 		type Keyword
 	} from '$lib/data/cards';
+	import { cardMatchesFormat } from '$lib/utils/cardMatchesFormat';
 	import Card from '$lib/components/Card.svelte';
 	import CardImageModal from '$lib/components/CardImageModal.svelte';
 	import Header from '$lib/components/Header.svelte';
@@ -527,43 +528,9 @@
 
 			// Format filter
 			if (selectedFormat !== 'any') {
-				const cardReleases = card.releases;
-				const warcryFormatSets = [
-					'WC',
-					'WM',
-					'SD',
-					'DW',
-					'PG',
-					'CD',
-					'LC',
-					'CC',
-					'SM',
-					'HW',
-					'DH',
-					'LW',
-					'PW'
-				];
-				const attritionFormatSets = ['BR', 'VT', 'SR', 'WA', 'HF', 'MP', 'VB', 'PA'];
-				const oldSchoolBaseSets = ['WC', 'WM', 'SD'];
-
-				if (selectedFormat === 'warcry') {
-					const hasWarcrySet = Object.keys(cardReleases).some((set) =>
-						warcryFormatSets.includes(set)
-					);
-					if (!hasWarcrySet) return false;
-				} else if (selectedFormat === 'attrition') {
-					const hasAttritionSet = Object.keys(cardReleases).some((set) =>
-						attritionFormatSets.includes(set)
-					);
-					if (!hasAttritionSet) return false;
-				} else if (selectedFormat === 'oldschool') {
-					// Old School: Base sets OR Promo (WC) with card number <= 40
-					const hasBaseSet = Object.keys(cardReleases).some((set) =>
-						oldSchoolBaseSets.includes(set)
-					);
-					const hasPromoWCWithLowNumber =
-						cardReleases['PW'] !== undefined && cardReleases['PW']! <= 40;
-					if (!hasBaseSet && !hasPromoWCWithLowNumber) return false;
+				const formatKey = selectedFormat as 'warcry' | 'attrition' | 'oldschool';
+				if (!cardMatchesFormat(card, formatKey)) {
+					return false;
 				}
 			}
 
