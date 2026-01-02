@@ -177,53 +177,44 @@
 		return 'Open';
 	}
 
-	// Deck validation - returns validation message
-	const getValidationStatus = $derived(() => {
-		let validationMessages = [];
-
-		// Check minimum card counts
-		if (armyTotal() < 30 || actionTotal() < 30) {
-			validationMessages.push(`not enough cards`);
-		}
-
-		// Check sideboard requirements if WA119 is present
-		if (hasSideboard()) {
-			const wa119Count = deck.get('WA119') || 0;
-			const requiredSideboardCards = wa119Count * 3;
-			if (sideboardTotal() < requiredSideboardCards) {
-				validationMessages.push(
-					`sideboard needs ${requiredSideboardCards - sideboardTotal()} more cards`
-				);
-			}
-		}
-
-		// Check faction compatibility
-		const allCardsInDeck = Array.from(deck.entries())
+	// Deck validation - separate faction and format
+	const allCardsInDeck = $derived(() => {
+		// Combine deck and sideboard entries
+		const allEntries = [...Array.from(deck.entries()), ...Array.from(sideboard.entries())];
+		return allEntries
+			.filter(([, count]) => count > 0)
 			.map(([cardId]) => getCard(cardId))
 			.filter((card): card is CardType => card !== undefined);
-		const factionsInDeck = new Set(allCardsInDeck.map((card) => card.faction));
+	});
 
-		// Invalid if both Hordes of Darkness and Grand Alliance are present
-		if (factionsInDeck.has('The Hordes of Darkness') && factionsInDeck.has('The Grand Alliance')) {
-			validationMessages.push('mixed factions');
+	const factionsInDeck = $derived(() => {
+		return new Set(allCardsInDeck().map((card) => card.faction));
+	});
+
+	const isMixedFaction = $derived(() => {
+		return (
+			factionsInDeck().has('The Hordes of Darkness') && factionsInDeck().has('The Grand Alliance')
+		);
+	});
+
+	const deckFaction = $derived(() => {
+		// Check for mixed factions
+		if (isMixedFaction()) {
+			return 'Mixed factions';
 		}
 
-		if (validationMessages.length > 0) {
-			return `Invalid deck: ${validationMessages.join(', ')}.`;
+		// Determine faction
+		if (factionsInDeck().has('The Grand Alliance')) {
+			return 'The Grand Alliance';
+		} else if (factionsInDeck().has('The Hordes of Darkness')) {
+			return 'The Hordes of Darkness';
 		}
 
-		// Valid deck - determine faction and format
-		let faction = 'Neutral';
-		if (factionsInDeck.has('The Grand Alliance')) {
-			faction = 'The Grand Alliance';
-		} else if (factionsInDeck.has('The Hordes of Darkness')) {
-			faction = 'The Hordes of Darkness';
-		}
+		return 'Neutral';
+	});
 
-		// Determine format using shared utility
-		const format = getDeckFormatOptimized(allCardsInDeck);
-
-		return `Faction: ${faction}, Format: ${format}`;
+	const deckFormat = $derived(() => {
+		return getDeckFormatOptimized(allCardsInDeck());
 	});
 </script>
 
@@ -271,10 +262,14 @@
 		{/if}
 	</div>
 
-	{#if deck.size > 0}
-		<div class="mt-2 flex items-center justify-between">
+	{#if Array.from(deck.values()).some((count) => count > 0)}
+		<div class="mt-2 flex items-center">
 			<span class="text-sm font-medium text-gray-300">
-				{getValidationStatus()}
+				<span class={isMixedFaction() ? 'text-red-300' : 'text-gray-300'}>{deckFaction()}</span>
+			</span>
+			<span class="mx-2 flex items-center text-gray-300">•</span>
+			<span class="text-sm font-medium text-gray-300">
+				{deckFormat()}
 			</span>
 		</div>
 	{/if}
