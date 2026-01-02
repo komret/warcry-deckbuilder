@@ -5,7 +5,7 @@
 		onClick: () => void;
 		disabled?: boolean;
 		size?: 'sm' | 'lg';
-		variant?: 'primary' | 'danger' | 'neutral';
+		variant?: 'primary' | 'secondary' | 'danger';
 		title: string;
 	};
 
@@ -28,12 +28,12 @@
 		primary: disabled
 			? 'cursor-default text-gray-400'
 			: 'cursor-pointer text-blue-300 hover:text-blue-400',
+		secondary: disabled
+			? 'cursor-default text-gray-400'
+			: 'cursor-pointer text-gray-400 hover:text-white',
 		danger: disabled
 			? 'cursor-default text-gray-400'
-			: 'cursor-pointer text-red-300 hover:text-red-400',
-		neutral: disabled
-			? 'cursor-default text-gray-400'
-			: 'cursor-pointer text-gray-400 hover:text-white'
+			: 'cursor-pointer text-red-300 hover:text-red-400'
 	}));
 
 	const baseClasses =
