@@ -481,13 +481,15 @@
 		const card = cards.find((c) => c.id === cardId);
 		if (!card) return;
 
-		const currentDeckCount = deckMap.get(cardId) ?? 0;
+		const rawCurrentDeckCount = deckMap.get(cardId);
+		const currentDeckCount = rawCurrentDeckCount ?? 0;
 		const otherDeckCount = (deckMap === deck ? sideboard.get(cardId) : deck.get(cardId)) ?? 0;
 		const totalCount = currentDeckCount + otherDeckCount;
 		const maxCopies = card.maxCopies;
 
 		if (totalCount < maxCopies) {
-			deckMap.set(cardId, currentDeckCount + 1);
+			// If the card is not in the deck yet, set count to 0, else increment
+			deckMap.set(cardId, rawCurrentDeckCount === undefined ? 0 : currentDeckCount + 1);
 			if (deckMap === deck) {
 				deck = new Map(deck); // Trigger reactivity
 			} else if (deckMap === sideboard) {
