@@ -9,15 +9,16 @@
 		cards: [string, number, number][]; // [cardId, count, totalCount]
 		total: number;
 		getCard: (cardId: string) => CardType | undefined;
-		onRemoveCard: (cardId: string) => void;
-		onAddCard: (cardId: string) => void;
-		availableCards: CardType[];
+		onRemoveCard?: (cardId: string) => void;
+		onAddCard?: (cardId: string) => void;
+		availableCards?: CardType[];
 		hasSideboard?: boolean;
 		onMoveToSideboard?: (cardId: string) => void;
 		onMoveFromSideboard?: (cardId: string) => void;
 		layoutDirection?: 'vertical' | 'horizontal';
 		minCards: number;
 		maxCards?: number;
+		readOnly?: boolean;
 	};
 
 	let {
@@ -33,7 +34,8 @@
 		onMoveFromSideboard,
 		layoutDirection = 'vertical',
 		minCards,
-		maxCards
+		maxCards,
+		readOnly = false
 	}: Props = $props();
 
 	let inputValue = $state('');
@@ -58,18 +60,22 @@
 	</div>
 
 	<!-- Card selection input -->
-	<div class="mb-2">
-		<SelectableInput
-			mode="single"
-			items={availableCards.map((card) => ({ id: card.id, name: card.name }))}
-			bind:value={inputValue}
-			selectedItem={null}
-			onSelect={(item) => {
-				onAddCard(item.id);
-				inputValue = '';
-			}}
-		/>
-	</div>
+	{#if !readOnly && availableCards}
+		<div class="mb-2">
+			<SelectableInput
+				mode="single"
+				items={availableCards.map((card) => ({ id: card.id, name: card.name }))}
+				bind:value={inputValue}
+				selectedItem={null}
+				onSelect={(item) => {
+					if (onAddCard) {
+						onAddCard(item.id);
+						inputValue = '';
+					}
+				}}
+			/>
+		</div>
+	{/if}
 
 	<div class="space-y-2">
 		{#each cards as [cardId, count, totalCount]}
@@ -87,6 +93,7 @@
 					{onMoveToSideboard}
 					{onMoveFromSideboard}
 					{layoutDirection}
+					{readOnly}
 				/>
 			{/if}
 		{/each}

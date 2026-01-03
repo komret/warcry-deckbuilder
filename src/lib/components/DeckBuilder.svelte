@@ -9,11 +9,13 @@
 		deck: Map<string, number>;
 		sideboard: Map<string, number>;
 		cards: CardType[];
-		onRemoveCard: (cardId: string, deckMap?: Map<string, number>) => void;
-		onAddCard: (cardId: string, deckMap?: Map<string, number>) => void;
-		onMoveToSideboard: (cardId: string) => void;
-		onMoveFromSideboard: (cardId: string) => void;
+		onRemoveCard?: (cardId: string, deckMap?: Map<string, number>) => void;
+		onAddCard?: (cardId: string, deckMap?: Map<string, number>) => void;
+		onMoveToSideboard?: (cardId: string) => void;
+		onMoveFromSideboard?: (cardId: string) => void;
 		onClearDeck?: () => void;
+		readOnly?: boolean;
+		onOpenInDeckBuilder?: () => void;
 	};
 
 	let {
@@ -24,7 +26,9 @@
 		onAddCard,
 		onMoveToSideboard,
 		onMoveFromSideboard,
-		onClearDeck
+		onClearDeck,
+		readOnly = false,
+		onOpenInDeckBuilder
 	}: Props = $props();
 
 	// Detect layout direction based on screen size
@@ -236,6 +240,7 @@
 			{onAddCard}
 			availableCards={availableArmyCards()}
 			minCards={30}
+			{readOnly}
 		/>
 
 		<DeckSection
@@ -250,6 +255,7 @@
 			{onMoveToSideboard}
 			{layoutDirection}
 			minCards={30}
+			{readOnly}
 		/>
 		{#if hasSideboard()}
 			<DeckSection
@@ -257,14 +263,17 @@
 				cards={sideboardCards()}
 				total={sideboardTotal()}
 				{getCard}
-				onRemoveCard={(cardId) => onRemoveCard(cardId, sideboard)}
-				onAddCard={(cardId) => onAddCard(cardId, sideboard)}
+				onRemoveCard={onRemoveCard
+					? (cardId: string) => onRemoveCard(cardId, sideboard)
+					: undefined}
+				onAddCard={onAddCard ? (cardId: string) => onAddCard(cardId, sideboard) : undefined}
 				availableCards={availableSideboardCards()}
 				hasSideboard={hasSideboard()}
 				{onMoveFromSideboard}
 				{layoutDirection}
 				minCards={requiredSideboardCards()}
 				maxCards={requiredSideboardCards()}
+				{readOnly}
 			/>
 		{/if}
 	</div>
@@ -281,10 +290,17 @@
 		</div>
 	{/if}
 
-	{#if onClearDeck}
+	{#if onClearDeck || readOnly}
 		<!-- Deck Actions -->
 		<div class="mt-4 border-t border-gray-600 pt-4">
-			<DeckActions {onClearDeck} hasCards={hasCards()} />
+			<DeckActions
+				{onClearDeck}
+				hasCards={hasCards()}
+				{deck}
+				{sideboard}
+				{readOnly}
+				{onOpenInDeckBuilder}
+			/>
 		</div>
 	{/if}
 </Box>

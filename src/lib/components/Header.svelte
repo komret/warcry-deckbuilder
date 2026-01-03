@@ -53,7 +53,7 @@
 						? 'bg-gray-700 font-semibold text-white'
 						: 'text-gray-300 hover:bg-gray-700 hover:text-white'}"
 				>
-					Deckbuilder
+					Deck Builder
 				</a>
 				<a
 					href="/faq"

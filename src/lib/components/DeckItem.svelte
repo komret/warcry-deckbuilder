@@ -7,13 +7,14 @@
 		count: number;
 		totalCount?: number;
 		card: CardType;
-		onRemoveCard: (cardId: string) => void;
-		onAddCard: (cardId: string) => void;
+		onRemoveCard?: (cardId: string) => void;
+		onAddCard?: (cardId: string) => void;
 		onOpenModal: (cardId: string) => void;
 		hasSideboard?: boolean;
 		onMoveToSideboard?: (cardId: string) => void;
 		onMoveFromSideboard?: (cardId: string) => void;
 		layoutDirection?: 'vertical' | 'horizontal';
+		readOnly?: boolean;
 	};
 
 	let {
@@ -27,7 +28,8 @@
 		hasSideboard = false,
 		onMoveToSideboard,
 		onMoveFromSideboard,
-		layoutDirection = 'vertical'
+		layoutDirection = 'vertical',
+		readOnly = false
 	}: Props = $props();
 
 	// Helper functions for consistent color application
@@ -78,41 +80,51 @@
 		</button>
 	</div>
 	<div class="ml-2 flex items-center">
-		{#if hasSideboard && onMoveToSideboard}
-			<IconButton
-				icon={layoutDirection === 'horizontal' ? '→' : '↓'}
-				variant="primary"
-				size="sm"
-				title="Move one copy to sideboard"
-				disabled={count === 0}
-				onClick={() => onMoveToSideboard(cardId)}
-			/>
+		{#if !readOnly}
+			{#if hasSideboard && onMoveToSideboard}
+				<IconButton
+					icon={layoutDirection === 'horizontal' ? '→' : '↓'}
+					variant="primary"
+					size="sm"
+					title="Move one copy to sideboard"
+					disabled={count === 0}
+					onClick={() => onMoveToSideboard(cardId)}
+				/>
+			{/if}
+			{#if onMoveFromSideboard}
+				<IconButton
+					icon={layoutDirection === 'horizontal' ? '←' : '↑'}
+					variant="primary"
+					size="sm"
+					title="Move one copy from sideboard"
+					disabled={count === 0}
+					onClick={() => onMoveFromSideboard(cardId)}
+				/>
+			{/if}
+			{#if onRemoveCard}
+				<IconButton
+					icon={count === 0 ? '×' : '−'}
+					variant={count === 0 ? 'danger' : 'primary'}
+					size="lg"
+					title={count === 0 ? 'Remove from deck' : 'Remove one copy'}
+					onClick={() => onRemoveCard(cardId)}
+				/>
+			{/if}
+			<span class="flex h-6 w-3 items-center justify-center text-lg text-gray-300">{count}</span>
+			{#if onAddCard}
+				<IconButton
+					icon="+"
+					variant="primary"
+					size="lg"
+					title="Add one copy"
+					disabled={totalCount >= card.maxCopies}
+					onClick={() => onAddCard(cardId)}
+				/>
+			{/if}
+		{:else}
+			<span class="mr-2 flex h-6 w-3 items-center justify-center text-lg text-gray-300"
+				>{count}</span
+			>
 		{/if}
-		{#if onMoveFromSideboard}
-			<IconButton
-				icon={layoutDirection === 'horizontal' ? '←' : '↑'}
-				variant="primary"
-				size="sm"
-				title="Move one copy from sideboard"
-				disabled={count === 0}
-				onClick={() => onMoveFromSideboard(cardId)}
-			/>
-		{/if}
-		<IconButton
-			icon={count === 0 ? '×' : '−'}
-			variant={count === 0 ? 'danger' : 'primary'}
-			size="lg"
-			title={count === 0 ? 'Remove from deck' : 'Remove one copy'}
-			onClick={() => onRemoveCard(cardId)}
-		/>
-		<span class="flex h-6 w-3 items-center justify-center text-lg text-gray-300">{count}</span>
-		<IconButton
-			icon="+"
-			variant="primary"
-			size="lg"
-			title="Add one copy"
-			disabled={totalCount >= card.maxCopies}
-			onClick={() => onAddCard(cardId)}
-		/>
 	</div>
 </div>

@@ -180,14 +180,37 @@
 			}
 		}
 
-		// Load deck
-		const savedDeck = localStorage.getItem('deck');
-		if (savedDeck) {
+		// Check for shared deck first
+		const sharedDeckData = sessionStorage.getItem('sharedDeck');
+		if (sharedDeckData) {
 			try {
-				const deckData = JSON.parse(savedDeck);
-				deck = new Map(Object.entries(deckData));
+				const { deck: sharedDeck, sideboard: sharedSideboard } = JSON.parse(sharedDeckData);
+				deck = new Map(sharedDeck);
+				sideboard = new Map(sharedSideboard);
+				sessionStorage.removeItem('sharedDeck'); // Clear it after loading
 			} catch (e) {
-				console.warn('Failed to load saved deck', e);
+				console.warn('Failed to load shared deck', e);
+			}
+		} else {
+			// Load regular saved deck
+			const savedDeck = localStorage.getItem('deck');
+			if (savedDeck) {
+				try {
+					const deckData = JSON.parse(savedDeck);
+					deck = new Map(Object.entries(deckData));
+				} catch (e) {
+					console.warn('Failed to load saved deck', e);
+				}
+			}
+
+			const savedSideboard = localStorage.getItem('sideboard');
+			if (savedSideboard) {
+				try {
+					const sideboardData = JSON.parse(savedSideboard);
+					sideboard = new Map(Object.entries(sideboardData));
+				} catch (e) {
+					console.warn('Failed to load saved sideboard', e);
+				}
 			}
 		}
 	});
@@ -222,6 +245,12 @@
 	$effect(() => {
 		const deckData = Object.fromEntries(deck);
 		localStorage.setItem('deck', JSON.stringify(deckData));
+	});
+
+	// Save sideboard to localStorage
+	$effect(() => {
+		const sideboardData = Object.fromEntries(sideboard);
+		localStorage.setItem('sideboard', JSON.stringify(sideboardData));
 	});
 
 	// Watch for filter changes and trigger debounced filter update
