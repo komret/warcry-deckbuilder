@@ -53,7 +53,7 @@
 	<div class="mb-2 flex items-center justify-between">
 		<h3 class="text-lg font-semibold text-white">{title}</h3>
 		<span class={`text-sm ${isValidCount() ? 'text-gray-400' : 'text-red-300'}`}>
-			{cardCountDisplay()} card{total !== 1 ? 's' : ''}
+			{cardCountDisplay()} cards
 		</span>
 	</div>
 
