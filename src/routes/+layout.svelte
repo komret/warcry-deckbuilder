@@ -43,7 +43,7 @@
 </svelte:head>
 
 <div class="min-h-screen bg-gray-900 text-white">
-	<div class="mx-auto max-w-7xl px-4 py-8">
+	<div class="mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-8">
 		<header class="relative mb-4">
 			<div class="mb-3 flex items-center justify-between">
 				<a href="/" class="block">

@@ -1012,4 +1012,9 @@
 	</div>
 {/if}
 
+<!-- Footer -->
+<footer class="mt-auto text-left text-xs text-gray-500">
+	<a href="/about#privacy-policy" class="hover:text-gray-400"> Privacy Policy </a>
+</footer>
+
 <CardImageModal cardId={selectedCardId} onclose={() => (selectedCardId = null)} />

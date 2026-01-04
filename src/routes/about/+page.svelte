@@ -72,7 +72,7 @@
 	</div>
 
 	<h2 class="mb-4 text-xl font-bold">Notes</h2>
-	<div class="space-y-4 text-gray-300">
+	<div class="mb-6 space-y-4 text-gray-300">
 		<p>
 			The lists of errata and banned cards as well as the FAQ entries are based on official rulings.
 			I collected them from various sources and cannot guarantee their accuracy or exhaustiveness.
@@ -81,6 +81,14 @@
 			The restricted formats supported by the deckbuilder all represent a state the game was in at a
 			certain point in time in competitive play. From my experience, building a deck without
 			restrictions may lead to card interactions that break the game.
+		</p>
+	</div>
+
+	<h2 class="mb-4 text-xl font-bold" id="privacy-policy">Privacy Policy</h2>
+	<div class="space-y-4 text-gray-300">
+		<p>
+			WarCryDB can access your deck data if you choose to save or load decks to/from Google Drive.
+			This data is not shared with anyone.
 		</p>
 	</div>
 </section>
