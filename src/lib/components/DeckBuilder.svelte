@@ -16,6 +16,7 @@
 		onClearDeck?: () => void;
 		readOnly?: boolean;
 		onOpenInDeckBuilder?: () => void;
+		onLoadDeck?: (deck: Map<string, number>, sideboard: Map<string, number>) => void;
 	};
 
 	let {
@@ -28,7 +29,8 @@
 		onMoveFromSideboard,
 		onClearDeck,
 		readOnly = false,
-		onOpenInDeckBuilder
+		onOpenInDeckBuilder,
+		onLoadDeck
 	}: Props = $props();
 
 	// Detect layout direction based on screen size
@@ -300,6 +302,7 @@
 				{sideboard}
 				{readOnly}
 				{onOpenInDeckBuilder}
+				{onLoadDeck}
 			/>
 		</div>
 	{/if}

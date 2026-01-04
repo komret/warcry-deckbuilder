@@ -552,6 +552,11 @@
 		sideboard = new Map();
 	}
 
+	function loadDeck(loadedDeck: Map<string, number>, loadedSideboard: Map<string, number>) {
+		deck = loadedDeck;
+		sideboard = loadedSideboard;
+	}
+
 	// Compute filtered cards based on current filter state
 	function computeFilteredCards() {
 		return cards.filter((card) => {
@@ -658,6 +663,7 @@
 	onMoveToSideboard={moveToSideboard}
 	onMoveFromSideboard={moveFromSideboard}
 	onClearDeck={clearDeck}
+	onLoadDeck={loadDeck}
 />
 
 <Box>
