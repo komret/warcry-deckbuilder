@@ -280,30 +280,16 @@
 		{/if}
 	</div>
 
-	{#if Array.from(deck.values()).some((count) => count > 0)}
-		<div class="mt-2 flex items-center">
-			<span class="text-sm font-medium text-gray-300">
-				<span class={isMixedFaction() ? 'text-red-300' : 'text-gray-300'}>{deckFaction()}</span>
-			</span>
-			<span class="mx-2 flex items-center text-gray-300">•</span>
-			<span class="text-sm font-medium text-gray-300">
-				{deckFormat()}
-			</span>
-		</div>
-	{/if}
-
-	{#if onClearDeck || readOnly}
-		<!-- Deck Actions -->
-		<div class="mt-4 border-t border-gray-600 pt-4">
-			<DeckActions
-				{onClearDeck}
-				hasCards={hasCards()}
-				{deck}
-				{sideboard}
-				{readOnly}
-				{onOpenInDeckBuilder}
-				{onLoadDeck}
-			/>
-		</div>
-	{/if}
+	<!-- Deck Actions -->
+	<DeckActions
+		{onClearDeck}
+		hasCards={hasCards()}
+		{deck}
+		{sideboard}
+		{readOnly}
+		{onOpenInDeckBuilder}
+		{onLoadDeck}
+		faction={deckFaction()}
+		format={deckFormat()}
+	/>
 </Box>
