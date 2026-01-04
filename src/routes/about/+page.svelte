@@ -26,7 +26,7 @@
 		</p>
 		<p>
 			Visit the <a
-				href="https://github.com/komret/warcry-deckbuilder"
+				href="https://github.com/komret/warcrydb"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="text-blue-500 underline hover:text-blue-400"

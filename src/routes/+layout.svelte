@@ -20,17 +20,17 @@
 	const pageTitle = $derived.by(() => {
 		switch (currentPage) {
 			case 'home':
-				return 'Warcry Deck Builder';
+				return 'WarCryDB';
 			case 'faq':
-				return 'FAQ - Warcry Deck Builder';
+				return 'FAQ - WarCryDB';
 			case 'errata':
-				return 'Errata - Warcry Deck Builder';
+				return 'Errata - WarCryDB';
 			case 'about':
-				return 'About - Warcry Deck Builder';
+				return 'About - WarCryDB';
 			case 'shared':
-				return 'Shared Deck - Warcry Deck Builder';
+				return 'Shared Deck - WarCryDB';
 			default:
-				return 'Warcry Deck Builder';
+				return 'WarCryDB';
 		}
 	});
 

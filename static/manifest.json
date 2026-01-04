@@ -1,7 +1,7 @@
 {
-	"name": "WarCry CCG Deck Builder",
-	"short_name": "WarCry",
-	"description": "Build decks for WarCry CCG",
+	"name": "WarCryDB",
+	"short_name": "WarCryDB",
+	"description": "WarCry CCG Deck Builder",
 	"start_url": "/",
 	"display": "standalone",
 	"background_color": "#111827",

@@ -1,8 +1,8 @@
-# WarCry Deck Builder
+# WarCryDB
 
 I created this project to experiment with vibe-coding and to have a tool that can be useful to myself and any other players of WarCry, a dead collectible card game.
 
-The app is hosted at https://warcry-deckbuilder.pages.dev/.
+The app is hosted at https://warcrydb.pages.dev/.
 
 ## Google Drive Integration
 
@@ -26,9 +26,8 @@ The deck builder supports saving and loading decks to/from Google Drive. To set 
 2. Click **+ CREATE CREDENTIALS** → **OAuth 2.0 Client ID**
 3. Choose **Web application** as the application type
 4. Set the authorized redirect URIs to include your development and production URLs:
-   - `https://warcry-deckbuilder.pages.dev`
+   - `https://warcrydb.pages.dev`
    - `http://localhost:5173`
-   - `http://localhost:3000`
 5. Copy the **Client ID** (not the Client Secret - that's for server-side apps)
 
 #### Configure OAuth Consent Screen
@@ -36,16 +35,18 @@ The deck builder supports saving and loading decks to/from Google Drive. To set 
 To make the app available to all users without the testing warning:
 
 **Option 1: Add Test Users (Quick Solution)**
+
 1. Go to **APIs & Services** → **OAuth consent screen**
 2. Choose **External** user type
 3. Fill in the required information:
-   - **App name**: WarCry Deck Builder
+   - **App name**: WarCryDB
    - **User support email**: Your email
    - **Developer contact information**: Your email
 4. Add email addresses to the **Test users** list for anyone you want to share with
 5. Save the changes
 
 **Option 2: Publish the App (For Public Use)**
+
 1. Complete the OAuth consent screen setup as above
 2. After saving, click **PUBLISH APP** at the top of the page
 3. Google will review your app (usually takes a few days)
